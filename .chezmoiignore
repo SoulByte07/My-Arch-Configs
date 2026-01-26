@@ -1,0 +1,4 @@
+.config/chezmoi/key.txt
+**/Cache/**
+**/GPUCache/**
+**/*.log

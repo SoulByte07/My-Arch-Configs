@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled sorted 
+eb93bf1b8b85937f8e077daa5621bad0f95e926f refs/remotes/origin/adding-debugger
+9b60579bd6ad835adcc585018bb04d7383d9d38f refs/remotes/origin/debugging-baby
+b5234935982a1a01be71fac4b3c171a2f4ecffe1 refs/remotes/origin/main
+60e0289fec461cf699b69fc499329b792952769b refs/remotes/origin/new-branch
