@@ -1,0 +1,30 @@
+# ~/.config/zsh/.zshrc
+
+# 1. P10k Instant Prompt (MUST BE AT TOP)
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# 2. Source modular components
+source "$ZDOTDIR/options.zsh"
+source "$ZDOTDIR/aliases.zsh"
+source "$ZDOTDIR/functions.zsh"
+
+# 3. Tool Initializations (FZF, Zoxide, TheFuck)
+source <(fzf --zsh)
+eval "$(zoxide init zsh --cmd cd)"
+eval "$(thefuck --alias)"
+
+
+source "$ZDOTDIR/plugins.zsh"
+
+# 4. Kitty Integration (Path check for Fedora/Arch)
+[[ -f /usr/lib/kitty/shell-integration/zsh/kitty.zsh ]] && source /usr/lib/kitty/shell-integration/zsh/kitty.zsh
+
+# 5. Theme & Overrides (MUST BE AT BOTTOM)
+# Check Arch or Fedora paths for P10k
+[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+
+[[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
+

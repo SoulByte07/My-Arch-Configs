@@ -1,0 +1,8 @@
+# ~/.zshenv
+export ZDOTDIR="$HOME/.config/zsh"
+
+# Basic Paths
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export SHELL="/usr/bin/zsh"
