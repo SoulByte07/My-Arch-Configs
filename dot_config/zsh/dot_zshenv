@@ -2,7 +2,13 @@
 export ZDOTDIR="$HOME/.config/zsh"
 
 # Basic Paths
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export SHELL="/usr/bin/zsh"
+
+export CARGO_HOME="$HOME/.local/share/cargo"
+export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
+export BUN_INSTALL="$HOME/.local/share/bun"
+
+
+export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"

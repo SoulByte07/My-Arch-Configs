@@ -18,3 +18,8 @@ alias code='flatpak run com.vscodium.codium'
 # Cloud/Mounts
 alias mgd='systemctl --user start rclone-mount-googledrive && echo "✅ G-Drive Mounted"'
 alias ugd='systemctl --user stop rclone-mount-googledrive && echo "🛑 G-Drive Unmounted"'
+alias megd='systemctl --user start rclone-mount-encrypt-gdrive && echo "✅ G-Drive Mounted"'
+alias uegd='systemctl --user stop rclone-mount-encrypt-gdrive && echo "🛑 G-Drive Unmounted"'
+
+
+alias cz='chezmoi'

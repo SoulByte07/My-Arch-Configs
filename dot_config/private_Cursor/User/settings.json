@@ -1,3 +1,10 @@
 {
-    "window.commandCenter": true
+    "window.commandCenter": true,
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "symbols.hidesExplorerArrows": false,
+    "editor.minimap.enabled": true,
+    "editor.fontSize": 15,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorBlinking": "phase",
+    "files.autoSave": "afterDelay"
 }
