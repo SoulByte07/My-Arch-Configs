@@ -12,3 +12,5 @@ export BUN_INSTALL="$HOME/.local/share/bun"
 
 
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
+
+

@@ -23,3 +23,11 @@ alias uegd='systemctl --user stop rclone-mount-encrypt-gdrive && echo "🛑 G-Dr
 
 
 alias cz='chezmoi'
+
+
+# DNS
+# Disable NextDNS and restart resolver (for VPN use)
+alias dns-off='sudo mv /etc/systemd/resolved.conf.d/nextdns.conf /etc/systemd/resolved.conf.d/nextdns.conf.bak && sudo systemctl restart systemd-resolved && echo "NextDNS Disabled"'
+
+# Re-enable NextDNS
+alias dns-on='sudo mv /etc/systemd/resolved.conf.d/nextdns.conf.bak /etc/systemd/resolved.conf.d/nextdns.conf && sudo systemctl restart systemd-resolved && echo "NextDNS Enabled"'
