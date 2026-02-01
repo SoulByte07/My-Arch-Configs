@@ -22,7 +22,6 @@ alias megd='systemctl --user start rclone-mount-encrypt-gdrive && echo "✅ G-Dr
 alias uegd='systemctl --user stop rclone-mount-encrypt-gdrive && echo "🛑 G-Drive Unmounted"'
 
 
-alias cz='chezmoi'
 
 
 # DNS
@@ -31,3 +30,18 @@ alias dns-off='sudo mv /etc/systemd/resolved.conf.d/nextdns.conf /etc/systemd/re
 
 # Re-enable NextDNS
 alias dns-on='sudo mv /etc/systemd/resolved.conf.d/nextdns.conf.bak /etc/systemd/resolved.conf.d/nextdns.conf && sudo systemctl restart systemd-resolved && echo "NextDNS Enabled"'
+
+
+# pacman 
+alias pss='pacman -Ss'
+alias pqs='pacman -Qs'
+alias psi='sudo pacman -S --needed'
+
+
+# open code
+alias op='opencode'
+
+
+
+
+

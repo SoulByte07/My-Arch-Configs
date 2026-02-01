@@ -13,4 +13,5 @@ export BUN_INSTALL="$HOME/.local/share/bun"
 
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
-
+# for custom user scripts 
+export PATH="$HOME/.local/bin:$PATH"

@@ -16,23 +16,9 @@ autoload -Uz compinit && compinit -i
 zmodload zsh/complist
 
 # --- 3. Completion Behavior & Visuals ---
+# Note: zsh-autocomplete handles most completion behavior automatically
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive 
 zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'   # Use LS_COLORS 
-zstyle ':completion:*' menu select                      # Enable arrow key navigation 
-
-# FIX FOR SMALL WINDOWS: Limit menu to 10 lines
-zstyle ':completion:*' list-max-lines 10
-zstyle ':completion:*' menu select=long-list
-
-# SILENCE THE "STUPID" PROMPTS
-export LISTMAX=10000              # Set high so it never asks permission 
-zstyle ':completion:*' insert-tab false
-zstyle ':completion:*' prompt '' 
-
-# Standard display options 
-setopt AUTO_LIST              # Automatically list choices 
-setopt LIST_AMBIGUOUS         # Show list immediately 
-setopt COMPLETE_IN_WORD       # Complete from both ends 
 
 # --- 5. Keybindings ---
 # Vi-style navigation inside the menu 
@@ -46,3 +32,6 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect '^[[Z' reverse-menu-complete  # Shift+Tab 
 bindkey -M menuselect '^M' accept-mode               # Enter to select 
 bindkey -M menuselect '^I' menu-complete             # Tab
+
+# Autosuggestion accept (Ctrl+E)
+bindkey '^E' autosuggest-accept
