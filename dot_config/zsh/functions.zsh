@@ -11,9 +11,49 @@ gcb() {
 }
 
 # Fast Git Commit
-gac() {
+gc() {
   git add .
   git commit -m "$*"
+}
+
+# Push with auto upstream setup
+gpush() {
+  local branch=$(git rev-parse --abbrev-ref HEAD)
+  git push -u origin "$branch"
+}
+
+# Create and switch to new branch
+gnew() {
+  [[ -z "$1" ]] && { echo "Usage: gnew <branch-name>"; return 1; }
+  git checkout -b "$1"
+}
+
+# Undo last commit (keep changes staged)
+gundo() {
+  git reset --soft HEAD~1
+  echo "Last commit undone. Changes are staged."
+}
+
+# Amend last commit with staged changes
+gamend() {
+  git commit --amend --no-edit
+}
+
+# Interactive clean untracked files
+gclean() {
+  git clean -i -d
+}
+
+# Create GitHub PR (requires gh CLI)
+gpr() {
+  gh pr create --fill "$@"
+}
+
+# Sync current branch with main/master
+gsync() {
+  local main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
+  [[ -z "$main_branch" ]] && main_branch="main"
+  git fetch origin "$main_branch" && git rebase "origin/$main_branch"
 }
 
 
@@ -48,6 +88,11 @@ opsafe() {
         "$binary" "$@"
 }
 
+# opencode in tmp folder
+op() {
+  cd /home/soul/2_Resources/7_AI Chats/opencode 
+  opencode
+}
 
 
 

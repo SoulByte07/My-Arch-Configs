@@ -16,8 +16,8 @@ alias fk='fuck'
 alias code='flatpak run com.vscodium.codium'
 
 # Cloud/Mounts
-alias mgd='systemctl --user start rclone-mount-googledrive && echo "✅ G-Drive Mounted"'
-alias ugd='systemctl --user stop rclone-mount-googledrive && echo "🛑 G-Drive Unmounted"'
+alias mgd='systemctl --user start rclone-mount-gdrive && echo "✅ G-Drive Mounted"'
+alias ugd='systemctl --user stop rclone-mount-gdrive && echo "🛑 G-Drive Unmounted"'
 alias megd='systemctl --user start rclone-mount-encrypt-gdrive && echo "✅ G-Drive Mounted"'
 alias uegd='systemctl --user stop rclone-mount-encrypt-gdrive && echo "🛑 G-Drive Unmounted"'
 
@@ -38,8 +38,26 @@ alias pqs='pacman -Qs'
 alias psi='sudo pacman -S --needed'
 
 
-# open code
-alias op='opencode'
+# flatpak 
+alias fks='flatpak search'
+alias fki='flatpak install'
+
+# Git Shortcuts
+alias gs='git status'
+alias gpl='git pull'
+alias gf='git fetch'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gl='git log --oneline -15'
+alias gla='git log --oneline --all --graph --decorate'
+alias gb='git branch'
+alias gco='git checkout'
+alias gcl='git clone'
+alias gst='git stash'
+alias gstp='git stash pop'
+alias grs='git restore'
+alias grss='git restore --staged'
+
 
 
 

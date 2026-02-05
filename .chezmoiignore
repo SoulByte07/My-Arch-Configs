@@ -2,3 +2,4 @@
 **/Cache/**
 **/GPUCache/**
 **/*.log
+**/node_modules/**

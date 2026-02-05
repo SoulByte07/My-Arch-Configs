@@ -15,3 +15,7 @@ export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
 # for custom user scripts 
 export PATH="$HOME/.local/bin:$PATH"
+
+
+export MANPAGER='nvim +Man!'
+#export MANWIDTH=999

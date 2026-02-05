@@ -43,16 +43,19 @@ icon_on() {
 
 cmd_toggle() {
   ensure_state
-  state="$(cat "$STATE_FILE" || echo off)"
 
-  # Always stop any running hyprsunset first to avoid CTM manager conflicts
+  # Detect actual state from running process, not just state file
   if pgrep -x hyprsunset >/dev/null 2>&1; then
-    pkill -x hyprsunset || true
-    # give it a moment to release the CTM manager
-    sleep 0.2
+    state="on"
+  else
+    state="off"
   fi
 
 if [[ "$state" == "on" ]]; then
+    # Stop running hyprsunset first to avoid CTM manager conflicts
+    pkill -x hyprsunset || true
+    # give it a moment to release the CTM manager
+    sleep 0.2
     # Turning OFF: set identity and exit
     if command -v hyprsunset >/dev/null 2>&1; then
       nohup hyprsunset -i >/dev/null 2>&1 &
