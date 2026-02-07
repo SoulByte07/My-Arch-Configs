@@ -3,13 +3,16 @@
   "default_agent": "assistant",
   "agent": {
     "build": {
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "plan": {
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "assistant": {
       "model": "github-copilot/gpt-5.2"
+    },
+    "dsa_orchestrator": {
+      "model": "github-copilot/gpt-5.2-codex"
     }
   }
 }
