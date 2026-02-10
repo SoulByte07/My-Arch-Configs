@@ -60,6 +60,7 @@ alias grss='git restore --staged'
 
 
 
-
+# PDF viewer Zathura
+alias pdf='zathura'
 
 

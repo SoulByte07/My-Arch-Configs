@@ -13,6 +13,9 @@
     },
     "dsa_orchestrator": {
       "model": "github-copilot/gpt-5.2-codex"
+    },
+    "obsidian_daily_journal": {
+      "model": "github-copilot/gpt-5.2"
     }
   }
 }
