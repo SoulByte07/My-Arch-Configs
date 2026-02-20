@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# --- Configuration ---
+SOURCE="$HOME/4_Backups/0_Sync"
+REMOTE="EncryptGoogleDrive:0_Sync"
+TIMESTAMP="$(date +%d-%b/%m-%y_%H-%M)"
+TRASH_DIR="EncryptGoogleDrive:96_Trash/0_Sync/$TIMESTAMP"
+LOG_DIR="$HOME/2_Resources/97_Logs/rclone"
+DATE=$(date +%d-%b/%m-%y_%H-%M)
+LOG_FILE="$LOG_DIR/$DATE.log"
+
+# --- Safety Check ---
+# Create the log directory if it doesn't exist
+mkdir -p "$LOG_DIR"
+
+# --- Rclone Command ---
+rclone sync "$SOURCE" "$REMOTE" \
+    --fast-list \
+    --backup-dir "$TRASH_DIR" \
+    --create-empty-src-dirs \
+    --log-file="$LOG_FILE" \
+    --log-level INFO \
+    --use-mmap \
+    --progress
+
+echo "Sync complete. Log saved to $LOG_FILE"
