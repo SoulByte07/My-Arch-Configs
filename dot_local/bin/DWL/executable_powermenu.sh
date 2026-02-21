@@ -1,11 +1,22 @@
 #!/bin/bash
 
-# Define the options
-OPTIONS="󰐥 Shutdown\n󰜉 Reboot\n󰗼 Exit\n󰤄 Suspend\n"
+# Sample Input: Execute the script
+# Expected Output: Power menu launches with full UTF-8 icons, ignoring global ASCII settings
 
-# Launch tofi and get user choice
-# --prompt-text can be customized to your liking
-CHOICE=$(echo -e "$OPTIONS" | tofi --prompt-text "Power Menu: " --num-results 4)
+# Define the options using UTF-8 hex escape sequences
+OPTIONS="\U000f0425 Shutdown\n\U000f0709 Reboot\n\U000f05fc Exit\n\U000f0904 Suspend\n"
+
+# Launch tofi, get user choice, and override the ASCII config
+# --ascii-input=false acts as the bypass flag
+CHOICE=$(echo -e "$OPTIONS" | tofi \
+    --prompt-text "Power Menu: " \
+    --num-results 4 \
+    --ascii-input=false \
+    --font="FiraCode Nerd Font" \
+    --fuzzy-match=false
+  )
+
+
 
 case "$CHOICE" in
     *Shutdown)

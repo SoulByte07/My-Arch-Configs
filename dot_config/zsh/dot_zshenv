@@ -10,6 +10,8 @@ export CARGO_HOME="$HOME/.local/share/cargo"
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
 export BUN_INSTALL="$HOME/.local/share/bun"
 
+# npm
+export PATH="$HOME/.local/share/npm/bin:$PATH"
 
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
@@ -19,3 +21,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export MANPAGER='nvim +Man!'
 #export MANWIDTH=999
+export PATH="$HOME/.local/share/npm/bin:$PATH"

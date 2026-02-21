@@ -56,7 +56,7 @@
 },
 
 "battery": {
-	"interval": 300,
+	"interval": 60,
 	"align": 0,
 	"rotate": 0,
 	//"bat": "BAT1",
@@ -95,7 +95,7 @@
 },
 
 "clock": {
-	"interval": 30,
+	"interval": 5,
     "format": " {:%I:%M | %a %d-%b/%m }", // AM PM format
     //"format": " {:%H:%M:%S}",// 24H
 	"format-alt": " {:L%H:%M   %Y, %d %B, %A}",
@@ -225,7 +225,7 @@
 },
 
 "memory": {
-	"interval": 20,
+	"interval": 10,
 	"format": "{used:0.1f}G 󰾆",
 	"format-alt": "{percentage}% 󰾆",
 	"format-alt-click": "click",
@@ -284,7 +284,7 @@
 },
 
 "network#speed": {
-	"interval": 10,
+	"interval": 1,
 	"format": "{ifname}",
 	"format-wifi": "{icon}  {bandwidthUpBytes}  {bandwidthDownBytes}",
 	"format-ethernet": "󰌘  {bandwidthUpBytes}  {bandwidthDownBytes}",
