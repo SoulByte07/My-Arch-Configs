@@ -1,0 +1,40 @@
+# File: ~/.config/mako/config
+# Purpose: Optimized appearance and performance for mako on Wayland
+
+# --- Global Appearance ---
+font=Fira Code 18
+
+# Slight transparency (f2) for a modern feel
+background-color=#1e1e2ef2
+text-color=#cdd6f4
+border-color=#cba6f7
+border-size=2
+
+# ALL notifications get rounded corners
+border-radius=8
+progress-color=over #313244
+
+# Bolds the title, puts the message on a new line
+format=<b>%s</b>\n%b
+
+# --- Global Spacing & Layout ---
+margin=15
+padding=15
+width=350
+
+# --- Performance & Behavior ---
+default-timeout=5000
+
+# Drops performance overhead by only rendering 3 at a time
+max-visible=3
+
+# Prevents mako from eating RAM by storing endless old alerts
+max-history=5
+
+# --- Conditional Rules ---
+# Always put conditional rules at the absolute bottom!
+[urgency=high]
+border-color=#fab387
+
+# Stays on screen until you manually click it
+default-timeout=0
