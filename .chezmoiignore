@@ -1,3 +1,5 @@
+*.zcompdump
+.zcompdump*
 .config/chezmoi/key.txt
 **/Cache/**
 **/GPUCache/**
