@@ -97,4 +97,40 @@ op() {
 
 
 
+# DNS Functions
 
+# Function to disable NextDNS
+# Using the 'function' keyword prevents Zsh alias expansion errors
+function dns-off {
+    sudo mv /etc/systemd/resolved.conf.d/nextdns.conf /etc/systemd/resolved.conf.d/nextdns.conf.bak
+    sudo systemctl restart systemd-resolved
+    echo "NextDNS Disabled"
+}
+
+# Function to enable NextDNS
+function dns-on {
+    sudo mv /etc/systemd/resolved.conf.d/nextdns.conf.bak /etc/systemd/resolved.conf.d/nextdns.conf
+    sudo systemctl restart systemd-resolved
+    echo "NextDNS Enabled"
+}
+
+
+# Function to run lf and change to the last visited directory on exit
+lfcd () {
+    # Create a temporary file to store the final directory path
+    tmp="$(mktemp)"
+    
+    # Run lf, instructing it to write the last directory to our temp file
+    lf -last-dir-path="$tmp" "$@"
+    
+    # Check if the temporary file was successfully created
+    if [ -f "$tmp" ]; then
+        # Read the directory path
+        dir="$(cat "$tmp")"
+        # Clean up the temporary file immediately
+        rm -f "$tmp"
+        
+        # If it's a valid directory and different from our current one, jump to it
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}

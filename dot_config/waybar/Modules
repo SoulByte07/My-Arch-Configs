@@ -95,7 +95,7 @@
 },
 
 "clock": {
-	"interval": 5,
+	"interval": 60,
     "format": " {:%I:%M | %a %d-%b/%m }", // AM PM format
     //"format": " {:%H:%M:%S}",// 24H
 	"format-alt": " {:L%H:%M   %Y, %d %B, %A}",
@@ -284,10 +284,10 @@
 },
 
 "network#speed": {
-	"interval": 1,
+	"interval": 5,
 	"format": "{ifname}",
-	"format-wifi": "{icon}  {bandwidthUpBytes}  {bandwidthDownBytes}",
-	"format-ethernet": "󰌘  {bandwidthUpBytes}  {bandwidthDownBytes}",
+	"format-wifi": "{icon}  {bandwidthDownBytes}  {bandwidthUpBytes}",
+	"format-ethernet": "󰌘  {bandwidthDownBytes}  {bandwidthUpBytes}",
 	"format-disconnected": "󰌙",
 	"tooltip-format": "{ipaddr}",
 	"format-linked": "󰈁 {ifname} (No IP)",
@@ -390,7 +390,7 @@
 },
 
 "wlr/taskbar": {
-	"format": "{icon} {name}",
+	"format": "{icon}",
 	"icon-size": 16,
 	"all-outputs": false,
 	"tooltip-format": "{title}",

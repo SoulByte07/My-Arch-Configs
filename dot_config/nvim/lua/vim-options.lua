@@ -26,3 +26,7 @@ vim.opt.spelllang = { 'en_us' }
 
 -- Typewriter Mode Toggle
 vim.opt.scrolloff = 999
+
+
+-- Remap Visual Block Mode to Leader + v
+vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })

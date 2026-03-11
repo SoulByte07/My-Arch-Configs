@@ -7,7 +7,8 @@
 # Permissions:
 #   - Current directory ($PWD): Read-Write
 #   - ~/.config/opencode/: Read-Only
-#   - ~/.local/share/opencode/: Read-Write (for logs, auth, storage)
+#   - ~/.local/share/opencode/: Read-Write (for logs, language servers)
+#   - ~/.cache/opencode/: Read-Write (for models, auth tokens, cache)
 #   - System directories: Read-Only
 #   - Network: Allowed (for API calls)
 
@@ -34,9 +35,10 @@ fi
 OPENCODE_BIN=$(command -v opencode)
 CONFIG_DIR="$HOME/.config/opencode"
 DATA_DIR="$HOME/.local/share/opencode"
+CACHE_DIR="$HOME/.cache/opencode"
 
-# Ensure config and data directories exist
-mkdir -p "$CONFIG_DIR" "$DATA_DIR"
+# Ensure config, data, and cache directories exist
+mkdir -p "$CONFIG_DIR" "$DATA_DIR" "$CACHE_DIR"
 
 # Build bwrap arguments
 BWRAP_ARGS=(
@@ -44,12 +46,19 @@ BWRAP_ARGS=(
     --ro-bind /usr /usr
     --ro-bind /etc /etc
     
-    # Handle /lib and /lib64 (may be symlinks or real directories)
-    --ro-bind /lib /lib
 )
 
-# Add /lib64 if it exists (common on 64-bit systems)
-if [[ -e /lib64 ]]; then
+# Handle /lib (may be a symlink to usr/lib on merged-usr systems)
+if [[ -L /lib ]]; then
+    BWRAP_ARGS+=(--symlink usr/lib /lib)
+else
+    BWRAP_ARGS+=(--ro-bind /lib /lib)
+fi
+
+# Add /lib64 if it exists (may be a symlink to usr/lib on merged-usr systems)
+if [[ -L /lib64 ]]; then
+    BWRAP_ARGS+=(--symlink usr/lib /lib64)
+elif [[ -e /lib64 ]]; then
     BWRAP_ARGS+=(--ro-bind /lib64 /lib64)
 fi
 
@@ -88,6 +97,9 @@ BWRAP_ARGS+=(
     # OpenCode data directory (read-write for logs, auth, storage)
     --bind "$DATA_DIR" "$DATA_DIR"
     
+    # OpenCode cache directory (read-write for models, auth tokens, cache)
+    --bind "$CACHE_DIR" "$CACHE_DIR"
+    
     # Current working directory (read-write)
     --bind "$PWD" "$PWD"
     
@@ -106,6 +118,12 @@ BWRAP_ARGS+=(
     --unshare-uts
     --unshare-cgroup-try
 )
+
+# DNS resolution: /etc/resolv.conf may be a symlink to /run/systemd/resolve/
+# Mount the resolve directory if it exists so DNS works inside the sandbox
+if [[ -d /run/systemd/resolve ]]; then
+    BWRAP_ARGS+=(--ro-bind /run/systemd/resolve /run/systemd/resolve)
+fi
 
 # Pass through essential environment variables
 ENV_VARS=(
@@ -147,6 +165,7 @@ if [[ "${1:-}" != "-q" && "${1:-}" != "--quiet" ]]; then
     echo "  Working dir: $PWD (rw)"
     echo "  Config:      $CONFIG_DIR (ro)"
     echo "  Data:        $DATA_DIR (rw)"
+    echo "  Cache:       $CACHE_DIR (rw)"
     echo ""
 fi
 

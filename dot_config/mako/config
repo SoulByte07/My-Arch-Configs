@@ -2,7 +2,7 @@
 # Purpose: Optimized appearance and performance for mako on Wayland
 
 # --- Global Appearance ---
-font=Fira Code 18
+font=Fira Code 15
 
 # Slight transparency (f2) for a modern feel
 background-color=#1e1e2ef2
@@ -18,9 +18,11 @@ progress-color=over #313244
 format=<b>%s</b>\n%b
 
 # --- Global Spacing & Layout ---
+anchor=top-center
 margin=15
 padding=15
-width=350
+width=450
+height=250
 
 # --- Performance & Behavior ---
 default-timeout=5000

@@ -4,7 +4,7 @@
 
 iDIR="$HOME/.config/swaync/icons"
 notification_timeout=1000
-step=5  # INCREASE/DECREASE BY THIS VALUE
+step=1  # INCREASE/DECREASE BY THIS VALUE
 
 # Get current brightness as an integer (without %)
 get_brightness() {
@@ -42,8 +42,8 @@ change_brightness() {
     current=$(get_brightness)
     new=$((current + delta))
 
-    # Clamp between 5 and 100
-    (( new < 5 )) && new=5
+    # Clamp between 1 and 100
+    (( new < 1 )) && new=1
     (( new > 100 )) && new=100
 
     brightnessctl set "${new}%"

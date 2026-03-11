@@ -1,3 +1,7 @@
 #!/bin/bash
-slstatus -s | dwl -s "sh -c 'swaybg -i /home/soul/Pictures/wallpapers/Anime-Ladys/anime-lady-orange.png &'"
+# Description: Starts dwl, pipes slstatus, and triggers the autostart script.
 
+# Sample Input: Run this script from your TTY login.
+# Expected Output: slstatus pipes into dwl, dwl launches and runs dwl-autostart.sh cleanly.
+
+slstatus -s | dwl -s ~/.local/bin/DWL/dwl-deamons.sh

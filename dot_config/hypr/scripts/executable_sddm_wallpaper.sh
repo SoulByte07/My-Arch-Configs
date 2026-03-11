@@ -5,7 +5,7 @@
 # for the upcoming changes on the simple_sddm_theme
 
 # variables
-terminal=kitty
+terminal=foot
 wallDIR="$HOME/Pictures/wallpapers"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
 wallpaper_current="$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
