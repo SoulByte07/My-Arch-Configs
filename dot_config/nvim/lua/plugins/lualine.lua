@@ -34,7 +34,6 @@ return {
         lualine_y = { 'progress' },
         lualine_z = { { 'location', separator = { right = '' }, left_padding = 2 } },
       },
-      -- ... rest of your config
     })
   end,
 }

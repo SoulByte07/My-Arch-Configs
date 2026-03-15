@@ -1,0 +1,43 @@
+# Universal Yazi Configuration for Arch/Hyprland
+
+[opener]
+# 1. Text Editor (Blocks Yazi so you can edit)
+edit = [
+	{ run = 'nvim "$@"', block = true, desc = "Neovim" }
+]
+
+# 2. Image Viewer (Detaches so Yazi stays usable)
+image = [
+	{ run = 'imv "$@"', orphan = true, desc = "imv" }
+]
+
+# 3. Media Player (Detaches)
+play = [
+	{ run = 'mpv "$@"', orphan = true, desc = "mpv" }
+]
+
+# 4. System Fallback (Let Arch Linux handle it)
+system_default = [
+	{ run = 'xdg-open "$@"', orphan = true, desc = "System Default" }
+]
+
+[open]
+rules = [
+	# --- SPECIFIC OVERRIDES ---
+	# Catch all standard code, config, and script files
+	{ mime = "text/*", use = "edit" },
+	{ mime = "application/{json,yaml,x-shellscript,javascript,xml}", use = "edit" },
+	{ name = "*.{sh,py,tf,conf,toml,md}", use = "edit" },
+
+	# --- MEDIA ---
+	{ mime = "image/*", use = "image" },
+	{ mime = "{audio,video}/*", use = "play" },
+
+	# --- THE ULTIMATE FALLBACK ---
+	# If Yazi doesn't know what the file is, hand it to the OS
+	{ name = "*", use = "system_default" }
+]
+
+# --- SAMPLE INPUT & EXPECTED OUTPUT ---
+# Input Action: You press 'Enter' on a file named 'invoice.pdf'
+# Expected Output: Yazi hits the "*" rule, runs `xdg-open invoice.pdf`, and Arch Linux opens your default PDF viewer (e.g., Zathura or Firefox).

@@ -1,0 +1,5 @@
+[flavor]
+dark = "catppuccin-mocha"
+light = "catppuccin-mocha"
+syntect_theme = "/home/youruser/.config/yazi/flavors/catppuccin-mocha/catppuccin-mocha.tmTheme"
+

@@ -134,3 +134,29 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
+
+
+
+
+
+
+
+
+
+
+# 3. Tell Zsh to switch cursor shapes based on the current mode
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+    echo -ne '\e[2 q' # Send signal for thick block
+  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+    echo -ne '\e[6 q' # Send signal for thin bar
+  fi
+}
+zle -N zle-keymap-select
+
+# 4. Force the terminal to start in insert mode with a thin bar every time you press Enter
+zle-line-init() {
+    zle -K viins
+    echo -ne '\e[6 q'
+}
+zle -N zle-line-init

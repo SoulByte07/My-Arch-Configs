@@ -1,0 +1,40 @@
+# ~/.config/tofi/config
+
+# --- The Speed Foundation ---
+# Direct font path bypasses Fontconfig (Saves ~10-20ms)
+font = /usr/share/fonts/TTF/FiraCode-Regular.ttf
+late-keyboard-init = true
+#ascii-input = true
+
+# --- The Smart Layer ---
+# This is where we spend our "10ms budget"
+fuzzy-match = true
+history = true
+require-match = true
+
+# --- UI (Minimalist & Fast) ---
+# Basic Layout
+width = 600
+height = 380
+anchor = center
+# Fix: Remove 'false' from exclusive-zone or set to 0
+exclusive-zone = 0
+
+# Border and Style
+border-width = 2
+outline-width = 0
+corner-radius = 16
+padding-left = 20
+padding-top = 30
+result-spacing = 10
+num-results = 5
+prompt-padding = 0
+
+# Catppuccin Mocha Mauve Palette
+text-color = #cdd6f4
+prompt-color = #cba6f7
+selection-color = #f9e2af
+background-color = #1e1e2e
+border-color = #cba6f7
+
+

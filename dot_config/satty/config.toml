@@ -1,0 +1,48 @@
+# Sample Input: Satty launches via your dwl-screenshot.sh script.
+# Expected Output: Opens fullscreen without window decorations. Features rounded toolbars (pill shape), FiraCode font, Catppuccin colors, and closes instantly when you press Enter or Escape.
+
+[general]
+fullscreen = true
+floating-hack = true
+early-exit = true
+corner-roundness = 12
+initial-tool = "blur"
+copy-command = "wl-copy"
+annotation-size-factor = 2
+output-filename = "~/Pictures/Screenshots/satty-%Y%m%d_%H%M%S.png"
+save-after-copy = true
+default-hide-toolbars = false
+primary-highlighter = "block"
+disable-notifications = false
+no-window-decoration = true
+brush-smooth-history-size = 10
+
+# Workflow automation
+actions-on-enter = ["save-to-clipboard", "save-to-file", "exit"]
+actions-on-escape = ["exit"]
+
+[keybinds]
+pointer = "p"
+crop = "c"
+brush = "b"
+line = "l"
+arrow = "a"
+rectangle = "r"
+text = "t"
+blur = "u"
+highlight = "h"
+
+[font]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[color-palette]
+# Catppuccin Mocha inspired palette for the toolbar
+palette = [
+    "#89b4fa", # Blue
+    "#f38ba8", # Red
+    "#a6e3a1", # Green
+    "#f9e2af", # Yellow
+    "#cba6f7", # Mauve
+    "#fab387", # Peach
+]

@@ -67,3 +67,12 @@ alias cl='clear'
 # compile 
 alias smci='sudo make clean install'
 
+
+
+# Alias to copy file content to clipboard using wl-copy
+# Usage: cpfile filename.txt
+alias cf='wl-copy <'
+
+
+# lazygit 
+alias lg='lazygit'
