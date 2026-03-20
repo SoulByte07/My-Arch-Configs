@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=dwl
+Comment=Dynamic Window Manager for Wayland
+Exec=/home/soul/.config/dwl/startdwl.sh
+Type=Application
+DesktopNames=dwl
+Keywords=tiling;wm;wayland;
