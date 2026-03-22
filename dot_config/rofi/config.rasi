@@ -71,3 +71,5 @@ configuration {
 @theme "~/.config/rofi/themes/KooL_style-13-Vertical.rasi"
 @theme "~/.config/rofi/themes/KooL_style-12-TOP-Docu.rasi"
 @theme "~/.config/rofi/themes/KooL_style-14.rasi"
+@theme "~/.config/rofi/themes/KooL_style-14.rasi"
+@theme "~/.config/rofi/themes/KooL_style-14_column-1.rasi"

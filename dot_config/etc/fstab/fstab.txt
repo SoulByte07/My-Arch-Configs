@@ -1,0 +1,36 @@
+#/etc/fstab
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/home         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@home	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/opt         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@opt	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/var/cache         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@cache	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/var/log         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@log	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/var/tmp         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@tmp	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/var/lib/libvirt/images         	btrfs     	rw,noatime,compress=none,ssd,discard=async,commit=60,space_cache=v2,subvol=/@libvirt	0 0
+
+# /dev/nvme0n1p2
+UUID=<your_UUID>	/.snapshots         	btrfs     	rw,noatime,compress=zstd:3,ssd,discard=async,space_cache=v2,commit=60,subvol=/@snapshots	0 0
+
+
+
+
+
+
+
+
+# /dev/nvme0n1p1
+UUID=<your_UUID>     	/boot     	vfat      	rw,noatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
+
+

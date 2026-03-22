@@ -58,7 +58,7 @@ gsync() {
 
 
 # OpenCode sandboxing using bubblewrap
-opsafe() {
+op() {
     local binary="/usr/sbin/opencode"
     local config_dir="$HOME/.config/opencode" # Update this path if different
 
@@ -88,11 +88,7 @@ opsafe() {
         "$binary" "$@"
 }
 
-# opencode in tmp folder
-op() {
-  cd /home/soul/2_Resources/7_AI Chats/opencode 
-  opencode
-}
+
 
 
 
@@ -160,3 +156,28 @@ zle-line-init() {
     echo -ne '\e[6 q'
 }
 zle -N zle-line-init
+
+
+# television cheat sheet function
+# Soul's Offline Cheatsheet Finder
+# Function to search an app and then search merged [Desc + Command]
+tv-cheat() {
+    # 1. Pick the app (e.g., docker, tar, git)
+    # Using 'command' ensures we hit the binary, not an alias
+    local app
+    app=$(command tv cheat-apps)
+    
+    # Exit if you hit ESC
+    [ -z "$app" ] && return
+
+    local sheet_path="$HOME/.config/cheat/cheatsheets/community/$app"
+
+    # 2. The "Glue" Logic:
+    # This AWK script pairs # Comments with the Command line immediately below them.
+    # It converts 2 lines into 1: "# Description  »  command --flags"
+    command awk '
+        /^#/ {desc=$0; next} 
+        /^[[:space:]]*$/ {next} 
+        {if(desc!="") print desc "  »  " $0; desc=""}
+    ' "$sheet_path" | command tv cheat-lines
+}

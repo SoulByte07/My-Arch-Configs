@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# For manually starting xdg-desktop-portal-hyprland
+# Optimized Portal Starter for Soul (Arch-Hyprland)
 
-sleep 1
-killall xdg-desktop-portal-hyprland
-killall xdg-desktop-portal-wlr
-killall xdg-desktop-portal-gnome
-killall xdg-desktop-portal
-sleep 1
+# 1. Kill everything to start fresh
+killall -q xdg-desktop-portal-hyprland
+killall -q xdg-desktop-portal-gtk
+killall -q xdg-desktop-portal
+
+# 2. Start the Hyprland backend (Essential for screen sharing)
 /usr/lib/xdg-desktop-portal-hyprland &
-/usr/libexec/xdg-desktop-portal-hyprland &
-sleep 2
-/usr/lib/xdg-desktop-portal &
-/usr/libexec/xdg-desktop-portal &
+sleep 1
 
+# 3. Start the Core portal (This automatically pulls in the GTK backend when needed)
+/usr/lib/xdg-desktop-portal &
+
+# Note: You don't usually need to manually start the -gtk one; 
+# the core portal calls it as a 'child' when an app asks for a file picker.

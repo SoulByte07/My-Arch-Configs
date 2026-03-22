@@ -27,6 +27,8 @@ alias umegd='systemctl --user stop rclone-mount-encrypt-gdrive && echo "🛑 G-D
 alias pss='pacman -Ss'
 alias pqs='pacman -Qs'
 alias psi='sudo pacman -S --needed'
+alias psyu='sudo pacman -Syu'
+alias prns='sudo pacman -Rns'
 
 
 # flatpak 
@@ -36,6 +38,7 @@ alias fki='flatpak install'
 # Git Shortcuts
 alias gs='git status'
 alias gpl='git pull'
+alias gph='git push'
 alias gf='git fetch'
 alias gd='git diff'
 alias gds='git diff --staged'
@@ -76,3 +79,5 @@ alias cf='wl-copy <'
 
 # lazygit 
 alias lg='lazygit'
+
+

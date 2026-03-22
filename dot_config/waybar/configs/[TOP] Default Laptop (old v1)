@@ -43,9 +43,6 @@
 "modules-right": [
 	"network#speed",
 	"custom/separator#dot-line",
-	"tray",
-	"mpris", 
-	"custom/separator#dot-line",
 	"battery",
 	"custom/separator#dot-line", 
 	"custom/power",

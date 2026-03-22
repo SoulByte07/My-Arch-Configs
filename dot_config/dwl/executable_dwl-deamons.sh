@@ -37,4 +37,4 @@ wlsunset -S 07:00 -s 18:00 -t 4000
 
 
 # 5. pomodoro timer
-/home/soul/.local/bin/Tools/DWL/dwl-pomodoro-timer.sh 25 5 &
+/home/soul/.config/dwl/Scripts/dwl-pomodoro-timer.sh 25 5 &
