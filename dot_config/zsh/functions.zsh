@@ -151,3 +151,20 @@ tv-cheat() {
         {if(desc!="") print desc "  »  " $0; desc=""}
     ' "$sheet_path" | command tv cheat-lines
 }
+
+# VM manager
+vm() {
+    echo "Starting KVM/QEMU services..."
+    sudo systemctl start libvirtd
+    sudo virsh net-start default
+    virt-manager
+    
+    # Optional: Cleanup after closing virt-manager
+    echo "Virt-manager closed. Shutting down services?"
+    read -p "(y/n): " choice
+    if [ "$choice" = "y" ]; then
+        sudo virsh net-destroy default
+        sudo systemctl stop libvirtd
+        echo "Environment cleaned."
+    fi
+}
