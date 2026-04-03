@@ -1,0 +1,9 @@
+[metadata]
+name = "cheat-sheet-apps"
+description = "Pick an application cheatsheet"
+
+[source]
+# 1. 'find' gets the full paths of all files in community and personal.
+# 2. 'awk' splits the path by '/' and prints only the final filename.
+# 3. 'sort -u' alphabetizes them and removes duplicates.
+command = "find ~/.config/cheat/cheatsheets -mindepth 2 -maxdepth 2 -type f | awk -F/ '{print $NF}' | sort -u"

@@ -1,0 +1,9 @@
+pane	0	1	1	:*	0	:/home/soul/.local/bin	:/home/soul/1_Projects/1_Cloud/aws-scalable-web-architecture/Terraform	1	zsh	:
+pane	0	2	0	:	0	:/home/soul/.config/tmux	:/home/soul	1	zsh	:
+pane	AWS-Terraform-Vocals	1	1	:*	0	:/home/soul/1_Projects/1_Cloud/aws-scalable-web-architecture/Terraform/Storage	:/home/soul/1_Projects/1_Cloud/aws-scalable-web-architecture	1	zsh	:
+pane	AWS-Terraform-Vocals	2	0	:-	0	Arch-Linux	:/home/soul/1_Projects/1_Cloud/aws-scalable-web-architecture/Assets/Architechture\ Diagram	1	zsh	:
+window	0	1	:zsh	1	:*	b4be,171x42,0,0,1	:
+window	0	2	:zsh	0	:	b4c2,171x42,0,0,5	:
+window	AWS-Terraform-Vocals	1	:zsh	1	:*	b8c3,171x43,0,0,6	:
+window	AWS-Terraform-Vocals	2	:zsh	0	:-	b8c4,171x43,0,0,7	:
+state	AWS-Terraform-Vocals	

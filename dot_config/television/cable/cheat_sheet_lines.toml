@@ -1,0 +1,10 @@
+[metadata]
+name = "cheat-sheet-lines"
+description = "Search with context"
+
+[source]
+command = "cat"
+
+[preview]
+# This shows the match plus 3 lines after it for context
+command = "echo '{}' && echo '---' && grep -A 3 '{}' $TV_CHET_PATH"

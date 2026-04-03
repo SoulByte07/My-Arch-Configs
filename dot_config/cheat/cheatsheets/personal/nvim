@@ -1,0 +1,98 @@
+# Toggle Neo-tree Explorer 
+<leader>e	
+
+# <C-n>	
+Reveal current file in Neo-tree 
+
+# Show floating buffers 
+<leader>bf	
+
+# Open Oil (Floating file editor) 
+-	
+
+# Harpoon: Mark/Pin current file 
+<leader>a	
+
+# Harpoon: Open quick menu to jump to pins 
+<C-e>	
+
+# Navigate smoothly between Vim panes and Tmux panes 
+<C-h/j/k/l>	
+
+# Telescope: Find Files 
+<C-p> or <leader>ff	
+
+# Telescope: Live Grep (Search inside files) 
+<leader>fg	
+
+# Telescope: Recent Files 
+<leader><leader>	
+
+# Flash: Visually jump to specific text on screen 
+<leader>s	
+
+# Show hover documentation 
+K	
+
+# Go to Definition 
+gd	
+
+# Find References 
+gr	
+
+# View Code Actions 
+<leader>ca	
+
+# Format the current file 
+gf	
+
+# Trigger auto-completion 
+<C-Space>	
+
+# Confirm auto-completion 
+<CR>	
+
+# Accept inline suggestion 
+<Tab>	
+
+# Cycle to the Next / Previous suggestion 
+<C-f> / <C-b>	
+
+# Dismiss the current suggestion 
+<C-g>	
+
+# Open Copilot Chat window 
+<leader>cc	
+
+# Toggle Copilot Chat 
+<leader>ct	
+
+# Chat: Explain the visually selected code 
+<leader>ce	
+
+# Chat: Fix the visually selected code 
+<leader>cf	
+
+# lazy Git
+leader>gg	
+
+# Toggle UndoTree to view edit history 
+<leader>u	
+
+# Clear search highlights 
+<leader>h	
+
+# Enter Visual Block Mode
+<leader>v	
+
+# comment out the current line 
+cc 
+
+# comment out the visually selected lines
+cb
+
+# comment out multiple lines
+c9j
+
+# comment out multiple lines in visual block mode
+b9j
