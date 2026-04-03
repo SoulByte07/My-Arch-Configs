@@ -3,7 +3,7 @@
 
 # 1. Hardware ID (Find this with: ls /sys/bus/hid/drivers/hid-multitouch)
 # It usually looks like 0018:04F3:32B9.0001
-DEV_ID="0018:04F3:32B9.0001"
+DEV_ID="0018:06CB:CE2D.0001"
 DRV_PATH="/sys/bus/hid/drivers/hid-multitouch"
 NOTIF_ICON="$HOME/.config/swaync/images/ja.png"
 

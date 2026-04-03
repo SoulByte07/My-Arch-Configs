@@ -60,7 +60,7 @@ gsync() {
 # OpenCode sandboxing using bubblewrap
 op() {
     local binary="/usr/sbin/opencode"
-    local config_dir="$HOME/.config/opencode" # Update this path if different
+    local config_dir="$HOME/.config/opencode" 
 
     if [[ ! -x "$binary" ]]; then
         echo "❌ Error: opencode not found."
@@ -90,29 +90,8 @@ op() {
 
 
 
-
-
-
-# DNS Functions
-
-# Function to disable NextDNS
-# Using the 'function' keyword prevents Zsh alias expansion errors
-function dns-off {
-    sudo mv /etc/systemd/resolved.conf.d/nextdns.conf /etc/systemd/resolved.conf.d/nextdns.conf.bak
-    sudo systemctl restart systemd-resolved
-    echo "NextDNS Disabled"
-}
-
-# Function to enable NextDNS
-function dns-on {
-    sudo mv /etc/systemd/resolved.conf.d/nextdns.conf.bak /etc/systemd/resolved.conf.d/nextdns.conf
-    sudo systemctl restart systemd-resolved
-    echo "NextDNS Enabled"
-}
-
-
 # Function to run lf and change to the last visited directory on exit
-lfcd () {
+lfcd() {
     # Create a temporary file to store the final directory path
     tmp="$(mktemp)"
     
@@ -130,11 +109,6 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-
-
-
-
-
 
 
 
@@ -159,11 +133,8 @@ zle -N zle-line-init
 
 
 # television cheat sheet function
-# Soul's Offline Cheatsheet Finder
-# Function to search an app and then search merged [Desc + Command]
 tv-cheat() {
     # 1. Pick the app (e.g., docker, tar, git)
-    # Using 'command' ensures we hit the binary, not an alias
     local app
     app=$(command tv cheat-apps)
     
@@ -173,7 +144,6 @@ tv-cheat() {
     local sheet_path="$HOME/.config/cheat/cheatsheets/community/$app"
 
     # 2. The "Glue" Logic:
-    # This AWK script pairs # Comments with the Command line immediately below them.
     # It converts 2 lines into 1: "# Description  »  command --flags"
     command awk '
         /^#/ {desc=$0; next} 

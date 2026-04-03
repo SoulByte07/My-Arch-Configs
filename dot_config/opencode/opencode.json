@@ -3,16 +3,45 @@
   "default_agent": "assistant",
   "agent": {
     "build": {
-      "model": "github-copilot/claude-opus-4.6"
+      "model": "github-copilot/claude-opus-4.5"
     },
     "plan": {
-      "model": "github-copilot/claude-opus-4.6"
+      "model": "github-copilot/claude-opus-4.5"
     },
     "assistant": {
       "model": "github-copilot/gpt-5.2"
     },
-    "dsa_orchestrator": {
-      "model": "github-copilot/gpt-5.2-codex"
+    "code-reviewer": {
+      "path": "agents/code-reviewer.yaml",
+      "provider": "anthropic",
+      "model": "github-copilot/claude-opus-4.5"
+    },
+    // New Cloud Engineering Agents
+    "security-expert": {
+      "path": "agents/security.yaml",
+      "model": "github-copilot/claude-opus-4.5"
+    },
+    "aws-architect": {
+      "path": "agents/aws.yaml",
+      "model": "github-copilot/gpt-5.2"
+    },
+  },
+  "permission": {
+    "bash": "ask",
+    "edit": "allow",
+    "infracost_*": "allow"
+  },
+  "permission": {
+    "read": {
+      "**/.env/**": "deny",
+      "**/.env.local/**": "deny",
+      "**/.env": "deny",
+      "**/.env.local": "deny",
+      "*": "allow",
+      "**/.terraform/**": "deny",
+      "*.tfstate*": "deny",
+      "*.tfvars": "deny",
+      "*.tfvars.json": "deny",
     }
   }
 }

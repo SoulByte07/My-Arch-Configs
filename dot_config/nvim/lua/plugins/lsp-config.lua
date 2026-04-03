@@ -1,6 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPost", "BufNewFile" },
     -- Define dependencies
     dependencies = {
       "williamboman/mason.nvim",
@@ -22,6 +23,7 @@ return {
         "jsonls",   -- JSON (Terraform, CloudFormation, API responses)
         "bashls",   -- Bash scripts (most DevOps work!)
         "dockerls", -- Dockerfile
+        "stylelint_lsp",
       }
 
       -- 4. Setup mason-lspconfig
@@ -33,13 +35,19 @@ return {
         -- Automatically install new servers
         automatic_installation = true,
 
-        -- **THIS IS THE FIX:** The 'handlers' table goes INSIDE this setup.
         handlers = {
 
           -- This is the default handler for all servers
           function(server_name)
             vim.lsp.config[server_name].setup({
               capabilities = capabilities,
+            })
+          end,
+
+          ["stylelint_lsp"] = function()
+            require("lspconfig").stylelint_lsp.setup({
+              capabilities = capabilities,
+              -- You can add specific CSS settings here if needed
             })
           end,
 
@@ -62,8 +70,8 @@ return {
 
       -- 5. Add your keymaps
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
     end,
   },

@@ -4,7 +4,7 @@
 
 # 1. Start the wallpaper daemon
 #swaybg -i /home/soul/Pictures/wallpapers/Anime-Ladys/anime-lady-orange.png &
-/home/soul/.config/dwl/Scripts/dwl-random-wall.sh
+/home/soul/.config/dwl/Scripts/dwl-random-wall.sh &
 
 
 
@@ -32,7 +32,7 @@ mako &
 
 # 4. night mode
 #wlsunset -l 16.5 -L 81.5 &
-wlsunset -S 07:00 -s 18:00 -t 4000
+wlsunset -S 07:00 -s 18:00 -t 4000 &
 
 
 

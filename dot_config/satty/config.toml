@@ -1,11 +1,11 @@
-# Sample Input: Satty launches via your dwl-screenshot.sh script.
-# Expected Output: Opens fullscreen without window decorations. Features rounded toolbars (pill shape), FiraCode font, Catppuccin colors, and closes instantly when you press Enter or Escape.
+# ==========================================
+# Sample Input: Satty launches via screenshot script.
+# Expected Output: Opens fullscreen, Catppuccin colors, FiraCode font, blur tool active. Exits gracefully after copy/save. 
+# ==========================================
 
 [general]
-fullscreen = true
-floating-hack = true
+fullscreen = false 
 early-exit = true
-corner-roundness = 12
 initial-tool = "blur"
 copy-command = "wl-copy"
 annotation-size-factor = 2
@@ -14,22 +14,17 @@ save-after-copy = true
 default-hide-toolbars = false
 primary-highlighter = "block"
 disable-notifications = false
-no-window-decoration = true
 brush-smooth-history-size = 10
-
-# Workflow automation
-actions-on-enter = ["save-to-clipboard", "save-to-file", "exit"]
-actions-on-escape = ["exit"]
 
 [keybinds]
 pointer = "p"
 crop = "c"
-brush = "b"
+brush = "h"
 line = "l"
 arrow = "a"
 rectangle = "r"
 text = "t"
-blur = "u"
+blur = "b"
 highlight = "h"
 
 [font]

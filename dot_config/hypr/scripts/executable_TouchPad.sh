@@ -10,7 +10,7 @@
 
 # Get the device name from your Hyprland config or hardcode it here
 # It MUST match the name in 'hyprctl devices'
-TOUCHPAD_NAME="elan06fa:00-04f3:32b9-touchpad"
+TOUCHPAD_NAME="syna2ba6:00-06cb:ce2d-touchpad"
 STATUS_FILE="$XDG_RUNTIME_DIR/touchpad.status"
 notif="$HOME/.config/swaync/images/ja.png"
 

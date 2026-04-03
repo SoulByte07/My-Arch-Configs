@@ -5,3 +5,4 @@
 **/GPUCache/**
 **/*.log
 **/node_modules/**
+**/.env

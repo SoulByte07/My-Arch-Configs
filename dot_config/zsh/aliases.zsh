@@ -1,6 +1,7 @@
 # Navigation & Editor
 alias v='nvim'
 alias fs='yazi'
+alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
@@ -29,6 +30,9 @@ alias pqs='pacman -Qs'
 alias psi='sudo pacman -S --needed'
 alias psyu='sudo pacman -Syu'
 alias prns='sudo pacman -Rns'
+
+# paru 
+alias parus='paru -S --chroot'
 
 
 # flatpak 

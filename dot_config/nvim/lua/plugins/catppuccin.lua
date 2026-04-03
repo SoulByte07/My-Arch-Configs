@@ -1,3 +1,4 @@
+-- File: lua/plugins/catppuccin.lua
 return {
   {
     "catppuccin/nvim",
@@ -7,14 +8,7 @@ return {
     config = function()
       require("catppuccin").setup({
         flavour = "mocha",
-        highlight_overrides = {
-          mocha = function(cp)
-            return {
-              LineNr = { fg = cp.text, bg = cp.base },
-              CursorLineNr = { fg = cp.lavender, style = { "bold" } },
-            }
-          end,
-        },
+        compile_path = vim.fn.stdpath("cache") .. "/catppuccin", -- Faster loading
       })
       vim.cmd.colorscheme "catppuccin-mocha"
     end

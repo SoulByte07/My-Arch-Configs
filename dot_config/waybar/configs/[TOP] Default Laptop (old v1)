@@ -29,12 +29,11 @@
 	],
 
 "modules-center": [
-	"group/notify",
-	"custom/separator#dot-line",
 	"clock",
 	"custom/separator#dot-line",
 	"cpu",
 	"memory",
+  "disk",
 	"custom/separator#dot-line",	
 	//],
 	"idle_inhibitor", 
@@ -44,7 +43,5 @@
 	"network#speed",
 	"custom/separator#dot-line",
 	"battery",
-	"custom/separator#dot-line", 
-	"custom/power",
 	],
 }
