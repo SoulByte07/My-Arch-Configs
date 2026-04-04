@@ -30,8 +30,6 @@ return {
     keys = {
       { "<leader>cc", "<cmd>CopilotChatOpen<cr>",    desc = "Chat - Open" },
       { "<leader>ct", "<cmd>CopilotChatToggle<cr>",  desc = "Chat - Toggle" },
-      { "<leader>ce", "<cmd>CopilotChatExplain<cr>", mode = "v",            desc = "Chat - Explain" },
-      { "<leader>cf", "<cmd>CopilotChatFix<cr>",     mode = "v",            desc = "Chat - Fix" },
     },
   },
 }

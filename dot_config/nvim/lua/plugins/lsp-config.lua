@@ -1,78 +1,81 @@
+-- File: ~/.config/nvim/lua/plugins/lsp.lua
+-- Purpose: Modular LSP configuration with manual formatting trigger
+
 return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
-    -- Define dependencies
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
 
     config = function()
-      -- 1. Setup mason
+      -- 1. Initialize Mason
       require("mason").setup()
 
-      -- 2. Get capabilities for autocompletion
+      -- 2. Capabilities for autocompletion integration
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- 3. Define the list of servers to install
-      local lsp_servers = { "ts_ls", "html", "lua_ls",
-        -- Add for Cloud/DevOps
-        "pyright",  -- Python (DevOps scripts, AWS/GCP SDKs)
-        "yamlls",   -- YAML (Kubernetes, CloudFormation, Ansible)
-        "jsonls",   -- JSON (Terraform, CloudFormation, API responses)
-        "bashls",   -- Bash scripts (most DevOps work!)
-        "dockerls", -- Dockerfile
-        "stylelint_lsp",
+      -- 3. Modern server list (Updated: stylelint)
+      local lsp_servers = {
+        "ts_ls", "html", "lua_ls", "pyright",
+        "yamlls", "jsonls", "bashls", "dockerls",
+        "stylelint",
       }
 
-      -- 4. Setup mason-lspconfig
-      -- This single setup call configures everything
+      -- 4. Mason-lspconfig bridge
       require("mason-lspconfig").setup({
-        -- Ensure the servers from the list above are installed
         ensure_installed = lsp_servers,
-
-        -- Automatically install new servers
         automatic_installation = true,
 
         handlers = {
-
-          -- This is the default handler for all servers
+          -- Default handler for all servers
           function(server_name)
-            vim.lsp.config[server_name].setup({
+            require("lspconfig")[server_name].setup({
               capabilities = capabilities,
             })
           end,
 
-          ["stylelint_lsp"] = function()
-            require("lspconfig").stylelint_lsp.setup({
-              capabilities = capabilities,
-              -- You can add specific CSS settings here if needed
-            })
-          end,
-
-          -- Special setup for lua_ls to make it aware of 'vim' global
+          -- Specific logic for Lua (recognizing 'vim' global)
           ["lua_ls"] = function()
-            vim.lsp.config.lua_ls.setup({
+            require("lspconfig").lua_ls.setup({
               capabilities = capabilities,
               settings = {
                 Lua = {
                   diagnostics = {
-                    -- Get the language server to recognize the `vim` global
                     globals = { "vim" },
                   },
                 },
               },
             })
           end,
+
+          -- Specific logic for Stylelint (Manual mode)
+          ["stylelint"] = function()
+            require("lspconfig").stylelint.setup({
+              capabilities = capabilities,
+              settings = {
+                autoFixOnSave = false, -- Keep it manual for performance
+              },
+            })
+          end,
         }
       })
 
-      -- 5. Add your keymaps
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+      -- 5. Keybindings (The "Consultant's Toolkit")
+      local opts = { noremap = true, silent = true }
+
+      -- Standard Navigation
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+      vim.keymap.set("n", "<leader>cf", function()
+        vim.lsp.buf.format({ async = true })
+        print("Style applied! ✨")
+      end, { desc = "Manual LSP Format" })
     end,
   },
 }
