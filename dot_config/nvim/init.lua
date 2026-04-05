@@ -18,3 +18,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("vim-options")
 require("lazy").setup("plugins")
+
+-- Test: Force all plugins to load immediately (for testing purposes)
+-- require("lazy").setup(plugins, {
+--   defaults = { lazy = false }, -- This forces everything to load immediately
+-- })

@@ -42,6 +42,8 @@ vim.opt.smartcase = true  -- Switch to case-sensitive if I type a Capital letter
 vim.opt.showcmd = true            -- Enable showing keystrokes
 vim.opt.showcmdloc = "statusline" -- Crucial: Route them to the statusline
 
+-- Buffer line
+vim.opt.winbar = " "
 
 -- Disable unnecessary built-in plugins
 local disabled_built_ins = {

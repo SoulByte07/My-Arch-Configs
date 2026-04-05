@@ -1,10 +1,7 @@
 -- File: lua/plugins/harpoon.lua
--- Input: Press <leader>a when you already have 5 marks
--- Expected Output: A warning message appears, and the 8th file is NOT added.
 
 return {
   "ThePrimeagen/harpoon",
-  -- lazy = true,
   event = "VeryLazy",
   keys = {
     -- 1. Custom "Bouncer" Add Function

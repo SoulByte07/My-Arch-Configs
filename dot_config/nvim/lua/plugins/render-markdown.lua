@@ -1,6 +1,4 @@
 -- File: lua/plugins/render-markdown.lua
--- Sample Input: Opening a README.md file containing `# Title` and `**bold text**`.
--- Expected Output: Displays a large, clean "Title" with a styled icon. Moving your cursor to that line makes the `#` reappear so you can edit the raw text.
 
 return {
   "MeanderingProgrammer/render-markdown.nvim",

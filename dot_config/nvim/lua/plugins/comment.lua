@@ -1,16 +1,15 @@
 -- File: lua/plugins/comment.lua
+-- Sample Input: Highlight text in visual mode.
+-- Expected Output: Plugin remains unloaded until you press `gc` or `gb`.
+
 return {
   'numToStr/Comment.nvim',
+  keys = {
+    { "cc", mode = { "n", "v" }, desc = "Comment toggle linewise" },
+    { "cb", mode = { "n", "v" }, desc = "Comment toggle blockwise" },
+  },
   opts = {
-    -- Mappings for 'normal' mode
-    toggler = {
-      line = 'cc',        -- Comments/uncomments current line
-      block = 'cb',       -- Comments/uncomments using block
-    },
-    -- Mappings for 'operator-pending' mode (motions)
-    opleader = {
-      line = 'c',        -- Used for 'c9j' or 'cip' (comment in paragraph)
-      block = 'b',       -- Used for 'b9j' (block comment next 9 lines)
-    },
+    toggler = { line = 'cc', block = 'cb' },
+    opleader = { line = 'c', block = 'b' },
   },
 }

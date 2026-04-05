@@ -8,9 +8,13 @@ return {
     config = function()
       require("catppuccin").setup({
         flavour = "mocha",
-        compile_path = vim.fn.stdpath("cache") .. "/catppuccin", -- Faster loading
+        transparent_background = true, -- Essential for Hyprland blur/transparency
+        integrations = {
+          bufferline = true,           -- The official handshake
+          harpoon = true,
+        },
       })
       vim.cmd.colorscheme "catppuccin-mocha"
-    end
-  }
+    end,
+  },
 }

@@ -1,19 +1,25 @@
 -- File: lua/plugins/noice.lua
--- Input: Typing ':' or '/'
--- Expected Output: Clean top-center UI with minimal memory footprint
 
 return {
   "folke/noice.nvim",
-  --  enabled = false,
   event = "VeryLazy",
-  dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    {
+      "rcarriga/nvim-notify",
+      opts = {
+        background_colour = "#1e1e2e",
+        render = "compact",
+        stages = "static", -- Most efficient animation stage
+      },
+    },
+  },
   config = function()
     require("noice").setup({
       cmdline = {
         view = "cmdline_popup",
         opts = { position = { row = "10%", col = "50%" } },
       },
-      -- 'routes' removed! Lualine + Neovim Core handles this now.
       presets = {
         bottom_search = false,
         command_palette = true,

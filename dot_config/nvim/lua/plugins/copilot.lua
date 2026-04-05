@@ -1,5 +1,4 @@
 -- File: lua/plugins/copilot.lua
--- VS Code style with Tmux-safe Ctrl keybindings
 
 return {
   "zbirenbaum/copilot.lua",

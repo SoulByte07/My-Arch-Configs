@@ -1,5 +1,4 @@
 -- File: ~/.config/nvim/lua/plugins/lsp.lua
--- Purpose: Modular LSP configuration with manual formatting trigger
 
 return {
   {
@@ -11,70 +10,62 @@ return {
     },
 
     config = function()
-      -- 1. Initialize Mason
       require("mason").setup()
 
-      -- 2. Capabilities for autocompletion integration
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- 3. Modern server list (Updated: stylelint)
+      -- 1. Using "stylelint_lsp" to satisfy mason-lspconfig
       local lsp_servers = {
         "ts_ls", "html", "lua_ls", "pyright",
         "yamlls", "jsonls", "bashls", "dockerls",
-        "stylelint",
+        "stylelint_lsp",
       }
 
-      -- 4. Mason-lspconfig bridge
       require("mason-lspconfig").setup({
         ensure_installed = lsp_servers,
         automatic_installation = true,
 
         handlers = {
-          -- Default handler for all servers
+          -- Default handler
           function(server_name)
             require("lspconfig")[server_name].setup({
               capabilities = capabilities,
             })
           end,
 
-          -- Specific logic for Lua (recognizing 'vim' global)
+          -- Specific Lua setup
           ["lua_ls"] = function()
             require("lspconfig").lua_ls.setup({
               capabilities = capabilities,
               settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { "vim" },
-                  },
-                },
+                Lua = { diagnostics = { globals = { "vim" } } },
               },
             })
           end,
 
-          -- Specific logic for Stylelint (Manual mode)
-          ["stylelint"] = function()
-            require("lspconfig").stylelint.setup({
+          -- 2. Specific Stylelint setup using the recognized name
+          ["stylelint_lsp"] = function()
+            require("lspconfig").stylelint_lsp.setup({
               capabilities = capabilities,
               settings = {
-                autoFixOnSave = false, -- Keep it manual for performance
+                autoFixOnSave = false, -- Your "Manual only" preference
               },
             })
           end,
         }
       })
 
-      -- 5. Keybindings (The "Consultant's Toolkit")
+      -- 3. Keybindings
       local opts = { noremap = true, silent = true }
-
-      -- Standard Navigation
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
+      -- Manual Format Trigger
       vim.keymap.set("n", "<leader>cf", function()
         vim.lsp.buf.format({ async = true })
-        print("Style applied! ✨")
+        print("Code Format: Style applied! ✨")
       end, { desc = "Manual LSP Format" })
     end,
   },
