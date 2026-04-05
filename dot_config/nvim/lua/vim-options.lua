@@ -45,6 +45,8 @@ vim.opt.showcmdloc = "statusline" -- Crucial: Route them to the statusline
 -- Buffer line
 vim.opt.winbar = " "
 
+vim.opt.cursorline = true
+
 -- Disable unnecessary built-in plugins
 local disabled_built_ins = {
   "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",

@@ -6,17 +6,22 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export SHELL="/usr/bin/zsh"
 
+# Rust
 export CARGO_HOME="$HOME/.local/share/cargo"
+
+# npm
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
+export PATH="$HOME/.local/share/npm/bin:$PATH"
+
+# Bun
 export BUN_INSTALL="$HOME/.local/share/bun"
+export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
 # Ruby
 export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 # npm
 export PATH="$HOME/.local/share/npm/bin:$PATH"
-
-export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
 # for custom user scripts 
 export PATH="$HOME/.local/bin:$PATH"
@@ -26,10 +31,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export MANPAGER='nvim +Man!'
 #export MANWIDTH=999
-export PATH="$HOME/.local/share/npm/bin:$PATH"
 
 # tmux
 export TMUX_CONF="$HOME/.config/tmux/tmux.conf"
 
 # VM
 export LIBVIRT_DEFAULT_URI='qemu:///system'
+

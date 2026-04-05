@@ -85,3 +85,5 @@ alias cf='wl-copy <'
 alias lg='lazygit'
 
 
+# Nvim pager
+alias nv='nvim - -c "nnoremap q :q!<CR>"'
