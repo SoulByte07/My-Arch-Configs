@@ -6,7 +6,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Modern Replacements
-alias ls='eza --color=always --long --git --icons=always --no-filesize --no-time --no-user --no-permissions'
+alias l='eza --color=always --long --git --icons=always --no-filesize --no-time --no-user --no-permissions'
 alias ll='eza --color=always --long --git --icons=always'
 alias la='eza --color=always --all --icons=always'
 alias rm='rmtrash'
@@ -87,3 +87,21 @@ alias lg='lazygit'
 
 # Nvim pager
 alias nv='nvim - -c "nnoremap q :q!<CR>"'
+
+
+# suffix aliases for opening files in $EDITOR
+alias -s go='$EDITOR'
+alias -s py='$EDITOR'
+alias -s sh='$EDITOR'
+alias -s md='$EDITOR'
+alias -s conf='$EDITOR'
+alias -s yaml='$EDITOR'
+alias -s yml='$EDITOR'
+alias -s json='$EDITOR'
+alias -s xml='$EDITOR'
+alias -s toml='$EDITOR'
+alias -s ini='$EDITOR'
+
+#  open text files with bat
+alias -s txt=bat
+alias -s log=bat

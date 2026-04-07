@@ -24,12 +24,12 @@ notify-send "Cheat Sheet" "Copied: $command_text"
 
 # 5. Display for reading (Colors applied HERE, safely)
 clear
-echo -e "\033[1;33m----------------------------------------------------------------------\033[0m"
+echo -e "\033[90m----------------------------------------------------------------------\033[0m"
 # Description in Grey
-echo -e "\033[90m$desc_text\033[0m"
+echo -e "\033[1;33m$desc_text\033[0m"
 # Command in Bright Green
 echo -e "\033[1;32m$command_text\033[0m"
-echo -e "\033[1;33m----------------------------------------------------------------------\033[0m"
+echo -e "\033[90m----------------------------------------------------------------------\033[0m"
 echo ""
 echo -e "\033[1;30mPress any key to close...\033[0m"
 

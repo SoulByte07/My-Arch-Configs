@@ -35,3 +35,10 @@ bindkey -M menuselect '^I' menu-complete             # Tab
 
 # Autosuggestion accept (Ctrl+E)
 bindkey '^E' autosuggest-accept
+
+# Edit Command Buffer
+# Open the current command in your $EDITOR (e.g., neovim)
+# Press Ctrl+X followed by Ctrl+E to trigger
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X' edit-command-line

@@ -1,9 +1,3 @@
-# Toggle Neo-tree Explorer 
-<leader>e	
-
-# <C-n>	
-Reveal current file in Neo-tree 
-
 # Show floating buffers 
 <leader>bf	
 
@@ -44,7 +38,7 @@ gr
 <leader>ca	
 
 # Format the current file 
-gf	
+<leader>gf	
 
 # Trigger auto-completion 
 <C-Space>	
@@ -66,15 +60,6 @@ gf
 
 # Toggle Copilot Chat 
 <leader>ct	
-
-# Chat: Explain the visually selected code 
-<leader>ce	
-
-# Chat: Fix the visually selected code 
-<leader>cf	
-
-# lazy Git
-leader>gg	
 
 # Toggle UndoTree to view edit history 
 <leader>u	

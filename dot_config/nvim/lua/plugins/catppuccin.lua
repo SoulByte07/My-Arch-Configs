@@ -17,7 +17,7 @@ return {
         },
         custom_highlights = function(colors)
           return {
-            LineNr = { fg = colors.yellow, style = { "bold" } },
+            LineNr = { fg = colors.yellow,  },
             CursorLineNr = { fg = "#ff8c00", style = { "bold" } }, -- Safety Orange
           }
         end,
