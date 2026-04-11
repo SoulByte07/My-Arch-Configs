@@ -1,44 +1,44 @@
-#!/bin/bash
+#!/bin/sh
+# powermenu.sh
+# Minimal power menu for dwl/Wayland using tofi.
+# Usage: ./powermenu.sh
 
-# variables
-BLURRED_WALLPAPER="$HOME/Pictures/wallpapers/Github/1351260.png"
-BASE_COLOR="1e1e2e"
-# Define the options using UTF-8 hex escape sequences
-OPTIONS="\U000f0425 Shutdown\n\U000f0709 Reboot\n\U000f05fc Exit\n\U000f0904 Suspend\n"
+set -u
 
-# launch tofi and capture the user's choice
-CHOICE=$(echo -e "$OPTIONS" | tofi \
-    --prompt-text "Power Menu: " \
+blurred_wallpaper="$HOME/Pictures/wallpapers/Github/1351260.png"
+base_color='1e1e2e'
+
+choice="$({
+    printf '%s\n' '󰐥 Shutdown'
+    printf '%s\n' '󰜉 Reboot'
+    printf '%s\n' '󰗼 Exit'
+    printf '%s\n' '󰤄 Suspend'
+} | tofi \
+    --prompt-text 'Power Menu: ' \
     --num-results 4 \
     --ascii-input=false \
-    --font="FiraCode Nerd Font" \
-    --fuzzy-match=false
-  )
+    --font='FiraCode Nerd Font' \
+    --fuzzy-match=false || true)"
 
-
-# logic
-case "$CHOICE" in
+case "$choice" in
     *Shutdown)
-        systemctl poweroff
+        exec systemctl poweroff
         ;;
     *Reboot)
-        systemctl reboot
+        exec systemctl reboot
         ;;
     *Exit)
-        # Using killall for dwl as per your previous setup
-        killall dwl
+        exec killall dwl
         ;;
     *Suspend)
-        # wallpaper blur for lock screen
-        if [ -f "$BLURRED_WALLPAPER" ]; then
-            LOCK_BG="--image $BLURRED_WALLPAPER"
+        if [ -f "$blurred_wallpaper" ]; then
+            set -- --image "$blurred_wallpaper"
         else
-            LOCK_BG="--color $BASE_COLOR"
+            set -- --color "$base_color"
         fi
 
-        # Start Lock (Catppuccin styling) in the background
         swaylock \
-          $LOCK_BG \
+          "$@" \
           --clock \
           --indicator \
           --indicator-radius 120 \
@@ -51,15 +51,11 @@ case "$CHOICE" in
           --inside-color 1e1e2e88 \
           --separator-color 00000000 \
           --fade-in 0.2 &
-        
-        # Give swaylock a second to render so it's locked before sleep
-        sleep 1 
-        
-        systemctl suspend
-        
- 
+
+        sleep 1
+        exec systemctl suspend
         ;;
-   *)
-        exit 1
+    *)
+        exit 0
         ;;
 esac

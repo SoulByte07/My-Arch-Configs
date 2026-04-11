@@ -1,17 +1,20 @@
-#!/bin/bash
-# Description: Pipes clipboard history to a tofi menu with UTF-8 support and a smaller font, then copies selection.
+#!/bin/sh
+# clipmenu.sh
+# Show clipboard history in tofi and copy selected entry.
+# Usage: ./clipmenu.sh
 
-# Sample Input: Script execution (e.g., triggered by Super+v)
-# Expected Output: Tofi UI opens with smaller text, displaying history properly. Selected text is copied.
+set -u
 
-# Use cliphist to list history, pipe to tofi with size, UTF-8, and font-size overrides, then decode and copy.
-cliphist list | tofi \
-  --prompt-text "Clipboard: " \
+selection="$(cliphist list | tofi \
+  --prompt-text 'Clipboard: ' \
   --width 60% \
   --height 45% \
   --num-results 10 \
   --ascii-input=false \
-  --font="FiraCode Nerd Font" \
+  --font='FiraCode Nerd Font' \
   --font-size=15 \
-  --fuzzy-match=true \
-  | cliphist decode | wl-copy
+  --fuzzy-match=true || true)"
+
+[ -n "$selection" ] || exit 0
+
+printf '%s' "$selection" | cliphist decode | wl-copy

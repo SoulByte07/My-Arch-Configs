@@ -1,7 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+# volume_notify.sh
+# Adjust volume with pamixer and display synchronized notification.
+# Usage: ./volume_notify.sh up|down|mute
 
-# Change volume based on argument (+5%, -5%, or toggle)
-case $1 in
+set -u
+
+case "${1-}" in
     up)
         pamixer -i 5
         ;;
@@ -11,19 +15,20 @@ case $1 in
     mute)
         pamixer -t
         ;;
+    *)
+        exit 1
+        ;;
 esac
 
-# Get current volume and mute status
-VOLUME=$(pamixer --get-volume)
-MUTE=$(pamixer --get-mute)
+mute="$(pamixer --get-mute)"
 
-# Show notification using notify-send for mako
-if [ "$MUTE" = "true" ]; then
-    # Sample Input: Mute triggered
-    # Expected Output: A Mako notification saying "Audio Muted"
-    notify-send -a "Volume" -h string:x-canonical-private-synchronous:audio "Audio Muted"
+if [ "$mute" = 'true' ]; then
+    notify-send -a 'Volume' -h string:x-canonical-private-synchronous:audio 'Audio Muted'
 else
-    # Sample Input: Volume increased to 45%
-    # Expected Output: A Mako notification saying "Volume: 45%" (with a progress bar if configured)
-    notify-send -a "Volume" -h string:x-canonical-private-synchronous:audio -h int:value:"$VOLUME" "Volume: ${VOLUME}%"
+    volume="$(pamixer --get-volume)"
+    notify-send \
+        -a 'Volume' \
+        -h string:x-canonical-private-synchronous:audio \
+        -h int:value:"$volume" \
+        "Volume: ${volume}%"
 fi

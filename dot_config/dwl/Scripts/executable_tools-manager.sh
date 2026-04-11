@@ -1,27 +1,19 @@
-#!/bin/bash
-# Description: Rofi dynamic script launcher with a custom theme
-# Requirements: rofi, findutils
+#!/bin/sh
+# tools-manager.sh
+# Launch executable helper scripts from a rofi menu.
+# Usage: ./tools-manager.sh
 
-# 1. Define paths
-SCRIPT_DIR="$HOME/.local/bin/Tools"
+set -u
 
+script_dir="$HOME/.local/bin/Tools"
+theme_path="$HOME/.config/rofi/themes/KooL_Catppuccin_mocha.rasi"
 
-# Point this to your new custom theme file
-THEME_PATH="~/.config/rofi/themes/KooL_Catppuccin_mocha.rasi" 
+[ -d "$script_dir" ] || exit 1
 
+script_list="$(find "$script_dir" -maxdepth 2 -type f -executable -printf '%P\n')"
+[ -n "$script_list" ] || exit 0
 
-# 2. Get the list of executable files
-script_list=$(find "$SCRIPT_DIR" -maxdepth 2 -type f -executable -printf "%P\n")
+chosen="$(printf '%s\n' "$script_list" | rofi -dmenu -i -p 'Run Tool: ' -theme "$theme_path" || true)"
+[ -n "$chosen" ] || exit 0
 
-# Sample Input (Files on disk): 
-# ~/Tools/Arch/update.sh
-# Expected Output (What shows in Rofi): 
-# Arch/update.sh
-
-# 3. Show the menu via Rofi using the custom theme
-chosen=$(echo -e "$script_list" | rofi -dmenu -i -p "🚀 Run Tool: " -theme "$THEME_PATH")
-
-# 4. Execute if a choice was made
-if [ -n "$chosen" ]; then
-    "$SCRIPT_DIR/$chosen" &
-fi
+"$script_dir/$chosen" &

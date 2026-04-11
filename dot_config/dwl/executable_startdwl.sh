@@ -1,13 +1,16 @@
-#!/bin/bash
+#!/bin/sh
+# Script Name: start_dwl.sh
 # Description: Starts dwl, pipes slstatus, and triggers the autostart script.
-
-# Sample Input: Run this script from your TTY login.
-# Expected Output: slstatus pipes into dwl, dwl launches and runs dwl-autostart.sh cleanly.
+# Input: Run this script from your TTY login (e.g., after typing startw).
+# Expected Output: Login shell is replaced by dwl; slstatus pipes data cleanly.
 
 # 1. Load environment variables
+# Optimization: Use POSIX '.' instead of bash 'source'
 if [ -f "$HOME/.config/dwl/dwl-env" ]; then
-    source "$HOME/.config/dwl/dwl-env"
+    . "$HOME/.config/dwl/dwl-env"
 fi
 
-
-slstatus -s | dwl -s ~/.config/dwl/dwl-deamons.sh
+# 2. Launch Environment
+# Optimization: 'exec' replaces the current shell process entirely. 
+# Your TTY login shell dies, freeing memory, and dwl becomes the primary process.
+exec sh -c "slstatus -s | dwl -s '$HOME/.config/dwl/dwl-deamons.sh'"

@@ -5,10 +5,10 @@ fkill() {
 }
 
 # Git Checkout Branch
-gcb() {
-  local branch=$(git branch -a | fzf --preview 'git log -1 --oneline {}')
-  [[ -n "$branch" ]] && git checkout "${branch#remotes/origin/}"
-}
+# gcb() {
+#   local branch=$(git branch -a | fzf --preview 'git log -1 --oneline {}')
+#   [[ -n "$branch" ]] && git checkout "${branch#remotes/origin/}"
+# }
 
 # Fast Git Commit
 gc() {
@@ -17,44 +17,44 @@ gc() {
 }
 
 # Push with auto upstream setup
-gpush() {
-  local branch=$(git rev-parse --abbrev-ref HEAD)
-  git push -u origin "$branch"
-}
+# gpush() {
+#   local branch=$(git rev-parse --abbrev-ref HEAD)
+#   git push -u origin "$branch"
+# }
 
 # Create and switch to new branch
-gnew() {
-  [[ -z "$1" ]] && { echo "Usage: gnew <branch-name>"; return 1; }
-  git checkout -b "$1"
-}
+# gnew() {
+#   [[ -z "$1" ]] && { echo "Usage: gnew <branch-name>"; return 1; }
+#   git checkout -b "$1"
+# }
 
 # Undo last commit (keep changes staged)
-gundo() {
-  git reset --soft HEAD~1
-  echo "Last commit undone. Changes are staged."
-}
+# gundo() {
+#   git reset --soft HEAD~1
+#   echo "Last commit undone. Changes are staged."
+# }
 
 # Amend last commit with staged changes
-gamend() {
-  git commit --amend --no-edit
-}
+# gamend() {
+#   git commit --amend --no-edit
+# }
 
 # Interactive clean untracked files
-gclean() {
-  git clean -i -d
-}
+# gclean() {
+#   git clean -i -d
+# }
 
 # Create GitHub PR (requires gh CLI)
-gpr() {
-  gh pr create --fill "$@"
-}
+# gpr() {
+#   gh pr create --fill "$@"
+# }
 
 # Sync current branch with main/master
-gsync() {
-  local main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
-  [[ -z "$main_branch" ]] && main_branch="main"
-  git fetch origin "$main_branch" && git rebase "origin/$main_branch"
-}
+# gsync() {
+#   local main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
+#   [[ -z "$main_branch" ]] && main_branch="main"
+#   git fetch origin "$main_branch" && git rebase "origin/$main_branch"
+# }
 
 
 # OpenCode sandboxing using bubblewrap
@@ -133,24 +133,24 @@ zle -N zle-line-init
 
 
 # television cheat sheet function
-tv-cheat() {
-    # 1. Pick the app (e.g., docker, tar, git)
-    local app
-    app=$(command tv cheat-apps)
-    
-    # Exit if you hit ESC
-    [ -z "$app" ] && return
-
-    local sheet_path="$HOME/.config/cheat/cheatsheets/community/$app"
-
-    # 2. The "Glue" Logic:
-    # It converts 2 lines into 1: "# Description  »  command --flags"
-    command awk '
-        /^#/ {desc=$0; next} 
-        /^[[:space:]]*$/ {next} 
-        {if(desc!="") print desc "  »  " $0; desc=""}
-    ' "$sheet_path" | command tv cheat-lines
-}
+# tv-cheat() {
+#     # 1. Pick the app (e.g., docker, tar, git)
+#     local app
+#     app=$(command tv cheat-apps)
+#     
+#     # Exit if you hit ESC
+#     [ -z "$app" ] && return
+#
+#     local sheet_path="$HOME/.config/cheat/cheatsheets/community/$app"
+#
+#     # 2. The "Glue" Logic:
+#     # It converts 2 lines into 1: "# Description  »  command --flags"
+#     command awk '
+#         /^#/ {desc=$0; next} 
+#         /^[[:space:]]*$/ {next} 
+#         {if(desc!="") print desc "  »  " $0; desc=""}
+#     ' "$sheet_path" | command tv cheat-lines
+# }
 
 # VM manager
 vm() {

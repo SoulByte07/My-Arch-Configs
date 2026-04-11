@@ -10,18 +10,15 @@ export SHELL="/usr/bin/zsh"
 export CARGO_HOME="$HOME/.local/share/cargo"
 
 # npm
-export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
-export PATH="$HOME/.local/share/npm/bin:$PATH"
+# export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
+# export PATH="$HOME/.local/share/npm/bin:$PATH"
 
 # Bun
 export BUN_INSTALL="$HOME/.local/share/bun"
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
 # Ruby
-export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
-
-# npm
-export PATH="$HOME/.local/share/npm/bin:$PATH"
+# export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 # for custom user scripts 
 export PATH="$HOME/.local/bin:$PATH"
@@ -33,8 +30,13 @@ export MANPAGER='nvim +Man!'
 #export MANWIDTH=999
 
 # tmux
-export TMUX_CONF="$HOME/.config/tmux/tmux.conf"
+# export TMUX_CONF="$HOME/.config/tmux/tmux.conf"
 
 # VM
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
+
+# Keeps your PATH clean and unique
+typeset -U path
+# Filter out non-existent directories from PATH
+path=($^path(N))

@@ -1,20 +1,31 @@
-#!/bin/bash
+#!/bin/sh
+# brightness-ctrl-notify.sh
+# Adjust backlight and show a synchronized desktop notification.
+# Usage: ./brightness-ctrl-notify.sh up|down
 
-# Change brightness based on argument (up or down)
-case $1 in
+set -u
+
+case "${1-}" in
     up)
-        brightnessctl set +1%
+        brightnessctl set +1% >/dev/null
         ;;
     down)
-        brightnessctl set 1%-
+        brightnessctl set 1%- >/dev/null
+        ;;
+    *)
+        exit 1
         ;;
 esac
 
-# Get current brightness percentage
-# brightnessctl -m provides a comma-separated string. We grab the 5th column and strip the '%' symbol.
-BRIGHTNESS=$(brightnessctl -m | awk -F, '{print $4}' | sed 's/%//')
+# brightnessctl -m output is CSV; field 4 is percentage (e.g. 60%).
+line="$(brightnessctl -m)"
+IFS=,
+set -- $line
+brightness="${4-0%}"
+brightness="${brightness%\%}"
 
-# Show notification using notify-send for mako
-# Sample Input: Script executed with 'up' argument, bringing brightness to 60%
-# Expected Output: A Mako notification saying "Brightness: 60%" (replacing any previous brightness popups, with a progress bar if configured)
-notify-send -a "Brightness" -h string:x-canonical-private-synchronous:brightness -h int:value:"$BRIGHTNESS" "Brightness: ${BRIGHTNESS}%"
+notify-send \
+    -a 'Brightness' \
+    -h string:x-canonical-private-synchronous:brightness \
+    -h int:value:"$brightness" \
+    "Brightness: ${brightness}%"

@@ -43,6 +43,8 @@ terraform.rc
 # Backup files from draw.io or editors
 **/*.bkp
 **/*.tmp
+**/*.zwc
+
 
 # ==========================================
 # 4. Project Specific "Oddities"

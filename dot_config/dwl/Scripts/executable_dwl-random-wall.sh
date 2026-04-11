@@ -1,22 +1,21 @@
-#!/bin/bash
-# cache_bg.sh
+#!/bin/sh
+# dwl-random-wall.sh
+# Build wallpaper cache and launch a random background image.
+# Usage: ./dwl-random-wall.sh [update]
 
-WALL_DIR="$HOME/Pictures/wallpapers"
-CACHE_FILE="$HOME/.cache/wallpaper_cache.txt"
+set -u
 
-# 1. Build the cache if missing or forced to update.
-# Follows symlinks (-L) and includes common image formats (png, jpg, jpeg).
-if [[ ! -f "$CACHE_FILE" ]] || [[ "$1" == "update" ]]; then
-    find -L "$WALL_DIR" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) > "$CACHE_FILE"
+wall_dir="$HOME/Pictures/wallpapers"
+cache_file="$HOME/.cache/wallpaper_cache.txt"
+
+if [ ! -f "$cache_file" ] || [ "${1-}" = 'update' ]; then
+    find -L "$wall_dir" -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) > "$cache_file"
 fi
 
-# 2. Pick a random image from the text file
-RANDOM_IMG=$(shuf -n 1 "$CACHE_FILE")
+random_img="$(shuf -n 1 "$cache_file" 2>/dev/null || true)"
+[ -n "$random_img" ] || exit 1
 
-# 3. Kill the old background process and set the new one quietly
-pkill swaybg
-swaybg -i "$RANDOM_IMG" -m fill &
+pkill -x swaybg >/dev/null 2>&1 || true
 
-# --- Sample Input / Output ---
-# Sample Input: ./cache_bg.sh update
-# Expected Output: (No terminal text output. The cache file updates and the wallpaper changes instantly.)
+# Final process replacement: no shell process left behind.
+exec swaybg -i "$random_img" -m fill

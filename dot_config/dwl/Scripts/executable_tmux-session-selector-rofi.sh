@@ -1,6 +1,10 @@
 #!/bin/sh
 set -eu
 
+# tmux-session-selector-rofi.sh
+# Pick/create tmux sessions using rofi (or dmenu fallback).
+# Usage: ./tmux-session-selector-rofi.sh
+
 # --- 0. WAKE UP TMUX & RESTORE SESSIONS ---
 # If no tmux server is running, boot it and force a restore
 if ! tmux has-session 2>/dev/null; then
@@ -9,7 +13,7 @@ if ! tmux has-session 2>/dev/null; then
     
     # Trigger tmux-resurrect manually. 
     # (It checks both common plugin locations: ~/.tmux or ~/.config/tmux)
-    for script in ~/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh; do
+    for script in "$HOME/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh"; do
         if [ -f "$script" ]; then
             "$script" >/dev/null 2>&1
             break
@@ -34,7 +38,7 @@ fi
 # 3. Define the UI picker (Optimized with Catppuccin Mocha)
 rofi_pick_session() {
   if command -v rofi >/dev/null 2>&1; then
-   rofi -dmenu -i -p 'tmux sessions:' -theme ~/.config/rofi/themes/KooL_Catppuccin_mocha.rasi \
+   rofi -dmenu -i -p 'tmux sessions:' -theme "$HOME/.config/rofi/themes/KooL_Catppuccin_mocha.rasi" \
          -kb-row-down "Down,Control+n,j" -kb-row-up "Up,Control+p,k"
   else
     dmenu -i -l 10 -p 'tmux sessions:'
@@ -49,7 +53,7 @@ chosen="$(printf '%b\n' "$menu_items" | rofi_pick_session)"
 is_new=0
 if [ "$chosen" = "Create new session..." ]; then
     if command -v rofi >/dev/null 2>&1; then
-        chosen="$(printf '' | rofi -dmenu -p 'New session name:' -theme ~/.config/rofi/themes/KooL_Catppuccin_mocha.rasi )"
+        chosen="$(printf '' | rofi -dmenu -p 'New session name:' -theme "$HOME/.config/rofi/themes/KooL_Catppuccin_mocha.rasi" )"
     else
         chosen="$(printf '' | dmenu -p 'New session name:')"
     fi
@@ -69,10 +73,7 @@ if [ -n "${TMUX-}" ]; then
 fi
 
 # 8. Outside Tmux: Find an existing Foot terminal to hijack
-client_tty="$(
-  tmux list-clients -F '#{client_tty} #{client_termname}' 2>/dev/null \
-  | awk '$2 ~ /^foot/ { print $1; exit }' || true
-)"
+client_tty="$(tmux list-clients -F '#{client_tty} #{client_termname}' 2>/dev/null | awk '$2 ~ /^foot/ { print $1; exit }' || true)"
 
 if [ -n "${client_tty}" ]; then
   # Switch that specific existing Foot client to the chosen session
@@ -82,4 +83,3 @@ fi
 
 # 9. Outside Tmux & No existing client: Open a fresh Foot terminal
 exec foot --title "Tmux-Main" env TERM=xterm-256color tmux attach -t "${chosen}"
-
