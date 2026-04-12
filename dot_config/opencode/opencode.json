@@ -23,25 +23,62 @@
     },
     "aws-architect": {
       "path": "agents/aws.yaml",
-      "model": "github-copilot/gpt-5.2"
+      "model": "github-copilot/gpt-5.2",
+      "skills": [
+        "caveman",
+        "aws-deploy",
+        "aws-diagram",
+        "aws-lambda"
+      ],
+      "prompt": "You are a Lead AWS Architect. Focus on High Availability, Security, and cost in INR."
     },
-  },
-  "permission": {
-    "bash": "ask",
-    "edit": "allow",
-    "infracost_*": "allow"
-  },
-  "permission": {
-    "read": {
-      "**/.env/**": "deny",
-      "**/.env.local/**": "deny",
-      "**/.env": "deny",
-      "**/.env.local": "deny",
-      "*": "allow",
-      "**/.terraform/**": "deny",
-      "*.tfstate*": "deny",
-      "*.tfvars": "deny",
-      "*.tfvars.json": "deny",
-    }
+    "mcpServers": {
+      "aws-docs": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-aws-docs"
+        ]
+      },
+      "aws-diagram": {
+        "command": "uvx",
+        "args": [
+          "mcp-server-aws-diagrams"
+        ]
+      }
+    },
+    "permission": {
+      "bash": "ask",
+      "edit": "allow",
+      "infracost_*": "allow"
+    },
+    "permission": {
+      "read": {
+        "**/.env/**": "deny",
+        "**/.env.local/**": "deny",
+        "**/.env": "deny",
+        "**/.env.local": "deny",
+        "*": "allow",
+        "**/.terraform/**": "deny",
+        "*.tfstate*": "deny",
+        "*.tfvars": "deny",
+        "*.tfvars.json": "deny",
+      }
+    },
+    //  "skills": {
+    //    "paths": [
+    //      "~/.config/opencode/skills"
+    //    ],
+    //    "auto_load": [
+    //      "caveman"
+    //    ]
+    //  },
+    //  "permission": {
+    //    "skill": {
+    //      "caveman": "allow",
+    //      "caveman-commit": "allow",
+    //      "caveman-review": "allow",
+    //      "compress": "allow"
+    //    }
+    //  }
   }
 }

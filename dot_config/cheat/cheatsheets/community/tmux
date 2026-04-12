@@ -1,6 +1,12 @@
 # To start tmux:
 tmux
 
+# Enter VI mode
+<leader> [
+
+# Exit VI mode
+q
+
 # To detach from tmux:
 Ctrl-b d
 

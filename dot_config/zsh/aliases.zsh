@@ -15,6 +15,7 @@ alias rm='rmtrash'
 alias cz='chezmoi'
 alias fk='fuck'
 # alias code='flatpak run com.vscodium.codium'
+alias tf='terraform'
 
 # Cloud/Mounts
 # alias mgd='systemctl --user start rclone-mount-gdrive && echo "✅ G-Drive Mounted"'

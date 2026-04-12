@@ -6,17 +6,17 @@ if [ -z "$GNOME_KEYRING_CONTROL" ]; then
     export GNOME_KEYRING_CONTROL
 fi
 
-# 2. Run "One-Shot" tasks normally (these don't need to stay running)
-"$HOME/.config/dwl/Scripts/dwl-random-wall.sh"
-# Delelte any binary data from the clipboard history to prevent issues with cliphist
-cliphist list | grep -F "[[binary data" | cliphist delete
+# 2. Run Background/One-Shot tasks 
+"$HOME/.config/dwl/Scripts/dwl-random-wall.sh" &
+
+# Added '|| true' so the script doesn't fail if the grep finds nothing
+cliphist list | grep -F "[[binary data" | cliphist delete || true
 
 # 3. Start daemons via systemctl
-# This triggers the .service files we created
 systemctl --user start cliphist-text.service
 systemctl --user start cliphist-image.service
 systemctl --user start hyprpolkitagent.service
 systemctl --user start wlsunset.service
 
-# 4. Your Pomodoro script (if it stays in the foreground/loops)
+# 4. Your Pomodoro script
 "$HOME/.config/dwl/Scripts/dwl-pomodoro-timer.sh" 25 5 &
