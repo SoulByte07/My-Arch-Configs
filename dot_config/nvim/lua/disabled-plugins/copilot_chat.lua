@@ -28,8 +28,8 @@ return {
       show_user_selection = false, -- Hides the UUID in user header
     },
     keys = {
-      { "<leader>cc", "<cmd>CopilotChatOpen<cr>",    desc = "Chat - Open" },
-      { "<leader>ct", "<cmd>CopilotChatToggle<cr>",  desc = "Chat - Toggle" },
+      { "<leader>ch", "<cmd>CopilotChatOpen<cr>",   desc = "Chat - Open" },
+      { "<leader>ct", "<cmd>CopilotChatToggle<cr>", desc = "Chat - Toggle" },
     },
   },
 }
