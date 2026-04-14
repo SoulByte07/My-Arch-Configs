@@ -12,7 +12,7 @@ return {
       end
 
       configs.setup({
-        ensure_installed = { "vim", "lua", "bash", "markdown", "markdown_inline", "hyprlang" },
+        ensure_installed = { "vim", "lua", "bash", "markdown", "hyprlang" },
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true },

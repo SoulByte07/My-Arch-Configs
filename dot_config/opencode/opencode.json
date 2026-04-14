@@ -3,10 +3,10 @@
   "default_agent": "assistant",
   "agent": {
     "build": {
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/GPT-5.3-Codex"
     },
     "plan": {
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/GPT-5.3-Codex"
     },
     "assistant": {
       "model": "github-copilot/gpt-5.2"
@@ -14,12 +14,12 @@
     "code-reviewer": {
       "path": "agents/code-reviewer.yaml",
       "provider": "anthropic",
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/GPT-5.3-Codex"
     },
     // New Cloud Engineering Agents
     "security-expert": {
       "path": "agents/security.yaml",
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/GPT-5.3-Codex"
     },
     "aws-architect": {
       "path": "agents/aws.yaml",
@@ -47,11 +47,6 @@
       }
     },
     "permission": {
-      "bash": "ask",
-      "edit": "allow",
-      "infracost_*": "allow"
-    },
-    "permission": {
       "read": {
         "**/.env/**": "deny",
         "**/.env.local/**": "deny",
@@ -64,21 +59,5 @@
         "*.tfvars.json": "deny",
       }
     },
-    //  "skills": {
-    //    "paths": [
-    //      "~/.config/opencode/skills"
-    //    ],
-    //    "auto_load": [
-    //      "caveman"
-    //    ]
-    //  },
-    //  "permission": {
-    //    "skill": {
-    //      "caveman": "allow",
-    //      "caveman-commit": "allow",
-    //      "caveman-review": "allow",
-    //      "compress": "allow"
-    //    }
-    //  }
   }
 }
