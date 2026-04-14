@@ -1,0 +1,9 @@
+# imv config: ~/.config/imv/config
+[binds]
+# Standard zoom controls
+<equal> = zoom 5
+<minus> = zoom -1
+
+# Actual size reset
+a = zoom actual
+

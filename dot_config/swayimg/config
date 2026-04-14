@@ -1,0 +1,3 @@
+[keys]
+# Maps the 'm' key to print the current file path to stdout
+m = print
