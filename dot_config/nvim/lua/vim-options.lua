@@ -22,12 +22,22 @@ vim.wo.relativenumber = true
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
-
 -- Enable persistent undo
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath('data') .. '/undodir'
-vim.opt.spell = true
+local undo_dir = vim.fn.stdpath('data') .. '/undodir'
+if vim.fn.isdirectory(undo_dir) == 0 then
+    vim.fn.mkdir(undo_dir, 'p')
+end
+vim.opt.undodir = undo_dir
 vim.opt.spelllang = { 'en_us' }
+vim.opt.spell = false 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "gitcommit", "text" },
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
+
 
 -- Typewriter Mode Toggle
 vim.opt.scrolloff = 999
