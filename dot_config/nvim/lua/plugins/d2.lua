@@ -1,4 +1,5 @@
 -- In your plugins/d2.lua
+
 return {
   {
     "terrastruct/d2-vim",
@@ -11,7 +12,6 @@ return {
         callback = function(event)
           local bufnr = event.buf
 
-          -- Helper function: Route output to Arch's RAM Disk (tmpfs)
           local function get_ram_output()
             return "/tmp/" .. vim.fn.expand("%:t:r") .. ".svg"
           end
@@ -23,6 +23,7 @@ return {
               local file = vim.api.nvim_buf_get_name(bufnr)
               local output = get_ram_output()
 
+              -- Format and compile silently in the background
               vim.fn.jobstart({ "d2", "fmt", file })
               vim.fn.jobstart({ "d2", file, output }) -- Writes to memory, not SSD
             end,
@@ -33,10 +34,10 @@ return {
             local file = vim.api.nvim_buf_get_name(bufnr)
             local output = get_ram_output()
 
-            -- Force a synchronous compile first
+            -- Force a synchronous compile first to ensure the file exists
             vim.fn.system({ "d2", file, output })
 
-            -- If an imv window is already open, kill it cleanly
+            -- If an imv window is already open, kill it cleanly to prevent zombies
             if imv_job_id ~= nil then
               vim.fn.jobstop(imv_job_id)
             end
@@ -48,22 +49,6 @@ return {
           end, { desc = "Start D2 Live Preview", buffer = bufnr })
         end,
       })
-    end,
-  },
-  {
-    "ravsii/tree-sitter-d2",
-    ft = "d2",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    build = "make nvim-install",
-    config = function()
-      require("nvim-treesitter.parsers").get_parser_configs().d2 = {
-        install_info = {
-          url = "https://github.com/ravsii/tree-sitter-d2",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-        filetype = "d2",
-      }
     end,
   },
 }
