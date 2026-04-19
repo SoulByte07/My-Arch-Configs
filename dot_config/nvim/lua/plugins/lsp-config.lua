@@ -14,7 +14,8 @@ return {
       vim.cmd("syntax enable")
 
       require("mason").setup()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local lsp_servers = {
         "ts_ls", "html", "lua_ls", "pyright",
