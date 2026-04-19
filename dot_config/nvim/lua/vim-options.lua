@@ -14,6 +14,22 @@ vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
 vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
+
+-- spider-horizontal movement
+vim.keymap.set({ "n", "o", "x" }, "w", function()
+	require("spider").motion("w")
+end, { desc = "Spider-w" })
+
+vim.keymap.set({ "n", "o", "x" }, "e", function()
+	require("spider").motion("e")
+end, { desc = "Spider-e" })
+
+vim.keymap.set({ "n", "o", "x" }, "b", function()
+	require("spider").motion("b")
+end, { desc = "Spider-b" })
+
+
+
 -- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear Highlights' })
 vim.wo.number = true
