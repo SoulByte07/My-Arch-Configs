@@ -20,6 +20,7 @@ require("vim-options")
 require("lazy").setup("plugins")
 
 -- Test: Force all plugins to load immediately (for testing purposes)
--- require("lazy").setup(plugins, {
---   defaults = { lazy = false }, -- This forces everything to load immediately
--- })
+-- local plugins = require("lazy.core.config").plugins
+-- for name, _ in pairs(plugins) do
+--   require("lazy").load({ plugins = name })
+-- end
