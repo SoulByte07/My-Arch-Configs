@@ -14,6 +14,10 @@ vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
 vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
+-- Comments
+vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Comment: Toggle line" })
+vim.keymap.set("v", "cc", "gc", { remap = true, desc = "Comment: Toggle selection" })
+
 
 -- spider-horizontal movement
 vim.keymap.set({ "n", "o", "x" }, "w", function()
@@ -30,13 +34,14 @@ end, { desc = "Spider-b" })
 
 
 
--- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear Highlights' })
 vim.wo.number = true
 vim.wo.relativenumber = true
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+
+
 
 -- Enable persistent undo
 vim.opt.undofile = true
@@ -53,6 +58,17 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = true
   end,
 })
+
+
+-- indentline
+vim.opt.list = true
+vim.opt.listchars = {
+  tab = "│ ",
+  multispace = " ",     
+  leadmultispace = "│   ", -- Renders the indent line for space-indented code
+  trail = " ",           -- Shows trailing spaces at end of line
+  nbsp = "␣",            -- Shows non-breaking spaces
+}
 
 
 -- Typewriter Mode Toggle

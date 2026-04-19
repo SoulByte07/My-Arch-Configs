@@ -15,6 +15,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- indent line
+vim.api.nvim_set_hl(0, "IblIndent", { fg = "#313244" }) -- A subtle grey
+vim.api.nvim_set_hl(0, "NonText", { fg = "#313244" })
+
 
 require("vim-options")
 require("lazy").setup("plugins")

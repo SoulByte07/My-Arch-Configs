@@ -1,46 +1,46 @@
 -- File: ~/.config/nvim/lua/plugins/obsidian.lua
-return {
-  "epwalsh/obsidian.nvim",
-  version = "*",
-  
-  -- This part is perfect—it keeps your Neovim fast by only loading for your vault
-  event = {
-    "BufReadPre " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault/**.md",
-    "BufNewFile " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault/**.md",
-  },
-  
-  dependencies = { 
-    "nvim-lua/plenary.nvim",
-    "hrsh7th/nvim-cmp",
-  },
-  
-  keys = {
-    { "<leader>ot", "<cmd>ObsidianToday<cr>", desc = "Obsidian: Today's Note" },
-    { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Obsidian: Search Vault" },
-    { "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "Obsidian: Open in App" },
-  },
-  
-  opts = {
-    workspaces = {
-      {
-        name = "main",
-        path = vim.fn.expand("~/4_Backups/0_Sync/Obsidian/Obsidian-Vault"),
-      },
-    },
-    
-    daily_notes = {
-      folder = "Journals/Daily",
-      date_format = "%Y-%m-%d",
-    },
-    
-    completion = {
-      nvim_cmp = true,
-      min_chars = 2,
-    },
-    
-    ui = {
-      enable = false, 
-    },
-  },
-}
 
+return {
+    "epwalsh/obsidian.nvim",
+    version = "*",  
+    lazy = true,
+    
+    event = {
+        "BufReadPre " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault",
+        "BufNewFile " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault",
+    },
+    
+    keys = {
+        { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New Obsidian Note" },
+        { "<leader>ot", "<cmd>ObsidianToday<cr>", desc = "Open Today's Note" },
+        { "<leader>oi", "<cmd>ObsidianTemplate<cr>", desc = "Insert Obsidian Template" },
+        { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian Notes" },
+        { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Obsidian: Visit/Follow Link" },
+    },
+
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    
+    opts = {
+        workspaces = {
+            {
+                name = "personal",
+                path = "~/4_Backups/0_Sync/Obsidian/Obsidian-Vault", 
+            },
+        },
+        
+        ui = {
+            enable = false, 
+        },
+
+        daily_notes = {
+            folder = "Jornals/Daily",
+            date_format = "%Y-%m-%d",
+        },
+
+        wiki_link_func = function(opts)
+            return require("obsidian.util").wiki_link_id_prefix(opts)
+        end,
+    },
+}
