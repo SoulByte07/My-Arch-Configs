@@ -81,3 +81,39 @@ c9j
 
 # comment out multiple lines in visual block mode
 b9j
+
+#Jump to next change
+]c
+
+#Jump to previous change
+[c
+
+#Preview original code in a floating window
+<leader>gp
+
+#Stage current change (hunk)
+<leader>gs
+
+#Reset/Undo current change
+<leader>gr
+
+#Toggle line blame (see who wrote the line)
+<leader>gb
+
+#Open interactive status window
+:G
+
+#Stage/Unstage file (inside :G window)
+:G -
+
+#Create a commit (inside :G window)
+cc
+
+#Push changes to remote
+:G push
+
+Pull changes from remote
+:G pull
+
+Open side-by-side diff view
+:Gdiffsplit
