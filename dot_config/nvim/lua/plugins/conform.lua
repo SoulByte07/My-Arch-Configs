@@ -1,9 +1,24 @@
--- File: lua/plugins/conform.lua
+-- File: ~/.config/nvim/lua/plugins/conform.lua
 
 return {
   'stevearc/conform.nvim',
-  event = { "BufWritePre" },
   cmd = { "ConformInfo" },
+  
+  keys = {
+    {
+      "<leader>cf",
+      function()
+        require("conform").format({ 
+          async = true, 
+          lsp_format = "fallback" 
+        })
+        print("Code Format: Conform applied! ✨")
+      end,
+      mode = "",
+      desc = "Manual Conform Format",
+    },
+  },
+  
   opts = {
     -- Set up formatters
     formatters_by_ft = {
@@ -17,11 +32,6 @@ return {
       json = { "prettier" },
       yaml = { "prettier" },
       markdown = { "prettier" },
-    },
-    -- Enable formatting on save
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_format = "fallback",
     },
   },
 }

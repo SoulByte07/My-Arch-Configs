@@ -159,12 +159,4 @@ vm() {
     sudo virsh net-start default
     virt-manager
     
-    # Optional: Cleanup after closing virt-manager
-    echo "Virt-manager closed. Shutting down services?"
-    read -p "(y/n): " choice
-    if [ "$choice" = "y" ]; then
-        sudo virsh net-destroy default
-        sudo systemctl stop libvirtd
-        echo "Environment cleaned."
-    fi
-}
+  }

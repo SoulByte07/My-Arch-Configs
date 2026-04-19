@@ -3,8 +3,10 @@
 # Description: Toggles touchpad via kernel driver unbinding.
 # Input: None (Triggered via dwl keybind)
 # Expected Output: Touchpad state toggled, notification sent to mako/swaync.
+# 1. Hardware ID (Find this with: ls /sys/bus/hid/drivers/hid-multitouch)
 
-DEV_ID="0018:06CB:CE2D.0001"
+
+DEV_ID="0018:06CB:CE2D.0003"
 DRV_PATH="/sys/bus/hid/drivers/hid-multitouch"
 NOTIF_ICON="$HOME/.config/swaync/images/ja.png"
 

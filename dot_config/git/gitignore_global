@@ -9,6 +9,7 @@
 **/*.plain
 envVault.sh
 sops-edit-*
+**/.vault_config.json
 
 # ==========================================
 # 2. Terraform & Infrastructure
@@ -51,3 +52,17 @@ terraform.rc
 # ==========================================
 # That weird file/folder in your tree
 --exclude
+
+
+
+# ==========================================
+# 5. python
+# ==========================================
+# Python bytecode and cache
+# Ignore specific files
+**/pyproject.toml
+**/uv.lock
+**/.python-version
+**/__pycache__/
+**/.venv/
+

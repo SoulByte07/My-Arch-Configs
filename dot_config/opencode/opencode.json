@@ -32,20 +32,20 @@
       ],
       "prompt": "You are a Lead AWS Architect. Focus on High Availability, Security, and cost in INR."
     },
-    "mcpServers": {
-      "aws-docs": {
-        "command": "uvx",
-        "args": [
-          "mcp-server-aws-docs"
-        ]
-      },
-      "aws-diagram": {
-        "command": "uvx",
-        "args": [
-          "mcp-server-aws-diagrams"
-        ]
-      }
-    },
+    //    "mcpServers": {
+    //      "aws-docs": {
+    //        "command": "uvx",
+    //        "args": [
+    //          "mcp-server-aws-docs"
+    //        ]
+    //      },
+    //      "aws-diagram": {
+    //        "command": "uvx",
+    //        "args": [
+    //          "mcp-server-aws-diagrams"
+    //        ]
+    //      }
+    //    },
     "permission": {
       "read": {
         "**/.env/**": "deny",

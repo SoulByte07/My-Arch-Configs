@@ -10,11 +10,12 @@ return {
     },
 
     config = function()
-      require("mason").setup()
+      -- 1. Foundation: Enable standard, lightweight Vim syntax
+      vim.cmd("syntax enable")
 
+      require("mason").setup()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- 1. Using "stylelint_lsp" to satisfy mason-lspconfig
       local lsp_servers = {
         "ts_ls", "html", "lua_ls", "pyright",
         "yamlls", "jsonls", "bashls", "dockerls",
@@ -43,30 +44,31 @@ return {
             })
           end,
 
-          -- 2. Specific Stylelint setup using the recognized name
+          -- Specific Stylelint setup
           ["stylelint_lsp"] = function()
             require("lspconfig").stylelint_lsp.setup({
               capabilities = capabilities,
               settings = {
-                autoFixOnSave = false, -- Your "Manual only" preference
+                autoFixOnSave = false, 
               },
             })
           end,
         }
       })
 
-      -- 3. Keybindings
+      -- 2. The Bridge: Link LSP semantic tokens to standard Vim highlight groups
+      vim.api.nvim_set_hl(0, "@lsp.type.variable", { link = "Identifier", default = true })
+      vim.api.nvim_set_hl(0, "@lsp.type.function", { link = "Function", default = true })
+      vim.api.nvim_set_hl(0, "@lsp.type.parameter", { link = "Identifier", default = true })
+      vim.api.nvim_set_hl(0, "@lsp.type.keyword", { link = "Keyword", default = true })
+      vim.api.nvim_set_hl(0, "@lsp.type.class", { link = "Type", default = true })
+
+      -- 3. Keybindings 
       local opts = { noremap = true, silent = true }
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
       vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-
-      -- Manual Format Trigger
-      vim.keymap.set("n", "<leader>cf", function()
-        vim.lsp.buf.format({ async = true })
-        print("Code Format: Style applied! ✨")
-      end, { desc = "Manual LSP Format" })
     end,
-  },
+  }
 }
