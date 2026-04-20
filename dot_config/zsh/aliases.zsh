@@ -108,3 +108,6 @@ alias -s ini='$EDITOR'
 #  open text files with bat
 alias -s txt=bat
 alias -s log=bat
+
+
+
