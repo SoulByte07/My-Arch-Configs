@@ -35,7 +35,7 @@ return {
         },
 
         daily_notes = {
-            folder = "Jornals/Daily",
+            folder = "Journals/Daily",
             date_format = "%Y-%m-%d",
         },
 

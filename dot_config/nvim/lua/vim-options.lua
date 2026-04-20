@@ -44,31 +44,23 @@ vim.g.loaded_ruby_provider = 0
 
 
 -- Enable persistent undo
-vim.opt.undofile = true
-local undo_dir = vim.fn.stdpath('data') .. '/undodir'
-if vim.fn.isdirectory(undo_dir) == 0 then
-    vim.fn.mkdir(undo_dir, 'p')
+local undodir = vim.fn.expand("~/.local/share/nvim/undo//")
+if vim.fn.isdirectory(undodir) == 0 then
+    vim.fn.mkdir(undodir, "p")
 end
-vim.opt.undodir = undo_dir
-vim.opt.spelllang = { 'en_us' }
-vim.opt.spell = false 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "gitcommit", "text" },
-  callback = function()
-    vim.opt_local.spell = true
-  end,
-})
+vim.opt.undodir = undodir
+vim.opt.undofile = true
 
 
 -- indentline
-vim.opt.list = true
-vim.opt.listchars = {
-  tab = "│ ",
-  multispace = " ",     
-  leadmultispace = "│   ", -- Renders the indent line for space-indented code
-  trail = " ",           -- Shows trailing spaces at end of line
-  nbsp = "␣",            -- Shows non-breaking spaces
-}
+-- vim.opt.list = true
+-- vim.opt.listchars = {
+--   tab = "│ ",
+--   multispace = " ",     
+--   leadmultispace = "│   ", -- Renders the indent line for space-indented code
+--   trail = " ",           -- Shows trailing spaces at end of line
+--   nbsp = "␣",            -- Shows non-breaking spaces
+-- }
 
 
 -- Typewriter Mode Toggle
