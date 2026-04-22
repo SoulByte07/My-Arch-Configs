@@ -15,8 +15,8 @@ vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
 -- Comments
-vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Comment: Toggle line" })
-vim.keymap.set("v", "cc", "gc", { remap = true, desc = "Comment: Toggle selection" })
+-- vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Comment: Toggle line" })
+-- vim.keymap.set("v", "cc", "gc", { remap = true, desc = "Comment: Toggle selection" })
 
 
 -- spider-horizontal movement

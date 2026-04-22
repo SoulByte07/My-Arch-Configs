@@ -1,24 +1,20 @@
 #!/bin/sh
 # Script Name: toggle_touchpad.sh
-# Description: Toggles touchpad via kernel driver unbinding.
+# Description: Toggles touchpad via passwordless root helper.
 # Input: None (Triggered via dwl keybind)
-# Expected Output: Touchpad state toggled, notification sent to mako/swaync.
-# 1. Hardware ID (Find this with: ls /sys/bus/hid/drivers/hid-multitouch)
+# Expected Output: Touchpad state toggled, notification sent to swaync.
 
-
-DEV_ID="0018:06CB:CE2D.0003"
+DEV_ID="0018:06CB:CE2D.0001"
 DRV_PATH="/sys/bus/hid/drivers/hid-multitouch"
 NOTIF_ICON="$HOME/.config/swaync/images/ja.png"
 
-# Optimization: Check directly with POSIX [ -e ]
+# Check directly with POSIX [ -e ]
 if [ -e "$DRV_PATH/$DEV_ID" ]; then
-    # Action: Disable
-    # Optimization: Use 'sudo sh -c' to handle the redirect natively. 
-    # This removes the need to spawn the 'tee' utility.
-    sudo sh -c "echo '$DEV_ID' > '$DRV_PATH/unbind'"
+    # Action: Disable using the passwordless helper
+    sudo /usr/local/bin/touchpad_hw_toggle unbind
     notify-send -u low -i "$NOTIF_ICON" "Touchpad" "Disabled"
 else
-    # Action: Enable
-    sudo sh -c "echo '$DEV_ID' > '$DRV_PATH/bind'"
+    # Action: Enable using the passwordless helper
+    sudo /usr/local/bin/touchpad_hw_toggle bind
     notify-send -u low -i "$NOTIF_ICON" "Touchpad" "Enabled"
 fi
