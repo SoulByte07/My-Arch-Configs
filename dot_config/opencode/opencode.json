@@ -14,7 +14,10 @@
     "code-reviewer": {
       "path": "agents/code-reviewer.yaml",
       "provider": "anthropic",
-      "model": "github-copilot/GPT-5.3-Codex"
+      "model": "github-copilot/GPT-5.3-Codex",
+      "skills": [
+        "gen-doc",
+      ]
     },
     // New Cloud Engineering Agents
     "security-expert": {
