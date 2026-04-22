@@ -67,9 +67,6 @@ alias pdf='zathura'
 # chmod 
 alias cx='chmod +x'
 
-# tmux
-alias t='tmux'
-
 
 # clear 
 alias cl='clear'

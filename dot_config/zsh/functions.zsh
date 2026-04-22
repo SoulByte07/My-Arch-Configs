@@ -159,4 +159,15 @@ vm() {
     sudo virsh net-start default
     virt-manager
     
-  }
+}
+
+
+
+# Tmux
+tm() {
+  if [ "$#" -eq 0 ]; then
+    tmux new-session -c "$HOME"
+  else
+    tmux "$@"
+  fi
+}
