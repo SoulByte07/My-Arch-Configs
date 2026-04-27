@@ -1,4 +1,4 @@
-# Navigation & Editor
+
 alias v='nvim'
 alias fs='yazi'
 alias ..='cd ..'
@@ -107,4 +107,10 @@ alias -s txt=bat
 alias -s log=bat
 
 
+# Podman
+alias pd='podman'
+alias docker='podman'
+alias pdc='podman-compose'
 
+# Tmux 
+alias t='/home/soul/.config/tmux/scripts/start-tmux-home.sh'

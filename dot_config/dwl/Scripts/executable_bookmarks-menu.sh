@@ -19,6 +19,8 @@ fi
 
 chromium_bin="$(command -v chromium 2>/dev/null || printf '%s\n' chromium)"
 
+helium_bin="$(command -v helium-browser 2>/dev/null || printf '%s\n' helium-browser)"
+
 rofi_pick() {
     rofi -dmenu -i -theme "$rofi_theme" -p "$1"
 }
@@ -123,6 +125,9 @@ open_browser() {
             ;;
         Chromium)
             setsid "$chromium_bin" "$url" >/dev/null 2>&1 &
+            ;;
+        Helium)
+            setsid "$helium_bin" "$url" >/dev/null 2>&1 &
             ;;
         *)
             if [ "$has_flatpak" -eq 1 ]; then

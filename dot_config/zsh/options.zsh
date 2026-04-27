@@ -32,6 +32,18 @@ setopt INC_APPEND_HISTORY        # Save immediately
 # zmodload zsh/complist
 
 
+# Auto start 
+# Tmux
+# Only starts tmux if:
+# 1. We aren't already in a tmux session
+# 2. The terminal is interactive
+# 3. Tmux is actually installed
+# if [[ -z "$TMUX" && $- == *i* ]]; then
+#     # Try to attach to a session named 'main', or create it if it doesn't exist
+#     tmux attach-session -t main 2>/dev/null || tmux new-session -s main
+# fi
+
+
 
 # --- RAM-Optimized Completion Initialization ---
 

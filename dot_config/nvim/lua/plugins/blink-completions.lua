@@ -9,6 +9,15 @@ return {
       'rafamadriz/friendly-snippets',
       'L3MON4D3/LuaSnip', 
     },
+    config = function(_, opts)
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      require("luasnip.loaders.from_vscode").load({ 
+        paths = { vim.fn.stdpath("config") .. "/snippets" } 
+      })     
+
+      require('blink.cmp').setup(opts)
+    end,
 
     opts = {
       keymap = { 

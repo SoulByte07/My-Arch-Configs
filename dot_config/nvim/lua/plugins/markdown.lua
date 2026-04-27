@@ -10,9 +10,9 @@ return {
                     require('nvim-treesitter').setup({
                         ensure_installed = { "markdown", "markdown_inline" },
                         
-                        highlight = { enable = false }, 
+                        highlight = { enable =  true}, 
                         
-                        indent = { enable = false },
+                        indent = { enable =  true},
                     })
                 end
             }, 

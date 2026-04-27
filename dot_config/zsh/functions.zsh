@@ -164,10 +164,51 @@ vm() {
 
 
 # Tmux
-tm() {
+th() {
   if [ "$#" -eq 0 ]; then
     tmux new-session -c "$HOME"
   else
     tmux "$@"
   fi
 }
+
+
+# pacman install func with fzf 
+pfi() {
+    # 1. Lists all available packages quietly using the local database (No dangerous syncing).
+    # 2. Pipes into 'tv' (Television) for blazing-fast fuzzy finding.
+    # 3. Uses {0} to pass the highlighted package name into the preview command.
+    # 4. Passes your final selection to pacman for installation.
+    tv -s "pacman -Slq" --preview-command "pacman -Si {}" | xargs -ro sudo pacman -S --needed
+}
+
+
+yfi() {
+    tv -s "pacman -Slq; curl -sL https://aur.archlinux.org/packages.gz | zcat" --preview-command "paru -Si {}" | xargs -ro paru -S --needed
+}
+
+ffi() {
+  tv -s "flatpak remote-ls --app --columns=application" --preview-command "flatpak remote-info flathub {}" | xargs -ro flatpak install -y
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
