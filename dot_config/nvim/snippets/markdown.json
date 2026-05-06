@@ -1,0 +1,33 @@
+{
+  "Markdown Frontmatter": {
+    "prefix": "meta",
+    "body": [
+      "--- ",
+      "tags: ",
+      "    - ${1}",
+      "---"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ],
+    "description": "Add YAML frontmatter tags"
+  }
+}

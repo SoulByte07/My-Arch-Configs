@@ -1,27 +1,19 @@
 return {
     {
         'MeanderingProgrammer/render-markdown.nvim',
+        ft = { 'markdown' },
+        cmd = { 'RenderMarkdown' },
         dependencies = { 
-            { 
-                'nvim-treesitter/nvim-treesitter', 
-                branch = 'master',
-                build = ':TSUpdate', 
-                config = function()
-                    require('nvim-treesitter').setup({
-                        ensure_installed = { "markdown", "markdown_inline" },
-                        
-                        highlight = { enable =  true}, 
-                        
-                        indent = { enable =  true},
-                    })
-                end
-            }, 
+            'nvim-treesitter/nvim-treesitter', 
             'nvim-tree/nvim-web-devicons' 
         },
         opts = {
             anti_conceal = { enabled = true },
             enabled = true,
             file_types = { 'markdown' },
+            html = { enabled = false },
+            latex = { enabled = false },
+            yaml = { enabled = false },
             heading = {
                 sign = true,
                 icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },

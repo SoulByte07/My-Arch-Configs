@@ -1,0 +1,11 @@
+{
+  "Log Message": {
+    "prefix": "log",
+    "body": [
+      "print(\"--- DEBUG: ${1:Label} ---\")",
+      "print(${1:Label})",
+      "$0"
+    ],
+    "description": "Quick debug print with a label"
+  }
+}
