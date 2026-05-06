@@ -1,46 +1,66 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-vim.cmd("syntax enable")
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+
 vim.g.mapleader = " "
 vim.g.background = "light"
 
 vim.opt.swapfile = false
 
--- Navigate vim panes better
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
-
--- Comments
--- vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Comment: Toggle line" })
--- vim.keymap.set("v", "cc", "gc", { remap = true, desc = "Comment: Toggle selection" })
+-- Remap 'e' to go to the end of the line in Normal and Visual modes
+vim.keymap.set({ 'n', 'x' }, 'e', '$', { noremap = true, silent = true, desc = "Go to end of line" })
+vim.keymap.set({ 'v', 'x' }, 'e', '$', { noremap = true, silent = true, desc = "Go to end of line" })
 
 
--- spider-horizontal movement
-vim.keymap.set({ "n", "o", "x" }, "w", function()
-	require("spider").motion("w")
-end, { desc = "Spider-w" })
-
-vim.keymap.set({ "n", "o", "x" }, "e", function()
-	require("spider").motion("e")
-end, { desc = "Spider-e" })
-
-vim.keymap.set({ "n", "o", "x" }, "b", function()
-	require("spider").motion("b")
-end, { desc = "Spider-b" })
-
-
-
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear Highlights' })
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
 
+
+-- primagen
+vim.opt.smartindent = true
+vim.opt.wrap = false
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+-- Native Neovim 0.10 Commenting
+vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Toggle Comment" })
+vim.keymap.set("v", "cc", "gc", { remap = true, desc = "Toggle Comment" })
+
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+
+-- filetype detection for certain filetypes
+local ft_fix_group = vim.api.nvim_create_augroup("EfficientFTFix", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    group = ft_fix_group,
+    callback = function()
+        if vim.bo.filetype == "" and vim.fn.expand("%") ~= "" then
+            vim.cmd("filetype detect")
+        end
+    end,
+})
 
 
 -- Enable persistent undo
@@ -52,19 +72,9 @@ vim.opt.undodir = undodir
 vim.opt.undofile = true
 
 
--- indentline
--- vim.opt.list = true
--- vim.opt.listchars = {
---   tab = "│ ",
---   multispace = " ",     
---   leadmultispace = "│   ", -- Renders the indent line for space-indented code
---   trail = " ",           -- Shows trailing spaces at end of line
---   nbsp = "␣",            -- Shows non-breaking spaces
--- }
-
-
 -- Typewriter Mode Toggle
 vim.opt.scrolloff = 999
+
 
 -- Remap Visual Block Mode to Leader + v
 vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
@@ -75,7 +85,7 @@ vim.opt.smartcase = true  -- Switch to case-sensitive if I type a Capital letter
 
 -- noice.lua
 vim.opt.showcmd = true            -- Enable showing keystrokes
-vim.opt.showcmdloc = "statusline" -- Crucial: Route them to the statusline
+vim.opt.showcmdloc = "statusline"
 
 -- Buffer line
 vim.opt.winbar = " "
@@ -96,3 +106,13 @@ end
 
 -- Shada file settings
 vim.opt.shada = "!,'100,<50,s10,h"
+
+-- YAML LSP warnings for specific filetypes
+vim.filetype.add({
+  pattern = {
+    ["docker-compose%.yml"] = "yaml.docker-compose",
+    ["docker-compose%.yaml"] = "yaml.docker-compose",
+    ["gitlab-ci%.yml"] = "yaml.gitlab",
+    ["values%.yaml"] = "yaml.helm-values",
+  },
+})

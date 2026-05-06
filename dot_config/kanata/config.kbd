@@ -1,0 +1,44 @@
+;; Kanata configuration for Soul
+;; Replicating keyd functionality for Arch-Hyprland
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defvar
+  tap-timeout 200
+  hold-timeout 200
+  one-shot-timeout 2000
+)
+
+(defsrc
+  caps lctl lalt lsft
+  h j k l w b 0 e u d x
+)
+
+(defalias
+  ;; Tap: Esc | Hold: Vim Layer
+  vml (tap-hold $tap-timeout $hold-timeout esc (layer-toggle vim_mode))
+  
+  ;; Tap: CapsLock | Hold: Left Alt
+  cta (tap-hold $tap-timeout $hold-timeout caps lalt)
+
+  ;; One-shot Shift: Tap for next key, hold for normal shift
+  oss (one-shot $one-shot-timeout lsft)
+)
+
+(deflayer default
+  @vml @cta rctl @oss
+  h j k l w b 0 e u d x
+)
+
+(deflayer vim_mode
+  _    _    _    _
+  left down up right C-right C-left home end pgup pgdn del
+)
+
+;; Sample Input: Hold 'Caps Lock' and tap 'h'
+;; Expected Output: Left Arrow key movement
+
+;; Sample Input: Tap 'Left Ctrl'
+;; Expected Output: Caps Lock toggles

@@ -2,7 +2,6 @@ return {
   {
     "tpope/vim-fugitive",
     cmd = { "G", "Git" },
-    event = {'BufReadPre', 'BufNewFile', 'VeryLazy'},
     config = function()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "fugitive",

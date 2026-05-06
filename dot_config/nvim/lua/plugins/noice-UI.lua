@@ -18,12 +18,19 @@ return {
     require("noice").setup({
       cmdline = {
         view = "cmdline_popup",
-        opts = { position = { row = "10%", col = "50%" } },
+        opts = { position = { row = "20%", col = "50%" } },
       },
       presets = {
         bottom_search = false,
         command_palette = true,
         long_message_to_split = true,
+      },
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
       },
     })
   end

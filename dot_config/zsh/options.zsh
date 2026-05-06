@@ -1,5 +1,6 @@
-# --- 1. History Configuration ---
-# Remove non-existent directories from fpath to speed up compinit
+# ==========================================
+# 1. History Configuration
+# ==========================================
 fpath=($^fpath(N-/))
 HISTSIZE=50000
 SAVEHIST=50000
@@ -12,46 +13,12 @@ setopt HIST_IGNORE_SPACE         # Don't log commands starting with space
 setopt HIST_REDUCE_BLANKS        # Clean up whitespace 
 setopt INC_APPEND_HISTORY        # Save immediately 
 
-# --- 2. Completion System Setup ---
-# Initialize completion system 
-# autoload -Uz compinit && compinit -i
-# zmodload zsh/complist
-
-
-# autoload -Uz compinit
-#
-# # Check if the cache file is older than 24 hours (.m-1)
-# if [[ -n ${ZDOTDIR}/.zcompdump(#qN.m-1) ]]; then
-#   # -C skips the security check for maximum speed (uses cache)
-#   compinit -C -d "$ZDOTDIR/.zcompdump"
-# else
-#   # Regenerate cache (runs once a day)
-#   compinit -i -d "$ZDOTDIR/.zcompdump"
-# fi
-#
-# zmodload zsh/complist
-
-
-# Auto start 
-# Tmux
-# Only starts tmux if:
-# 1. We aren't already in a tmux session
-# 2. The terminal is interactive
-# 3. Tmux is actually installed
-# if [[ -z "$TMUX" && $- == *i* ]]; then
-#     # Try to attach to a session named 'main', or create it if it doesn't exist
-#     tmux attach-session -t main 2>/dev/null || tmux new-session -s main
-# fi
-
-
-
-# --- RAM-Optimized Completion Initialization ---
-
-# 1. Define the dump file path in RAM
-# Falls back to /tmp if XDG_RUNTIME_DIR isn't set
+# ==========================================
+# 2. RAM-Optimized Completion Setup
+# ==========================================
+# Define the dump file path in RAM (Falls back to /tmp)
 local ZDUMP="${XDG_RUNTIME_DIR:-/tmp}/.zcompdump-$HOST-$ZSH_VERSION"
 
-# 2. Advanced compinit logic
 autoload -Uz compinit
 
 # Check if the RAM-based cache exists and is fresh
@@ -61,59 +28,88 @@ if [[ -n "$ZDUMP"(#qN.m-1) ]]; then
 else
   # First time in this boot session: Generate the cache in RAM
   compinit -i -d "$ZDUMP"
-  # Byte-compile the RAM file for even faster internal parsing
   zcompile "$ZDUMP"
 fi
 
-# 3. Load complist
 zmodload zsh/complist
 
+# Persistent completion cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
 
+# ==========================================
+# 3. FZF Global Theme (Catppuccin Mocha)
+# ==========================================
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--pointer='▌' --prompt='❯ ' --marker='✔ '"
 
+# ==========================================
+# 4. fzf-tab Core Behavior & Visuals
+# ==========================================
+# Hide default zsh menu so fzf-tab can capture it
+zstyle ':completion:*' menu no
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format '[%d]'
 
+# Enable Tmux Popup and force the Catppuccin theme
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
+# Add rounded border, custom pointer, and correct padding for borders
+zstyle ':fzf-tab:*' fzf-flags --border=rounded --pointer='▌'
+zstyle ':fzf-tab:*' fzf-pad 4
 
+# Preview directory's content with eza/lsd/ls when completing cd
+# Optimized: use (( $+commands[eza] )) for faster check
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'if (( $+commands[eza] )); then eza -1 --color=always $realpath; else ls -1 --color=always $realpath; fi'
 
-# --- 3. Completion Behavior & Visuals ---
-# Note: zsh-autocomplete handles most completion behavior automatically
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive 
-zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'   # Use LS_COLORS 
+# Switch group using `[` and `]`
+zstyle ':fzf-tab:*' switch-group '[' ']'
 
-# Delay the autocomplete popup slightly (prevents it from firing on every single tap)
-zstyle ':autocomplete:*' delay 0.3  # seconds
+# ==========================================
+# 5. fzf-tab Command Previews
+# ==========================================
+# Environment variables
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
 
-# Only show the menu when you actually want it
-zstyle ':autocomplete:*' min-input 2
+# Kill command (process preview)
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags --preview-window=down:3:wrap
 
-# Disable 'list-choices' for every keystroke to save CPU cycles
-zstyle ':completion:*' menu select
+# Systemctl (status preview)
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'systemctl status $word'
 
+# Help / Man
+zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
+zstyle ':fzf-tab:complete:(\\|)man:*' fzf-preview 'man $word'
 
-# --- 5. Keybindings ---
-# Vi-style navigation inside the menu 
-bindkey -M menuselect 'h' vi-backward-char 
-bindkey -M menuselect 'j' vi-down-line-or-history 
-bindkey -M menuselect 'k' vi-up-line-or-history 
-bindkey -M menuselect 'l' vi-forward-char 
+# Git (show diff/log)
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta || git diff $word'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
 
+# ==========================================
+# 6. Formatting & Performance Optimization
+# ==========================================
+# Catppuccin Mocha colors for headers
+zstyle ':completion:*:descriptions' format $'\e[01;35m[%d]\e[0m'
+zstyle ':fzf-tab:*' group-colors \
+    $'\e[31m' $'\e[32m' $'\e[33m' $'\e[34m' $'\e[35m' $'\e[36m'
 
-# Menu controls 
-bindkey -M menuselect '^[[Z' reverse-menu-complete  # Shift+Tab 
-bindkey -M menuselect '^M' accept-mode               # Enter to select 
-bindkey -M menuselect '^I' menu-complete             # Tab
-
-# Autosuggestion accept (Ctrl+E)
-bindkey '^E' autosuggest-accept
-
-# Edit Command Buffer
-# Open the current command in your $EDITOR (e.g., neovim)
-# Press Ctrl+X followed by Ctrl+E to trigger
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey '^X' edit-command-line
-
-
-# # use hashmap to speed up command lookup
-# setopt HASH_CMDS
-# # Don't check the path every time - use the hash table
-# unsetopt REHASH
+# Use hashmap to speed up command lookup 
+setopt HASH_CMDS

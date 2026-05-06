@@ -1,75 +1,109 @@
--- File: ~/.config/nvim/lua/plugins/lsp.lua
+-- File: ~/.config/nvim/lua/plugins/lsp-config.lua
 
 return {
-  {
-    "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = {
+			{
+				"williamboman/mason.nvim",
+				opts = {
+					ensure_installed = {
+						"stylua",
+						"prettier",
+					},
+				},
+				config = function(_, opts)
+					require("mason").setup(opts)
+				end,
+			},
+			"williamboman/mason-lspconfig.nvim",
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local lspconfig = require("lspconfig")
 
-    config = function()
-      -- 1. Foundation: Enable standard, lightweight Vim syntax
-      vim.cmd("syntax enable")
+			-- Initialize Mason-LSPConfig (Mason itself is initialized in dependencies)
+			require("mason-lspconfig").setup({
+				ensure_installed = { "ts_ls", "html", "lua_ls", "pyright" },
+				automatic_installation = true,
+				handlers = {
+					function(server_name)
+						lspconfig[server_name].setup({
+							capabilities = capabilities,
+						})
+					end,
+					["lua_ls"] = function()
+						lspconfig.lua_ls.setup({
+							capabilities = capabilities,
+							settings = {
+								Lua = {
+									diagnostics = {
+										globals = { "vim" },
+									},
+								},
+							},
+						})
+					end,
+				},
+			})
 
-      require("mason").setup()
-      -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+			-- ==========================================
+			-- Diagnostic UI Configuration (Clean Default)
+			-- ==========================================
 
-      local lsp_servers = {
-        "ts_ls", "html", "lua_ls", "pyright",
-        "yamlls", "jsonls", "bashls", "dockerls",
-        "stylelint_lsp",
-      }
+			-- Define icons for use during toggle
+			local diagnostic_icons = {
+				[vim.diagnostic.severity.ERROR] = "✖",
+				[vim.diagnostic.severity.WARN] = "⚠",
+				[vim.diagnostic.severity.HINT] = "💡",
+				[vim.diagnostic.severity.INFO] = "ⓘ",
+			}
 
-      require("mason-lspconfig").setup({
-        ensure_installed = lsp_servers,
-        automatic_installation = true,
+			vim.diagnostic.config({
+				virtual_text = false,
+				signs = false, -- Start with logos hidden for a clean screen
+				underline = false, -- Start with underlines hidden
+				update_in_insert = false,
+				severity_sort = true,
+				float = {
+					border = "rounded",
+					source = "always",
+					header = "",
+					prefix = "",
+				},
+			})
 
-        handlers = {
-          -- Default handler
-          function(server_name)
-            require("lspconfig")[server_name].setup({
-              capabilities = capabilities,
-            })
-          end,
+			-- 3. The Keybinding
+			local opts = { noremap = true, silent = true }
+			local diag_enabled = false
 
-          -- Specific Lua setup
-          ["lua_ls"] = function()
-            require("lspconfig").lua_ls.setup({
-              capabilities = capabilities,
-              settings = {
-                Lua = { diagnostics = { globals = { "vim" } } },
-              },
-            })
-          end,
+			-- Toggle diagnostics and open float on 'gl'
+			vim.keymap.set("n", "gl", function()
+				diag_enabled = not diag_enabled
+				vim.diagnostic.config({
+					signs = diag_enabled and { text = diagnostic_icons } or false,
+					underline = diag_enabled,
+				})
 
-          -- Specific Stylelint setup
-          ["stylelint_lsp"] = function()
-            require("lspconfig").stylelint_lsp.setup({
-              capabilities = capabilities,
-              settings = {
-                autoFixOnSave = false, 
-              },
-            })
-          end,
-        }
-      })
+				if diag_enabled then
+					vim.diagnostic.show(nil, 0) -- Force redraw for current buffer
+					vim.diagnostic.open_float({
+						border = "rounded",
+						source = "always",
+						scope = "line",
+					})
+				else
+					vim.diagnostic.hide(nil, 0) -- Force hide for current buffer
+				end
+			end, opts)
 
-      -- 2. The Bridge: Link LSP semantic tokens to standard Vim highlight groups
-      vim.api.nvim_set_hl(0, "@lsp.type.variable", { link = "Identifier", default = true })
-      vim.api.nvim_set_hl(0, "@lsp.type.function", { link = "Function", default = true })
-      vim.api.nvim_set_hl(0, "@lsp.type.parameter", { link = "Identifier", default = true })
-      vim.api.nvim_set_hl(0, "@lsp.type.keyword", { link = "Keyword", default = true })
-      vim.api.nvim_set_hl(0, "@lsp.type.class", { link = "Type", default = true })
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
-      -- 3. Keybindings 
-      local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-      vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    end,
-  }
+		end,
+	},
 }

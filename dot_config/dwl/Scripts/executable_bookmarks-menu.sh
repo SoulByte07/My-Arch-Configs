@@ -21,6 +21,8 @@ chromium_bin="$(command -v chromium 2>/dev/null || printf '%s\n' chromium)"
 
 helium_bin="$(command -v helium-browser 2>/dev/null || printf '%s\n' helium-browser)"
 
+brave_origin="$(command -v brave-origin-nightly 2>/dev/null || printf '%s\n' brave-origin-nightly)"
+
 rofi_pick() {
     rofi -dmenu -i -theme "$rofi_theme" -p "$1"
 }
@@ -72,7 +74,7 @@ work"
     tag="$(printf '%b\n' "$existing_tags" | rofi_pick 'Assign Folder:' || true)"
     [ -n "$tag" ] || exit 0
 
-    browser="$(printf '%s\n' 'Librewolf' 'Brave' 'Chromium' | rofi_pick 'Select Browser:' || true)"
+    browser="$(printf '%s\n' 'Librewolf' 'Brave' 'Chromium' 'Helium' 'Brave-Origin' | rofi_pick 'Select Browser:' || true)"
     [ -n "$browser" ] || exit 0
 
     mkdir -p "$bm_dir/$tag"
@@ -128,6 +130,9 @@ open_browser() {
             ;;
         Helium)
             setsid "$helium_bin" "$url" >/dev/null 2>&1 &
+            ;;
+        Brave-Origin)
+            setsid "$brave_origin" "$url" >/dev/null 2>&1 &
             ;;
         *)
             if [ "$has_flatpak" -eq 1 ]; then

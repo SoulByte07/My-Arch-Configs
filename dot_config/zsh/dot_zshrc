@@ -1,11 +1,5 @@
 # ~/.config/zsh/.zshrc
 
-# For loggin
-# Start high-resolution logging
-# PS4=$'[$(date "+%s:%N")] '
-# exec 3>&2 2>/tmp/zsh_trace.log
-# set -x
-
 # 1. P10k Instant Prompt (MUST BE AT TOP)
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -16,16 +10,9 @@ source "$ZDOTDIR/options.zsh"
 source "$ZDOTDIR/aliases.zsh"
 source "$ZDOTDIR/functions.zsh"
 
-# 3. Tool Initializations (FZF, Zoxide, TheFuck)
-# source <(fzf --zsh)
-# eval "$(zoxide init zsh --cmd cd)"
-# eval "$(thefuck --alias)"
-
+# 3. Tool Initializations (Cached for speed)
 ZSH_TOOL_CACHE="$HOME/.cache/zsh/tools"
 mkdir -p "$ZSH_TOOL_CACHE"
-
-# Input: Terminal starts
-# Expected Output: Reads static files instead of running 3 external binaries
 
 # FZF Cache
 [[ ! -f "$ZSH_TOOL_CACHE/fzf.zsh" ]] && fzf --zsh > "$ZSH_TOOL_CACHE/fzf.zsh"
@@ -35,37 +22,25 @@ source "$ZSH_TOOL_CACHE/fzf.zsh"
 [[ ! -f "$ZSH_TOOL_CACHE/zoxide.zsh" ]] && zoxide init zsh --cmd cd > "$ZSH_TOOL_CACHE/zoxide.zsh"
 source "$ZSH_TOOL_CACHE/zoxide.zsh"
 
-# TheFuck Cache
-# [[ ! -f "$ZSH_TOOL_CACHE/thefuck.zsh" ]] && thefuck --alias > "$ZSH_TOOL_CACHE/thefuck.zsh"
-# source "$ZSH_TOOL_CACHE/thefuck.zsh"
+# Lazy-loaded TheFuck
 fuck() {
     unfunction fuck
     eval "$(thefuck --alias)"
     fuck "$@"
 }
 
-
-
-
-
 source "$ZDOTDIR/plugins.zsh"
 
-# 4. Kitty Integration (Path check for Fedora/Arch)
-# [[ -f /usr/lib/kitty/shell-integration/zsh/kitty.zsh ]] && source /usr/lib/kitty/shell-integration/zsh/kitty.zsh
-
-# 5. Theme & Overrides (MUST BE AT BOTTOM)
+# 4. Theme & Overrides (MUST BE AT BOTTOM)
 # Check Arch or Fedora paths for P10k
-[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
+if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 [[ ! -f "$ZDOTDIR/p10k.zsh" ]] || source "$ZDOTDIR/p10k.zsh"
 
-
-
-
-# 6. Background Auto-Compilation (Refined)
+# 5. Background Auto-Compilation (Asynchronous via zsh-defer)
 function _zcompile_async() {
-    # Specifically target your modular files 
     local files=(
         "$ZDOTDIR/.zshrc"
         "$ZDOTDIR/.zshenv"
@@ -74,20 +49,14 @@ function _zcompile_async() {
         "$ZDOTDIR/functions.zsh"
         "$ZDOTDIR/plugins.zsh"
         "$ZDOTDIR/p10k.zsh"
-        /home/soul/.cache/zsh/tools/fzf.zsh
-        /home/soul/.cache/zsh/tools/zoxide.zsh
+        "$ZSH_TOOL_CACHE/fzf.zsh"
+        "$ZSH_TOOL_CACHE/zoxide.zsh"
     )
     
     for f in "${files[@]}"; do
         if [[ -f "$f" && "$f" -nt "${f}.zwc" ]]; then
-            # Use 'zsh -c' to ensure the compilation has its own process life
             (zcompile "$f") &! 
         fi
     done
 }
-_zcompile_async
-
-
-# For logging
-# set +x
-# exec 2>&3 3>&-
+zsh-defer _zcompile_async

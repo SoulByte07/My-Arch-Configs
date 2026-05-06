@@ -1,6 +1,4 @@
 -- File: lua/plugins/visits.lua
--- Sample Input: Press <leader>a on an active buffer.
--- Expected Output: Notifies "File Marked: 1/5 (Slot 1)" or "Harpoon Full..."
 
 return {
   "nvim-mini/mini.visits",
