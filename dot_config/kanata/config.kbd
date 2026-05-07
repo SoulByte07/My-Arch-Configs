@@ -12,7 +12,7 @@
 )
 
 (defsrc
-  caps lctl lalt lsft
+  caps lctl lalt lsft ralt lmet rctl
   h j k l w b 0 e u d x
 )
 
@@ -25,15 +25,21 @@
 
   ;; One-shot Shift: Tap for next key, hold for normal shift
   oss (one-shot $one-shot-timeout lsft)
+
+  ;; New One-shot modifiers
+  oct (one-shot $one-shot-timeout rctl)
+  oal (one-shot $one-shot-timeout lalt)
+  ora (one-shot $one-shot-timeout ralt)
+  osr (one-shot $one-shot-timeout lmet)
 )
 
 (deflayer default
-  @vml @cta rctl @oss
+  @vml @cta @oct @oss @oal @osr @ora
   h j k l w b 0 e u d x
 )
 
 (deflayer vim_mode
-  _    _    _    _
+  _    _    _    _    _    _    _
   left down up right C-right C-left home end pgup pgdn del
 )
 
