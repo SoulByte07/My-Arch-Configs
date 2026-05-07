@@ -117,3 +117,15 @@ Pull changes from remote
 
 Open side-by-side diff view
 :Gdiffsplit
+
+# Add surroundings, Ex: ysiw" | word | "word"
+ys{motion}{char}
+
+# Delete surroundings, Ex: ds" | "word" | word
+ds{char}
+
+# Change surroundings, Ex: cs"' | "word" | 'word'
+cs{target}{new}
+
+# Surround current line, Ex: yss) | hello | (hello)
+yss{char}
