@@ -54,8 +54,12 @@ zstyle ':completion:*' menu no
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:descriptions' format '[%d]'
 
-# Enable Tmux Popup and force the Catppuccin theme
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# Enable Tmux Popup only if inside a Tmux session
+if [[ -n "$TMUX" ]]; then
+    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+else
+    zstyle ':fzf-tab:*' fzf-command fzf
+fi
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # Add rounded border, custom pointer, and correct padding for borders
@@ -81,7 +85,10 @@ zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags --preview-window=down:3:wrap
 
 # Systemctl (status preview)
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'systemctl status $word'
+# Check if systemctl exists and is usable (not in a container without systemd)
+if (( $+commands[systemctl] )); then
+    zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'systemctl status $word 2>/dev/null'
+fi
 
 # Help / Man
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'

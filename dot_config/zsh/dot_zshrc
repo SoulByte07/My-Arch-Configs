@@ -32,9 +32,13 @@ fuck() {
 source "$ZDOTDIR/plugins.zsh"
 
 # 4. Theme & Overrides (MUST BE AT BOTTOM)
-# Check Arch or Fedora paths for P10k
+# Support Arch, Artix, and Alpine paths for P10k
 if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
     source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /usr/share/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    source /usr/share/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
+     source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 fi
 
 [[ ! -f "$ZDOTDIR/p10k.zsh" ]] || source "$ZDOTDIR/p10k.zsh"

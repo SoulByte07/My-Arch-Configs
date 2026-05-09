@@ -9,7 +9,13 @@ alias ....='cd ../../..'
 alias l='eza --color=always --long --git --icons=always --no-filesize --no-time --no-user --no-permissions'
 alias ll='eza --color=always --long --git --icons=always'
 alias la='eza --color=always --all --icons=always'
-alias rm='rmtrash'
+
+# OS-Aware Trash (rmtrash on Arch, trash-put on Alpine)
+if (( $+commands[rmtrash] )); then
+    alias rm='rmtrash'
+elif (( $+commands[trash-put] )); then
+    alias rm='trash-put'
+fi
 
 # DevOps & Tools
 alias cz='chezmoi'
