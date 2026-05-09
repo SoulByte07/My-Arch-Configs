@@ -21,6 +21,11 @@ system_default = [
 	{ run = 'xdg-open "$@"', orphan = true, desc = "System Default" }
 ]
 
+# 5. PDF Viewer (Detaches)
+pdf = [
+    { run = 'zathura "$@"', orphan = true, desc = "Zathura" }
+]
+
 [open]
 rules = [
 	# --- SPECIFIC OVERRIDES ---
@@ -35,9 +40,9 @@ rules = [
 
 	# --- THE ULTIMATE FALLBACK ---
 	# If Yazi doesn't know what the file is, hand it to the OS
-	{ name = "*", use = "system_default" }
+	{ name = "*", use = "system_default" },
+
+    # PDF
+    { mime = "application/pdf", use = "pdf" }
 ]
 
-# --- SAMPLE INPUT & EXPECTED OUTPUT ---
-# Input Action: You press 'Enter' on a file named 'invoice.pdf'
-# Expected Output: Yazi hits the "*" rule, runs `xdg-open invoice.pdf`, and Arch Linux opens your default PDF viewer (e.g., Zathura or Firefox).
