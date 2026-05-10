@@ -20,12 +20,21 @@ return {
         view = "cmdline_popup",
         opts = { position = { row = "20%", col = "50%" } },
       },
+      messages = {
+        enabled = false,
+      },
+      notify = {
+        enabled = false,
+      },
       presets = {
         bottom_search = false,
         command_palette = true,
         long_message_to_split = true,
       },
       lsp = {
+        message = {
+          enabled = false,
+        },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
