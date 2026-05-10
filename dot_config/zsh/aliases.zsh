@@ -85,3 +85,27 @@ alias pdc='podman-compose'
 
 # Tmux 
 alias t='$HOME/.config/tmux/scripts/start-tmux-home.sh'
+
+# Distro box
+alias db='distrobox'
+alias dbi='distrobox enter AplineBox'
+alias ex='exit'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
