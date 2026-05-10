@@ -11,12 +11,6 @@ cr_char="$(printf '\r')"
 
 mkdir -p "$bm_dir"
 
-if command -v flatpak >/dev/null 2>&1; then
-    has_flatpak=1
-else
-    has_flatpak=0
-fi
-
 chromium_bin="$(command -v chromium 2>/dev/null || printf '%s\n' chromium)"
 
 helium_bin="$(command -v helium-browser 2>/dev/null || printf '%s\n' helium-browser)"
@@ -112,18 +106,10 @@ esac
 open_browser() {
     case "$saved_browser" in
         Librewolf)
-            if [ "$has_flatpak" -eq 1 ]; then
-                setsid flatpak run io.gitlab.librewolf-community "$url" >/dev/null 2>&1 &
-            else
-                setsid librewolf "$url" >/dev/null 2>&1 &
-            fi
+            setsid librewolf "$url" >/dev/null 2>&1 &
             ;;
         Brave)
-            if [ "$has_flatpak" -eq 1 ]; then
-                setsid flatpak run com.brave.Browser "$url" >/dev/null 2>&1 &
-            else
-                setsid brave "$url" >/dev/null 2>&1 &
-            fi
+            setsid brave "$url" >/dev/null 2>&1 &
             ;;
         Chromium)
             setsid "$chromium_bin" "$url" >/dev/null 2>&1 &
@@ -135,11 +121,7 @@ open_browser() {
             setsid "$brave_origin" "$url" >/dev/null 2>&1 &
             ;;
         *)
-            if [ "$has_flatpak" -eq 1 ]; then
-                setsid flatpak run io.gitlab.librewolf-community "$url" >/dev/null 2>&1 &
-            else
-                setsid librewolf "$url" >/dev/null 2>&1 &
-            fi
+            setsid librewolf "$url" >/dev/null 2>&1 &
             ;;
     esac
 }
