@@ -17,6 +17,7 @@ return {
         "regex",
         "markdown",
         "markdown_inline",
+        "go",
       },
 
       sync_install = false,

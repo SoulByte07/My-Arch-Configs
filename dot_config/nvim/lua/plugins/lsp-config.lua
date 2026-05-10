@@ -26,7 +26,7 @@ return {
 
 			-- Initialize Mason-LSPConfig (Mason itself is initialized in dependencies)
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "html", "lua_ls", "pyright" },
+				ensure_installed = { "ts_ls", "html", "lua_ls", "pyright", "gopls" },
 				automatic_installation = true,
 				handlers = {
 					function(server_name)
