@@ -18,13 +18,15 @@ return {
     require("noice").setup({
       cmdline = {
         view = "cmdline_popup",
-        opts = { position = { row = "20%", col = "50%" } },
+        opts = { position = { row = "10%", col = "50%" } },
       },
       messages = {
-        enabled = false,
+        enabled = true,
+        view = "popup", -- Use popup for permanence
       },
       notify = {
-        enabled = false,
+        enabled = true,
+        view = "popup", -- Use popup for permanence
       },
       presets = {
         bottom_search = false,
@@ -33,7 +35,7 @@ return {
       },
       lsp = {
         message = {
-          enabled = false,
+          enabled = true,
         },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -41,6 +43,33 @@ return {
           ["cmp.entry.get_documentation"] = true,
         },
       },
+      views = {
+        popup = {
+          enter = false, -- Auto-focus on notifications
+          border = {
+            style = "rounded",
+          },
+          position = { row = "10%", col = "50%" },
+          size = { width = 60, height = "auto" },
+        },
+      },
+      routes = {
+        {
+          filter = { event = "notify" },
+          view = "popup",
+        },
+        {
+          filter = { event = "msg_show" },
+          view = "popup",
+        },
+      },
     })
+
+    -- Dismiss all notifications with ESC
+    vim.keymap.set("n", "<esc>", function()
+      require("noice").cmd("dismiss")
+      -- Also perform standard ESC behavior if needed (optional)
+      return "<esc>"
+    end, { expr = true, desc = "Dismiss Noice and ESC" })
   end
 }
