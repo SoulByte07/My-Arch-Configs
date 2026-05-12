@@ -30,6 +30,8 @@ return {
 
       vim.api.nvim_set_hl(0, "CmpNormal", { bg = colors.bg })
       vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = colors.bg })
+      vim.api.nvim_set_hl(0, "CmpBorder", { fg = colors.surface0, bg = colors.bg })
+      vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = colors.surface0, bg = colors.bg })
       vim.api.nvim_set_hl(0, "CmpSel", { bg = colors.surface0, fg = "NONE" })
       vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = colors.overlay0, bg = "NONE", strikethrough = true })
       vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = colors.blue, bg = "NONE", bold = true })
@@ -68,12 +70,12 @@ return {
         window = {
           completion = {
             border = "rounded",
-            winhighlight = "Normal:CmpNormal,FloatBorder:CmpNormal,CursorLine:CmpSel,Search:None",
+            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
             side_padding = 0,
           },
           documentation = {
             border = "rounded",
-            winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocNormal,CursorLine:CmpSel,Search:None",
+            winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocBorder,CursorLine:CmpSel,Search:None",
           },
         },
         formatting = {
@@ -91,8 +93,8 @@ return {
           }),
         },
         mapping = cmp.mapping.preset.insert({
-          ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),

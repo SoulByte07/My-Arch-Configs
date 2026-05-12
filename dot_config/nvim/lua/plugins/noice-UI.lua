@@ -45,12 +45,27 @@ return {
       },
       views = {
         popup = {
-          enter = false, -- Auto-focus on notifications
+          enter = false,
           border = {
             style = "rounded",
+            padding = { 0, 1 },
+          },
+          win_options = {
+            winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
+            winblend = 5,
           },
           position = { row = "10%", col = "50%" },
           size = { width = 60, height = "auto" },
+        },
+        cmdline_popup = {
+          border = {
+            style = "rounded",
+            padding = { 0, 1 },
+          },
+          filter_options = { reverse = true },
+          win_options = {
+            winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
+          },
         },
       },
       routes = {

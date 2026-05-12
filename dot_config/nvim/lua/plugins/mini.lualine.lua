@@ -65,7 +65,7 @@ return {
           local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
           
           if mode ~= "" then
-             mode = "󰣇 " .. string.upper(trim(mode))
+             mode = " " .. string.upper(trim(mode))
           end
 
           -- Use our new custom filename function instead of mini's default
