@@ -1,11 +1,10 @@
-# /etc/mkinitcpio.conf - Configuration file for mkinitcpio
 # vim:set ft=sh:
 # MODULES
 # The following modules are loaded before any boot hooks are
 # run.  Advanced users may wish to specify all system modules
 # in this array.  For instance:
 #     MODULES=(usbhid xhci_hcd)
-MODULES=()
+MODULES=(btrfs)
 
 # BINARIES
 # This setting includes any additional binaries a given user may
@@ -55,7 +54,9 @@ FILES=()
 #    usr and fsck hooks.
 #HOOKS=(base systemd autodetect microcode modconf kms keyboard keymap sd-vconsole block filesystems fsck)
 
-HOOKS=(base systemd autodetect microcode modconf kms block keyboard sd-vconsole filesystems fsck)
+#HOOKS=(base systemd autodetect microcode modconf kms block keyboard sd-vconsole filesystems fsck)
+HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block filesystems)
+
 
 # COMPRESSION
 # Use this to compress the initramfs image. By default, zstd compression
