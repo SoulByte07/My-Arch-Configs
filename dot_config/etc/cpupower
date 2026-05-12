@@ -1,0 +1,20 @@
+# /etc/default/cpupower
+# Optimization: Optimized for efficiency and dynamic scaling.
+
+# Define CPUs to configure (blank for all)
+CPU=""
+
+# Define the governor name. 
+# 'powersave' is the standard for intel_pstate/amd-pstate and is DYNAMIC.
+# Do NOT use 'ondemand' on modern Intel/AMD CPUs.
+governor='powersave'
+
+# Limit frequency range (optional)
+# min_freq="800MHz"
+# max_freq="4.5GHz"
+
+# Specific frequency to be set only with userspace governor
+# freq=""
+
+# Extra options (e.g., -b for performance/energy bias on older Intel CPUs)
+# opts="-b 6"
