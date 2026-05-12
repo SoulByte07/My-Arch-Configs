@@ -23,11 +23,11 @@ source "$ZSH_TOOL_CACHE/fzf.zsh"
 source "$ZSH_TOOL_CACHE/zoxide.zsh"
 
 # Lazy-loaded TheFuck
-fuck() {
-    unfunction fuck
-    eval "$(thefuck --alias)"
-    fuck "$@"
-}
+# fuck() {
+#     unfunction fuck
+#     eval "$(thefuck --alias)"
+#     fuck "$@"
+# }
 
 source "$ZDOTDIR/plugins.zsh"
 
