@@ -19,7 +19,7 @@ fi
 
 # DevOps & Tools
 alias cz='chezmoi'
-alias fk='fuck'
+# alias fk='fuck'
 alias tf='terraform'
 
 # Maintenance
@@ -88,7 +88,8 @@ alias t='$HOME/.config/tmux/scripts/start-tmux-home.sh'
 
 # Distro box
 alias db='distrobox'
-alias dbi='distrobox enter AplineBox'
+alias dbp='distrobox enter AplineBox'
+alias dba='distrobox enter ArchBox'
 alias ex='exit'
 
 
