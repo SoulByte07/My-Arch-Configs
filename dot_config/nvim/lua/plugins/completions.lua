@@ -59,7 +59,9 @@ return {
       -- Set completeopt for better completion experience
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
-      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load({
+        paths = { vim.fn.stdpath("config") .. "/snippets" },
+      })
 
       cmp.setup({
         snippet = {
