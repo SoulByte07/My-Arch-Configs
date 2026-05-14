@@ -1,0 +1,63 @@
+/* @theme catppuccin-mocha-mauve */
+
+@import 'default';
+
+section {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 35px;
+    padding: 50px;
+    justify-content: center;
+}
+
+h1, h2, h3 {
+    color: #cba6f7; /* Mauve */
+}
+
+h1 {
+    border-bottom: 2px solid #cba6f7;
+}
+
+strong {
+    color: #f5c2e7; /* Pink accent */
+}
+
+a {
+    color: #89b4fa; /* Blue accent */
+    text-decoration: none;
+}
+
+code {
+    background-color: #313244;
+    color: #f5e0dc;
+    border-radius: 8px;
+    padding: 0.2em 0.4em;
+}
+
+pre {
+    background-color: #181825;
+    border: 1px solid #45475a;
+    border-radius: 12px;
+}
+
+pre code {
+    background-color: transparent;
+    color: #cdd6f4;
+}
+
+footer {
+    color: #6c7086;
+    font-size: 18px;
+}
+
+header {
+    color: #cba6f7;
+    font-weight: bold;
+}
+
+/* Slide Numbering */
+section::after {
+    color: #585b70;
+    font-size: 16px;
+}
