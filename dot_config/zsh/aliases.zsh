@@ -1,21 +1,35 @@
-
 alias v='nvim'
 alias f='yazi'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# Modern Replacements
-alias l='eza --color=always --long --git --icons=always --no-filesize --no-time --no-user --no-permissions'
-alias ll='eza --color=always --long --git --icons=always'
-alias la='eza --color=always --all --icons=always'
+# eza
+alias l='eza --icons --group-directories-first'
+alias la='eza -a --icons --group-directories-first'
+
+# Long format aliases
+alias ll='eza -lh --icons --git --group-directories-first'
+alias lla='eza -lah --icons --git --group-directories-first'
+
+# --tree: Visualizes directory hierarchy
+alias lt='eza --tree --level=2 --icons'
+
+# ld: Folder-only navigation
+alias ld='eza -D --icons'
+
+
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias ping='ping -c 5'
 
 # OS-Aware Trash (rmtrash on Arch, trash-put on Alpine)
-if (( $+commands[rmtrash] )); then
-    alias rm='rmtrash'
-elif (( $+commands[trash-put] )); then
-    alias rm='trash-put'
-fi
+# if (( $+commands[rmtrash] )); then
+#     alias rm='rmtrash'
+# elif (( $+commands[trash-put] )); then
+#     alias rm='trash-put'
+# fi
 
 # DevOps & Tools
 alias cz='chezmoi'
@@ -88,7 +102,7 @@ alias t='$HOME/.config/tmux/scripts/start-tmux-home.sh'
 
 # Distro box
 alias db='distrobox'
-alias dbp='distrobox enter AplineBox'
+alias dbp='distrobox enter AlpineBox'
 alias dba='distrobox enter ArchBox'
 alias ex='exit'
 
