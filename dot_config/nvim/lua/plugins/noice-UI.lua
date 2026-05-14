@@ -11,6 +11,7 @@ return {
         background_colour = "#1e1e2e",
         render = "compact",
         stages = "static", -- Most efficient animation stage
+        timeout = 3000,
       },
     },
   },
@@ -22,11 +23,11 @@ return {
       },
       messages = {
         enabled = true,
-        view = "popup", -- Use popup for permanence
+        view = "mini",
       },
       notify = {
         enabled = true,
-        view = "popup", -- Use popup for permanence
+        view = "notify",
       },
       presets = {
         bottom_search = false,
@@ -71,11 +72,11 @@ return {
       routes = {
         {
           filter = { event = "notify" },
-          view = "popup",
+          view = "notify",
         },
         {
           filter = { event = "msg_show" },
-          view = "popup",
+          view = "mini",
         },
       },
     })
