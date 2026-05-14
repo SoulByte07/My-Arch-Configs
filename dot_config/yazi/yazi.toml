@@ -1,48 +1,44 @@
-# Universal Yazi Configuration for Arch/Hyprland
+# ~/.config/yazi/yazi.toml
 
 [opener]
-# 1. Text Editor (Blocks Yazi so you can edit)
+# Text Editor - Using NeoVim in block mode to prevent UI overlap
 edit = [
-	{ run = 'nvim "$@"', block = true, desc = "Neovim" }
+    { run = 'nvim "$@"', block = true, desc = "NeoVim" }
 ]
 
-# 2. Image Viewer (Detaches so Yazi stays usable)
+# Image Viewer - Orphaned to run independently of the terminal
 image = [
-	{ run = 'imv "$@"', orphan = true, desc = "imv" }
+    { run = 'imv "$@"', orphan = true, desc = "imv" }
 ]
 
-# 3. Media Player (Detaches)
+# Media Player
 play = [
-	{ run = 'mpv "$@"', orphan = true, desc = "mpv" }
+    { run = 'mpv "$@"', orphan = true, desc = "mpv" }
 ]
 
-# 4. System Fallback (Let Arch Linux handle it)
-system_default = [
-	{ run = 'xdg-open "$@"', orphan = true, desc = "System Default" }
-]
-
-# 5. PDF Viewer (Detaches)
+# PDF Viewer
 pdf = [
     { run = 'zathura "$@"', orphan = true, desc = "Zathura" }
 ]
 
+# System Fallback - Uses xdg-open for everything else
+system_default = [
+    { run = 'xdg-open "$@"', orphan = true, desc = "System Default" }
+]
+
 [open]
 rules = [
-	# --- SPECIFIC OVERRIDES ---
-	# Catch all standard code, config, and script files
-	{ mime = "text/*", use = "edit" },
-	{ mime = "application/{json,yaml,x-shellscript,javascript,xml}", use = "edit" },
-	{ name = "*.{sh,py,tf,conf,toml,md}", use = "edit" },
+    # Use specific mime types for high-priority matching
+    { mime = "text/*", use = "edit" },
+    { mime = "application/{json,yaml,x-shellscript,javascript,xml}", use = "edit" },
+    
+    # Matching specific extensions by adding a wildcard mime to satisfy the parser
+    { name = "*.{sh,py,tf,conf,toml,md}", mime = "*", use = "edit" },
 
-	# --- MEDIA ---
-	{ mime = "image/*", use = "image" },
-	{ mime = "{audio,video}/*", use = "play" },
-
-	# --- THE ULTIMATE FALLBACK ---
-	# If Yazi doesn't know what the file is, hand it to the OS
-	{ name = "*", use = "system_default" },
-
-    # PDF
-    { mime = "application/pdf", use = "pdf" }
+    # MEDIA & DOCUMENTS
+    { mime = "image/*", use = "image" },
+    { mime = "{audio,video}/*", use = "play" },
+    { mime = "application/pdf", use = "pdf" },
+    { mime = "*", use = "system_default" }
 ]
 
