@@ -106,6 +106,9 @@ alias dbp='distrobox enter AlpineBox'
 alias dba='distrobox enter ArchBox'
 alias ex='exit'
 
+# Marp
+alias marp-server='CHROME_PATH=/usr/bin/brave-origin-beta CHROME_ARGUMENTS="--headless=old --no-sandbox" marp --server --config-file ~/.config/marp/marp.config.js'
+
 
 
 
