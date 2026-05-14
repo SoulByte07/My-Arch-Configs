@@ -15,7 +15,7 @@ file_exists() {
 }
 
 # Kill already running processes
-_ps=(waybar rofi swaync ags)
+_ps=(waybar rofi swaync ags wayout slstatus)
 for _prs in "${_ps[@]}"; do
   if pidof "${_prs}" >/dev/null; then
     pkill "${_prs}"
@@ -39,9 +39,15 @@ for pid in $(pidof waybar rofi swaync ags swaybg); do
   sleep 0.1
 done
 
-#Restart waybar
+#Restart Bar (Waybar or slstatus)
 sleep 0.1
-waybar &
+if [ "$HYPR_BAR_MODE" == "slstatus" ]; then
+  pkill wayout
+  pkill slstatus
+  slstatus -s | wayout &
+else
+  waybar &
+fi
 
 # relaunch swaync
 sleep 0.3
