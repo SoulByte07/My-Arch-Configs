@@ -20,6 +20,8 @@ sops-edit-*
 # State files (contain secrets)
 **/*.tfstate
 **/*.tfstate.*
+*.tfplan
+**/*.tfplan
 # Variable files
 **/*.tfvars
 **/*.tfvars.json
@@ -31,6 +33,7 @@ sops-edit-*
 # CLI Config
 .terraformrc
 terraform.rc
+
 
 # ==========================================
 # Tooling, Cache & OS (Arch/Linux specific)
@@ -72,3 +75,4 @@ terraform.rc
 # LLM 
 # =========================================
 **/GEMINI.md
+# **/PLAN.md
