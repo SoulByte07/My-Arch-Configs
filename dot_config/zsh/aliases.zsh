@@ -34,7 +34,6 @@ alias ping='ping -c 5'
 # DevOps & Tools
 alias cz='chezmoi'
 # alias fk='fuck'
-alias tf='terraform'
 
 # Maintenance
 alias zsh-update-cache='rm -rf "$HOME/.cache/zsh/tools" && exec zsh'
@@ -109,10 +108,14 @@ alias ex='exit'
 # Marp
 alias marp-server='CHROME_PATH=/usr/bin/brave-origin-beta CHROME_ARGUMENTS="--headless=old --no-sandbox" marp --server --config-file ~/.config/marp/marp.config.js'
 
+# Game Mode 
+alias game='/home/soul/.config/hypr/scripts/GameMode.sh'
 
-
-
-
+# Cloud
+# alias podsock='systemctl --user start podman.socket'
+# alias docker='podman'
+alias tf='tflocal'
+alias aws='awslocal'
 
 
 
