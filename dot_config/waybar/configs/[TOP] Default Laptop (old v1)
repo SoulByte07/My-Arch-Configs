@@ -33,7 +33,6 @@
 	"custom/separator#dot-line",
 	"cpu",
 	"memory",
-  "disk",
 	"custom/separator#dot-line",	
 	//],
 	"idle_inhibitor", 
