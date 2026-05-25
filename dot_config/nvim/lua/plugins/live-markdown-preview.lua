@@ -13,7 +13,7 @@ return {
   
   opts = {
     port = 5555, 
-    browser = "brave-origin-nightly", 
+    browser = "brave-origin-beta", 
     sync_scroll = true, 
     dynamic_root = true, 
   },

@@ -6,28 +6,36 @@
       "tags: ",
       "    - ${1}",
       "---"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     ],
     "description": "Add YAML frontmatter tags"
-  }
+  },
+
+  "Markdown RelatedMatter": {
+    "prefix": "Related",
+    "body": [
+      "--- ",
+      "# Related",
+      "- [[${1}]]",
+      "---"
+    ],
+    "description": "Add a related link to the frontmatter"
+  },
+
+  "Makedown Hyperlink": {
+    "prefix": "link",
+    "body": [
+      "[${1:link text}](${2:URL})"
+    ],
+    "description": "Add a hyperlink"
+  },
+
+    "Markdown Code Block": {
+    "prefix": "code",
+    "body": [
+        "``` ${1:language}",
+        "${2:}",
+        "```"
+    ],
+    "description": "Add a code block"
+ }
 }

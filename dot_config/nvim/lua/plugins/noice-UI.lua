@@ -19,7 +19,7 @@ return {
     require("noice").setup({
       cmdline = {
         view = "cmdline_popup",
-        opts = { position = { row = "10%", col = "50%" } },
+        opts = { position = { row = "20%", col = "50%" } },
       },
       messages = {
         enabled = true,
@@ -55,7 +55,7 @@ return {
             winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
             winblend = 5,
           },
-          position = { row = "10%", col = "50%" },
+          position = { row = "20%", col = "50%" },
           size = { width = 60, height = "auto" },
         },
         cmdline_popup = {
