@@ -34,7 +34,7 @@ sleep 0.1
 #pkill qs && qs &
 
 # some process to kill
-for pid in $(pidof waybar rofi swaync ags swaybg); do
+for pid in $(pidof waybar rofi ); do
   kill -SIGUSR1 "$pid"
   sleep 0.1
 done
@@ -50,10 +50,10 @@ else
 fi
 
 # relaunch swaync
-sleep 0.3
-swaync >/dev/null 2>&1 &
-# reload swaync
-swaync-client --reload-config
+# sleep 0.3
+# swaync >/dev/null 2>&1 &
+# # reload swaync
+# swaync-client --reload-config
 
 # Relaunching rainbow borders if the script exists
 sleep 1

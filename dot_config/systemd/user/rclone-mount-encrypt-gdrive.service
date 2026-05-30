@@ -9,7 +9,7 @@ User=soul
 Group=soul
 
 # Performance and Battery Optimized Command
-ExecStart=/usr/bin/rclone mount EncryptGoogleDrive:  /home/soul/2_Resources/1_Mounts/EncryptGoogleDrive \
+ExecStart=/home/soul/.local/bin/rclone mount EncryptGoogleDrive:  /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive \
     --config /home/soul/.config/rclone/rclone.conf \
     --vfs-cache-mode full \
     --vfs-cache-max-age 24h \
@@ -25,7 +25,7 @@ ExecStart=/usr/bin/rclone mount EncryptGoogleDrive:  /home/soul/2_Resources/1_Mo
     --vfs-read-ahead 128M
 
 # Clean shutdown and unmount
-ExecStop=/bin/fusermount -uz /home/soul/2_Resources/1_Mounts/EncryptGoogleDrive
+ExecStop=/bin/fusermount -uz /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive
 Restart=on-failure
 RestartSec=10
 
