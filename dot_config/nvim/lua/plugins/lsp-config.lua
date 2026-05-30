@@ -20,11 +20,65 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 		},
+		init = function()
+			-- ==========================================
+			-- Diagnostic UI Configuration (Startup)
+			-- ==========================================
+			local diagnostic_icons = {
+				[vim.diagnostic.severity.ERROR] = "✖",
+				[vim.diagnostic.severity.WARN] = "",
+				[vim.diagnostic.severity.HINT] = "",
+				[vim.diagnostic.severity.INFO] = "ⓘ",
+			}
+
+			vim.diagnostic.config({
+				virtual_text = {
+					spacing = 4,
+					prefix = "",
+					format = function(diagnostic)
+						local icon = diagnostic_icons[diagnostic.severity]
+						return string.format("%s %s", icon, diagnostic.message)
+					end,
+				},
+				signs = { text = diagnostic_icons }, -- Show symbols on startup
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
+				float = {
+					border = "rounded",
+					source = "always",
+					header = "",
+					prefix = " ",
+				},
+			})
+
+			local opts = { noremap = true, silent = true }
+			local signs_enabled = true
+
+			-- Toggle diagnostic symbols (signs)
+			vim.keymap.set("n", "<leader>ds", function()
+				signs_enabled = not signs_enabled
+				vim.diagnostic.config({
+					signs = signs_enabled and { text = diagnostic_icons } or false,
+				})
+				-- Force refresh the current buffer
+				vim.diagnostic.show(nil, 0)
+			end, opts)
+
+			-- Show the diagnosis message in a float
+			vim.keymap.set("n", "<leader>gl", function()
+				vim.diagnostic.open_float({
+					border = "rounded",
+					source = "always",
+					scope = "line",
+				})
+			end, opts)
+		end,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
 
-			-- Initialize Mason-LSPConfig (Mason itself is initialized in dependencies)
+			-- Initialize Mason-LSPConfig
 			require("mason-lspconfig").setup({
 				ensure_installed = { "ts_ls", "html", "lua_ls", "pyright", "gopls" },
 				automatic_installation = true,
@@ -49,61 +103,11 @@ return {
 				},
 			})
 
-			-- ==========================================
-			-- Diagnostic UI Configuration (Clean Default)
-			-- ==========================================
-
-			-- Define icons for use during toggle
-			local diagnostic_icons = {
-				[vim.diagnostic.severity.ERROR] = "✖",
-				[vim.diagnostic.severity.WARN] = "⚠",
-				[vim.diagnostic.severity.HINT] = "💡",
-				[vim.diagnostic.severity.INFO] = "ⓘ",
-			}
-
-			vim.diagnostic.config({
-				virtual_text = false,
-				signs = false, -- Start with logos hidden for a clean screen
-				underline = false, -- Start with underlines hidden
-				update_in_insert = false,
-				severity_sort = true,
-				float = {
-					border = "rounded",
-					source = "always",
-					header = "",
-					prefix = "",
-				},
-			})
-
-			-- 3. The Keybinding
 			local opts = { noremap = true, silent = true }
-			local diag_enabled = false
-
-			-- Toggle diagnostics and open float on 'gl'
-			vim.keymap.set("n", "gl", function()
-				diag_enabled = not diag_enabled
-				vim.diagnostic.config({
-					signs = diag_enabled and { text = diagnostic_icons } or false,
-					underline = diag_enabled,
-				})
-
-				if diag_enabled then
-					vim.diagnostic.show(nil, 0) -- Force redraw for current buffer
-					vim.diagnostic.open_float({
-						border = "rounded",
-						source = "always",
-						scope = "line",
-					})
-				else
-					vim.diagnostic.hide(nil, 0) -- Force hide for current buffer
-				end
-			end, opts)
-
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-
 		end,
 	},
 }
