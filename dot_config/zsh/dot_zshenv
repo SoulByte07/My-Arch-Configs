@@ -2,7 +2,7 @@
 # --- 1. XDG Base Directories ---
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
-# export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
@@ -19,6 +19,9 @@ export SHELL="/usr/bin/zsh"
 # export BUN_INSTALL="$XDG_DATA_HOME/bun"
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
 
+# PNPM
+export PATH="$XDG_DATA_HOME/pnpm/bin:$PATH"
+
 # User Scripts
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -31,10 +34,10 @@ export LIBVIRT_DEFAULT_URI='qemu:///system'
 export LIBSEAT_BACKEND=seatd
 
 # Cloud
-export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock 
-export GATEWAY_LISTEN=:4566
-export LOCALSTACK_DOCKER_FLAGS="-v /run/user/1000/podman/podman.sock:/var/run/docker.sock"
-export MOUNT_DOCKER_SOCKET=0
+# export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock 
+# export GATEWAY_LISTEN=:4566
+# export LOCALSTACK_DOCKER_FLAGS="-v /run/user/1000/podman/podman.sock:/var/run/docker.sock"
+# export MOUNT_DOCKER_SOCKET=0
 
 # --- 3. PATH Optimization ---
 # Keeps your PATH clean and unique
@@ -49,3 +52,4 @@ path=($^path(N))
 # export GDK_SCALE=2
 # export STEAM_FORCE_DESKTOPUI_SCALING=2
 
+. "$HOME/.cargo/env"
