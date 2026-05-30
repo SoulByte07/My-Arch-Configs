@@ -1,4 +1,4 @@
-### sudo nvim /etc/ly/config.ini
+# -- file: /etc/ly/config.ini
 # Ly supports 24-bit true color with styling, which means each color is a 32-bit value.
 # The format is 0xSSRRGGBB, where SS is the styling, RR is red, GG is green, and BB is blue.
 # Here are the possible styling options:
@@ -80,7 +80,7 @@ bg = 0x00000000
 # none -> Disabled (default)
 # en   -> English
 # fa   -> Farsi
-bigclock = none
+bigclock = en
 
 # Set bigclock to 12-hour notation.
 bigclock_12hr = true
@@ -185,7 +185,9 @@ error_bg = 0x00000000
 error_fg = 0x01FF0000
 
 # Foreground color id
-fg = 0x00FFFFFF
+# fg = 0x00FFFFFF
+fg = 0x00cba6f7
+
 
 # Render true colors (if supported)
 # If false, output will be in eight-color mode
@@ -355,6 +357,11 @@ waylandsessions = /usr/share/wayland-sessions
 # Xorg server command
 x_cmd = /usr/bin/X
 
+# Xorg virtual terminal number
+# Mostly useful for FreeBSD where choosing the current TTY causes issues
+# If null, the current TTY will be chosen
+x_vt = null
+
 # Xorg xauthority edition tool
 xauth_cmd = /usr/bin/xauth
 
@@ -366,4 +373,3 @@ xinitrc = ~/.xinitrc
 # You can specify multiple directories,
 # e.g. /usr/share/xsessions:/usr/local/share/xsessions
 xsessions = /usr/share/xsessions
-
