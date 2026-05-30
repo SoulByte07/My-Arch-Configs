@@ -117,7 +117,9 @@ alias game='/home/soul/.config/hypr/scripts/GameMode.sh'
 alias tf='tflocal'
 alias aws='awslocal'
 
-
+# AI Tools 
+alias gm='distrobox enter ArchBox -- gemini'
+alias op='distrobox enter ArchBox -- opencode'
 
 
 
