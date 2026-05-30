@@ -43,7 +43,7 @@ return {
 			text_bg = "#313244", -- Surface 0
 			text_fg = "#cdd6f4", -- Text
 			active_bg = "#fab387", -- Peach
-			inactive_bg = "#89b4fa", -- Blue
+			inactive_bg = "#cba6f7", -- Blue
 			number_fg = "#1e1e2e", -- Base
 		}
 

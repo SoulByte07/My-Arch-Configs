@@ -36,8 +36,12 @@ return {
         },
         custom_highlights = function(colors)
           return {
-            LineNr = { fg = colors.yellow,  },
-            CursorLineNr = { fg = "#ff8c00", style = { "bold" } }, -- Safety Orange
+            LineNr = { fg = "#cba6f7",  },
+            CursorLineNr = { fg = "#babbf1", style = { "bold" } }, -- Safety Orange
+            DiagnosticWarn = { fg = "#cba6f7" },
+            DiagnosticSignWarn = { fg = "#cba6f7" },
+            DiagnosticHint = { fg = "#cba6f7" },
+            DiagnosticSignHint = { fg = "#cba6f7" },
           }
         end,
       })

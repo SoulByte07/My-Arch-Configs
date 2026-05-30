@@ -11,6 +11,11 @@ return {
     vim.api.nvim_set_hl(0, "MiniStatuslineNoice", { fg = "#ff9e64", bold = true })
     vim.api.nvim_set_hl(0, "MiniStatuslinePending", { fg = "#cba6f7", bold = true })
 
+    -- Mode Colors
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { bg = "#cba6f7", fg = "#1e1e2e", bold = true })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { bg = "#a6d189", fg = "#1e1e2e", bold = true })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { bg = "#f4b8e4", fg = "#1e1e2e", bold = true })
+
     -- Helper Functions
     local function section_noice_mode()
       local ok, noice = pcall(require, "noice")
