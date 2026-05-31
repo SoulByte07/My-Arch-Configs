@@ -1,0 +1,1 @@
+MANGOHUD=1 PROTON_ENABLE_WAYLAND=1 %command% -vulkan -novid -nojoy -nosteamcontroller -particles 1 +fps_max 120
