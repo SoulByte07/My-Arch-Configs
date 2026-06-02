@@ -1,5 +1,7 @@
 #!/bin/sh
 
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+
 # 1. Start the Keyring Daemon
 if [ -z "$GNOME_KEYRING_CONTROL" ]; then
     eval $(gnome-keyring-daemon --start --components=secrets)
