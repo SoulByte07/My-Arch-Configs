@@ -40,12 +40,20 @@ return {
     local function section_filename_only()
       local name = vim.fn.expand("%:t") -- '%:t' extracts just the tail (filename)
       if name == "" then return "[No Name]" end
-      
       -- Append state flags naturally
       local modified = vim.bo.modified and " [+]" or ""
       local readonly = vim.bo.readonly and " [RO]" or ""
-      
       return name .. modified .. readonly
+    end
+
+    local function section_diagnostics()
+      local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+      local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+      local parts = {}
+      if errors > 0 then table.insert(parts, "✖ " .. errors) end
+      if warnings > 0 then table.insert(parts, " " .. warnings) end
+      if #parts == 0 then return "" end
+      return table.concat(parts, " ")
     end
 
     -- Dynamic Pill Generator
@@ -54,10 +62,8 @@ return {
       local edge_hl = hl_group .. "Edge"
       local hl_info = vim.api.nvim_get_hl(0, { name = hl_group, link = false })
       local statusline_hl = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false })
-      
       local bg_color = hl_info.bg and string.format("#%06x", hl_info.bg) or "NONE"
       local parent_bg = statusline_hl.bg and string.format("#%06x", statusline_hl.bg) or "NONE"
-      
       vim.api.nvim_set_hl(0, edge_hl, { fg = bg_color, bg = parent_bg })
       return string.format("%%#%s#%%#%s# %s %%#%s#", edge_hl, hl_group, text, edge_hl)
     end
@@ -68,14 +74,12 @@ return {
       content = {
         active = function()
           local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
-          
           if mode ~= "" then
              mode = " " .. string.upper(trim(mode))
           end
 
           -- Use our new custom filename function instead of mini's default
           local filename      = section_filename_only()
-          
           local noice_mode    = section_noice_mode()
           local pending       = "%S"
           local progress      = section_progress()
@@ -87,7 +91,6 @@ return {
           return statusline.combine_groups({
             -- Left Side
             { strings = { left_compact } },
-            
             -- Middle Side 
             { hl = "MiniStatuslineNoice",   strings = { noice_mode } },
             { hl = "MiniStatuslinePending", strings = { pending } },
@@ -96,6 +99,7 @@ return {
             "%=",
 
             -- Right Side 
+            { strings = { make_pill(section_diagnostics(), "MiniStatuslineFileinfo") } },
             { strings = { make_pill(search, "MiniStatuslineFileinfo") } },
             { strings = { right_compact } },
           })

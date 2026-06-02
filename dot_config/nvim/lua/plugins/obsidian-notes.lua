@@ -6,8 +6,8 @@ return {
     lazy = true,
     
     event = {
-        "BufReadPre " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault",
-        "BufNewFile " .. vim.fn.expand("~") .. "/4_Backups/0_Sync/Obsidian/Obsidian-Vault",
+        "BufReadPre " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault",
+        "BufNewFile " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault",
     },
     
     keys = {
@@ -27,7 +27,7 @@ return {
         workspaces = {
             {
                 name = "personal",
-                path = "~/4_Backups/0_Sync/Obsidian/Obsidian-Vault", 
+                path = "~/04_Backups/0_Sync/Obsidian/Obsidian-Vault", 
             },
         },
         

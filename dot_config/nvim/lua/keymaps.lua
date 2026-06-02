@@ -31,7 +31,9 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- Search and replace word under cursor
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gc<Left><Left><Left>]])
+-- Search and replace the selected string
+vim.keymap.set("v", "<leader>s", [[y:%s/<C-r>"/<C-r>"/gc<Left><Left><Left>]])
 
 -- Native Neovim 0.10 Commenting
 vim.keymap.set("n", "cc", "gcc", { remap = true, desc = "Toggle Comment" })
