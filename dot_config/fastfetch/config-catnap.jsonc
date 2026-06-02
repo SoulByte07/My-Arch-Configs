@@ -1,0 +1,158 @@
+
+// Inspired by Catnap
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "data",
+        "source": "\u001b[38;2;203;166;247m⠀⠀⠀⠀  ⣀⣤⣴⣶⣶⣶⣦⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n  ⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⢿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n  ⢀⣾⣿⣿⣿⣿⣿⣿⣿⣅⢀⣽⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀\n  ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠁⠀⠀⣴⣶⡄⠀⣶⣶⡄⠀\n  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣀⠀⠙⠋⠁⠀⠉⠋⠁⠀\n  ⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n  ⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀\n  ⠀⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀⠀⠀  ⠀⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\u001b[0m",
+        "height": 10,
+        "padding": {
+            "right": 2,
+            "top": 1
+        }
+    },
+    "display": {
+        "separator": "  ",
+        "key": {
+            "width": 22, //21
+            "paddingLeft": 4, //2
+        },
+        "size": {
+          "binaryPrefix": "jedec",
+        },
+        "percent": {
+            "type": 11
+        },
+        "bar": {
+            "border": {
+                "left": "\uee00",
+                "leftElapsed": "\uee03",
+                "right": "\uee02",
+                "rightElapsed": "\uee05"
+            },
+            "char": {
+                "total": "\uee01",
+                "elapsed": "\uee04"
+            },
+            "width": 49
+        },
+    },
+    "modules": [
+        "break",
+        {
+            "type": "custom",
+            "format": "  ┏━━━━━━━━━━━━━━━━━━━━ System Info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+        },
+        "break",
+        {
+            "key": "  User      ",
+            "type": "title",
+            "format": "{user-name}",
+            "keyColor": "31"
+        },
+        {
+            "key": " ⏱ Uptime    ",
+            "type": "uptime",
+            "keyColor": "31"
+        },
+        {
+            "key": "  OS        ",
+            "type": "os",
+            "format": "{name} {version}",
+            "keyColor": "32"
+        },
+        {
+            "key": "  Kernel    ",
+            "type": "kernel",
+            "format": "{release}",
+            "keyColor": "32"
+        },
+        {
+            "key": " 󰻠 Arch      ",
+            "type": "os",
+            "format": "{arch}",
+            "keyColor": "32"
+        },
+        {
+            "key": "  Terminal  ",
+            "type": "terminal",
+            "keyColor": "33"
+        },
+        {
+            "key": "  Shell     ",
+            "type": "shell",
+            "keyColor": "33"
+        },
+//        "break",
+//        {
+//             "type": "custom",
+//             "format": "   -----------------------------------------------"
+//        },
+//        "break",
+        {
+            "type": "host",
+            "key": "  Device    ",
+            "keyColor": "34"
+        },
+        {
+            "type": "cpu",
+            "key": "  CPU       ",
+            "format": "{vendor} {name} ({cores-logical}) @ {freq-max}",
+            "keyColor": "34"
+        },
+        {
+            "type": "gpu",
+            "key": " 󰢮 GPU       ",
+            "keyColor": "34"
+        },
+        "break",
+        {
+             "type": "custom",
+             "format": "   --------------------------------------------------------------------------------------"
+        },
+
+        "break",
+        {
+            "key": " 󰓅 RAM       ",
+            "type": "memory",
+            "keyColor": "34",
+            "format": "{used} / {total} ({percentage})"
+        },
+        {
+            "key": " ",
+            "type": "memory",
+            "keyColor": "34",
+            "format": "     {percentage-bar}"
+        },
+        "break",
+        {
+            "key": "  Storage   ",
+            "type": "disk",
+            "keyColor": "35",
+            "folders": "/",
+            "format": "{size-used} / {size-total} ({size-percentage})"
+        },
+        {
+            "key": " ",
+            "type": "disk",
+            "keyColor": "35",
+            "folders": "/",
+            "format": "     {size-percentage-bar}"
+        },
+        "break", // If doesn't change the dir, add "{mountpoint}" in "format": down bellow to know your external storage path.
+        { 
+             "type": "custom", 
+             "format": "  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+        },
+        "break",
+//        {
+//            "type": "title",
+//            "format": "   -----------------------------------------------------\u001b[31D Welcome "
+//        },
+        {
+            "type": "title",
+            "format": "   ----------------------------------------------------------------------\u001b[37D {#yellow}{user-name}{#} @ {#blue}{host-name}{#} ----------------------------------"
+        },
+        "break",
+    ]
+}

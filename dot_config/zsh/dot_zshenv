@@ -34,6 +34,7 @@ export LIBVIRT_DEFAULT_URI='qemu:///system'
 export LIBSEAT_BACKEND=seatd
 
 # Cloud
+export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 # export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock 
 # export GATEWAY_LISTEN=:4566
 # export LOCALSTACK_DOCKER_FLAGS="-v /run/user/1000/podman/podman.sock:/var/run/docker.sock"
