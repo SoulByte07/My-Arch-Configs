@@ -15,6 +15,9 @@ export SHELL="/usr/bin/zsh"
 # Rust
 # export CARGO_HOME="$XDG_DATA_HOME/cargo"
 
+# GO 
+export PATH=$PATH:$HOME/go/bin
+
 # Bun
 # export BUN_INSTALL="$XDG_DATA_HOME/bun"
 export PATH="$CARGO_HOME/bin:$BUN_INSTALL/bin:$PATH"
@@ -39,6 +42,9 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 # export GATEWAY_LISTEN=:4566
 # export LOCALSTACK_DOCKER_FLAGS="-v /run/user/1000/podman/podman.sock:/var/run/docker.sock"
 # export MOUNT_DOCKER_SOCKET=0
+export AWS_DEFAULT_REGION=us-east-1
+export AWS_ACCESS_KEY_ID=test
+export AWS_SECRET_ACCESS_KEY=test
 
 # --- 3. PATH Optimization ---
 # Keeps your PATH clean and unique

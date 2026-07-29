@@ -4,10 +4,9 @@
 # Ignore all .env files and folders recursively
 **/.env/
 **/.env
-**/.env.*
 **/*.decrypted
 **/*.plain
-envVault.sh
+**/.env.local
 sops-edit-*
 **/.vault_config.json
 

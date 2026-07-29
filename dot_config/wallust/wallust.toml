@@ -34,8 +34,8 @@ palette = "dark16"
 threshold = 11
 
 [templates]
-cava.template = 'colors-cava'
-cava.target = '~/.config/cava/config'
+# cava.template = 'colors-cava'
+# cava.target = '~/.config/cava/config'
 
 hypr.template = 'colors-hyprland.conf'
 hypr.target = '~/.config/hypr/wallust/wallust-hyprland.conf'
@@ -46,11 +46,11 @@ rofi.target = '~/.config/rofi/wallust/colors-rofi.rasi'
 waybar.template = 'colors-waybar.css'
 waybar.target = '~/.config/waybar/wallust/colors-waybar.css'
 
-kitty.template = 'colors-kitty.conf'
-kitty.target = '~/.config/kitty/kitty-themes/01-Wallust.conf'
+# kitty.template = 'colors-kitty.conf'
+# kitty.target = '~/.config/kitty/kitty-themes/01-Wallust.conf'
 
-quickshell.template = 'qml_color.json'
-quickshell.target = '~/.config/quickshell/qml_color.json'
+# quickshell.template = 'qml_color.json'
+# quickshell.target = '~/.config/quickshell/qml_color.json'
 
 #swaync.template = 'colors-swaync.css'
 #swaync.target = '~/.config/swaync/wallust/colors-wallust.css'
@@ -61,5 +61,5 @@ quickshell.target = '~/.config/quickshell/qml_color.json'
 #wezterm.template = 'colors-wezterm.toml'
 #wezterm.target = '~/.config/wezterm/colors/wallust.toml'
 
-#zathura.template = 'colors-zathura'
-#zathura.target = '~/.config/zathura/zathurarc'
+zathura.template = 'colors-zathura'
+zathura.target = '~/.config/zathura/zathurarc'

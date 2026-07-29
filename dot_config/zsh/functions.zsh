@@ -5,7 +5,7 @@ fpath=($ZDOTDIR/functions $fpath)
 # Autoload all functions in that directory
 # -U: suppress alias expansion
 # -z: use zsh (not ksh) style
-autoload -Uz fkill gc lfcd vm th pf fkf s rm extract cpcd mvcd mkcd lsrun
+autoload -Uz fkill gc lfcd vm th pf fkf s rm extract cpcd mvcd mkcd lsrun yf
 
 # --- 2. ZLE Widgets (Synchronous) ---
 # These must be loaded immediately to handle terminal interactions

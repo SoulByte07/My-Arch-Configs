@@ -1,128 +1,146 @@
 
+// Inspired by Catnap
 {
-"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-"logo": {
-"padding": {
-"top": 1
-}
-},
-"display": {
-"separator": " 󰑃  "
-},
-"modules": [
-    "break",
-    {
-    "type": "os",
-    "key": " DISTRO",
-    "keyColor": "yellow"
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "data",
+        "source": "\u001b[38;2;249;226;175m⠀⠀⠀  ⠀  ⣀⣤⣴⣶⣶⣶⣦⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n    ⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⢿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n    ⢀⣾⣿⣿⣿⣿⣿⣿⣿⣅⢀⣽⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀\n    ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠛⠁⠀⠀⣴⣶⡄⠀⣶⣶⡄⠀\n    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣀⠀⠙⠋⠁⠀⠉⠋⠁⠀\n    ⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀\n    ⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀\n    ⠀⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⠿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\n⠀⠀⠀  ⠀⠀  ⠀⠉⠉⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\u001b[0m",
+        "height": 10,
+        "padding": {
+            "right": 2,
+            "top": 1
+        }
     },
-    {
-    "type": "kernel",
-    "key": "│ ├",
-    "keyColor": "yellow"
+    "display": {
+        "separator": "\u001b[38;2;137;180;250m  \u001b[0m",
+        "key": {
+            "width": 22, //21
+            "paddingLeft": 4, //2
+        },
+        "size": {
+          "binaryPrefix": "jedec",
+        },
+        "percent": {
+            "type": 11
+        },
+        "bar": {
+            "border": {
+                "left": "\u001b[38;2;88;91;112m\uee00\u001b[0m",
+                "leftElapsed": "\u001b[38;2;203;166;247m\uee03\u001b[0m",
+                "right": "\u001b[38;2;88;91;112m\uee02\u001b[0m",
+                "rightElapsed": "\u001b[38;2;203;166;247m\uee05\u001b[0m"
+            },
+            "char": {
+                "total": "\u001b[38;2;88;91;112m\uee01\u001b[0m",
+                "elapsed": "\u001b[38;2;203;166;247m\uee04\u001b[0m"
+            },
+            "width": 49
+        },
     },
-    {
-    "type": "packages",
-    "key": "│ ├󰏖",
-    "keyColor": "yellow"
-    },
-    {
-    "type": "shell",
-    "key": "│ └",
-    "keyColor": "yellow"
-    },
-    {
-    "type": "wm",
-    "key": " DE/WM",
-    "keyColor": "blue"
-    },
-    {
-    "type": "wmtheme",
-    "key": "│ ├󰉼",
-    "keyColor": "blue"
-    },
-    {
-    "type": "icons",
-    "key": "│ ├󰀻",
-    "keyColor": "blue"
-    },
-    {
-        "type": "cursor",
-        "key": "│ ├",
-        "keyColor": "blue",
-    },
-    {
-        "type": "terminalfont",
-        "key": "│ ├",
-        "keyColor": "blue",
-    },
-    {
-    "type": "terminal",
-    "key": "│ └",
-    "keyColor": "blue"
-    },
-    {
-    "type": "host",
-    "key": "󰌢 SYSTEM",
-    "keyColor": "green"
-    },
-    {
-    "type": "cpu",
-    "key": "│ ├󰻠",
-    "keyColor": "green"
-    },
-    {
-    "type": "gpu",
-    "key": "│ ├󰻑",
-    "format": "{2}",
-    "keyColor": "green"
-    },
-    {
-            "type": "display",
-    "key": "│ ├󰍹",
-    "keyColor": "green",
-    "compactType": "original-with-refresh-rate"
-    },
-    {
-    "type": "memory",
-    "key": "│ ├󰾆",
-    "keyColor": "green"
-    },
-    {
-    "type": "swap",
-    "key": "│ ├󰓡",
-    "keyColor": "green"
-    },
-    {
-    "type": "uptime",
-    "key": "│ ├󰅐",
-    "keyColor": "green"
-    },
-    {
-    "type": "display",
-    "key": "│ └󰍹",
-    "keyColor": "green"
-    },
-    {
-    "type": "sound",
-    "key": " AUDIO",
-    "format": "{2}",
-    "keyColor": "magenta"
-    },
-    {
-    "type": "player",
-    "key": "│ ├󰥠",
-    "keyColor": "magenta"
-    },
-    {
-    "type": "media",
-    "key": "│ └󰝚",
-    "keyColor": "magenta"
-    },
-    {
-    "type": "custom",
-    "format": "\u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m  \u001b[39m    \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m "
-    },
-    "break",
+    "modules": [
+        "break",
+        {
+            "type": "custom",
+            "format": "  \u001b[38;2;203;166;247m  ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ System Info ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\u001b[0m"
+        },
+        "break",
+        {
+            "key": "  User      ",
+            "type": "title",
+            "format": "{user-name}",
+            "keyColor": "38;2;203;166;247"
+        },
+        {
+            "key": " ⏱ Uptime    ",
+            "type": "uptime",
+            "keyColor": "38;2;245;194;231"
+        },
+        {
+            "key": "  OS        ",
+            "type": "os",
+            "format": "{name} {version}",
+            "keyColor": "38;2;137;180;250"
+        },
+        {
+            "key": "  Kernel    ",
+            "type": "kernel",
+            "format": "{release}",
+            "keyColor": "38;2;116;199;236"
+        },
+        {
+            "key": " 󰻠 Arch      ",
+            "type": "os",
+            "format": "{arch}",
+            "keyColor": "38;2;180;190;254"
+        },
+        {
+            "key": "  Terminal  ",
+            "type": "terminal",
+            "keyColor": "38;2;250;179;135"
+        },
+        {
+            "key": "  Shell     ",
+            "type": "shell",
+            "keyColor": "38;2;249;226;175"
+        },
+//        "break",
+//        {
+//             "type": "custom",
+//             "format": "   -----------------------------------------------"
+//        },
+//        "break",
+        {
+            "type": "host",
+            "key": "  Device    ",
+            "keyColor": "38;2;148;226;213"
+        },
+        {
+            "type": "cpu",
+            "key": "  CPU       ",
+            "format": "{vendor} {name} ({cores-logical}) @ {freq-max}",
+            "keyColor": "38;2;166;227;161"
+        },
+        {
+            "type": "gpu",
+            "key": " 󰢮 GPU       ",
+            "keyColor": "38;2;243;139;168"
+        },
+        {
+             "type": "custom",
+             "format": "   \u001b[38;2;88;91;112m--------------------------------------------------------\u001b[0m"
+        },
+
+        {
+            "key": " 󰓅 RAM       ",
+            "type": "memory",
+            "keyColor": "38;2;203;166;247",
+            "format": "{used} / {total} ({percentage})"
+        },
+        {
+            "key": " ",
+            "type": "memory",
+            "keyColor": "38;2;203;166;247",
+            "format": "     \u001b[38;2;203;166;247m{percentage-bar}\u001b[0m"
+        },
+        "break",
+        {
+            "key": "  Storage   ",
+            "type": "disk",
+            "keyColor": "38;2;203;166;247",
+            "folders": "/",
+            "format": "{size-used} / {size-total} ({size-percentage})"
+        },
+        {
+            "key": " ",
+            "type": "disk",
+            "keyColor": "38;2;250;179;135",
+            "folders": "/",
+            "format": "     {size-percentage-bar}"
+        },
+        "break", // If doesn't change the dir, add "{mountpoint}" in "format": down bellow to know your external storage path.
+        { 
+             "type": "custom", 
+             "format": "  \u001b[38;2;203;166;247m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\u001b[0m"
+        }
     ]
 }

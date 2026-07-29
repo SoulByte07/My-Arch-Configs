@@ -55,16 +55,18 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:descriptions' format '[%d]'
 
 # Enable Tmux Popup only if inside a Tmux session
-if [[ -n "$TMUX" ]]; then
-    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-else
-    zstyle ':fzf-tab:*' fzf-command fzf
-fi
+# if [[ -n "$TMUX" ]]; then
+#     zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# else
+#     zstyle ':fzf-tab:*' fzf-command fzf
+# fi
+
+zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 # Add rounded border, custom pointer, and correct padding for borders
 zstyle ':fzf-tab:*' fzf-flags --border=rounded --pointer='▌'
-zstyle ':fzf-tab:*' fzf-pad 4
+zstyle ':fzf-tab:*' fzf-pad 6
 
 # Preview directory's content with eza/lsd/ls when completing cd
 # Optimized: use (( $+commands[eza] )) for faster check

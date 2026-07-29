@@ -6,9 +6,9 @@
 
 # 1. Load environment variables
 # Optimization: Use POSIX '.' instead of bash 'source'
-if [ -f "$HOME/.config/dwl/dwl-env" ]; then
-    . "$HOME/.config/dwl/dwl-env"
-fi
+# if [ -f "$HOME/.config/dwl/dwl-env.sh" ]; then
+#     . "$HOME/.config/dwl/dwl-env.sh"
+# fi
 
 # 2. Launch Environment
 # Optimization: 'exec' replaces the current shell process entirely. 

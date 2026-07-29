@@ -93,11 +93,10 @@ alias -s log=bat
 
 # Podman
 alias pd='podman'
-alias docker='podman'
 alias pdc='podman-compose'
 
 # Tmux 
-alias t='$HOME/.config/tmux/scripts/start-tmux-home.sh'
+alias t='/home/soul/.config/tmux/scripts/init'
 
 # Distro box
 alias db='distrobox'
@@ -110,6 +109,7 @@ alias marp-server='CHROME_PATH=/usr/bin/brave-origin-beta CHROME_ARGUMENTS="--he
 
 # Game Mode 
 alias game='/home/soul/.config/hypr/scripts/GameMode.sh'
+alias gamemini='/home/soul/.config/hypr/scripts/GameMode-Mini.sh'
 
 # Cloud
 # alias podsock='systemctl --user start podman.socket'
@@ -118,10 +118,12 @@ alias tf='tflocal'
 alias aws='awslocal'
 
 # AI Tools 
-alias gm='distrobox enter ArchBox -- gemini'
+alias gm='agy'
 alias op='distrobox enter ArchBox -- opencode'
+alias pi='distrobox enter ArchBox -- pi'
 
-
+# Fastfetch
+alias ff='fastfetch'
 
 
 

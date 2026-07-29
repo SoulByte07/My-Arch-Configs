@@ -22,6 +22,10 @@ source "$ZSH_TOOL_CACHE/fzf.zsh"
 [[ ! -f "$ZSH_TOOL_CACHE/zoxide.zsh" ]] && zoxide init zsh --cmd cd > "$ZSH_TOOL_CACHE/zoxide.zsh"
 source "$ZSH_TOOL_CACHE/zoxide.zsh"
 
+# Direnv Cache
+# [[ ! -f "$ZSH_TOOL_CACHE/direnv.zsh" ]] && direnv hook zsh > "$ZSH_TOOL_CACHE/direnv.zsh"
+# source "$ZSH_TOOL_CACHE/direnv.zsh"
+
 # Lazy-loaded TheFuck
 # fuck() {
 #     unfunction fuck

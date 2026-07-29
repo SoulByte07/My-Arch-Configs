@@ -1,5 +1,5 @@
 [Unit]
-Description=RClone Mount Service Encrypted Google drive (Optimized)
+Description=RClone Mount Service Normal Google drive (Optimized)
 After=network-online.target
 Wants=network-online.target
 
@@ -9,7 +9,7 @@ User=soul
 Group=soul
 
 # Performance and Battery Optimized Command
-ExecStart=/usr/bin/rclone mount GoogleDrive:  /home/soul/02_Resources/01_Mounts/GoogleDrive \
+ExecStart=/bin/rclone mount GoogleDrive:  /home/soul/02_Resources/01_Mounts/GoogleDrive \
     --config /home/soul/.config/rclone/rclone.conf \
     --vfs-cache-mode full \
     --vfs-cache-max-age 24h \

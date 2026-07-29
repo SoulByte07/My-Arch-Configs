@@ -80,7 +80,7 @@ return {
 
 			-- Initialize Mason-LSPConfig
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts_ls", "html", "lua_ls", "pyright", "gopls" },
+				ensure_installed = { "ts_ls", "html", "lua_ls", "gopls" },
 				automatic_installation = true,
 				handlers = {
 					function(server_name)

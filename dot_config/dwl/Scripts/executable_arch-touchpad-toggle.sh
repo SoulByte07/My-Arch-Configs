@@ -12,9 +12,9 @@ NOTIF_ICON="$HOME/.config/swaync/images/ja.png"
 if [ -e "$DRV_PATH/$DEV_ID" ]; then
     # Action: Disable using the passwordless helper
     sudo /usr/local/bin/touchpad_hw_toggle unbind
-    notify-send -u low -i "$NOTIF_ICON" "Touchpad" "Disabled"
+    notify-send -u low -i "$NOTIF_ICON" "Touchpad" " Disabled"
 else
     # Action: Enable using the passwordless helper
     sudo /usr/local/bin/touchpad_hw_toggle bind
-    notify-send -u low -i "$NOTIF_ICON" "Touchpad" "Enabled"
+    notify-send -u low -i "$NOTIF_ICON" "Touchpad" " Enabled"
 fi

@@ -6,7 +6,7 @@
 set -u
 
 selection="$(cliphist list | tofi \
-  --prompt-text 'Clipboard: ' \
+  --prompt-text '󰨸 Clipboard: ' \
   --width 60% \
   --height 45% \
   --num-results 10 \

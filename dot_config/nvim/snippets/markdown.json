@@ -2,9 +2,9 @@
   "Markdown Frontmatter": {
     "prefix": "meta",
     "body": [
-      "--- ",
+      "---",
       "tags: ",
-      "    - ${1}",
+      "  - ${1}",
       "---"
     ],
     "description": "Add YAML frontmatter tags"
@@ -37,5 +37,16 @@
         "```"
     ],
     "description": "Add a code block"
- }
+ },
+
+ "Markdown Todays Date Header": {
+    "prefix": "tdate",
+    "body": [
+      "---",
+      "> Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+      "---",
+      "$0"
+    ],
+    "description": "Inserts block with dynamic current date"
+  }
 }

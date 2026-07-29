@@ -23,12 +23,12 @@ esac
 mute="$(pamixer --get-mute)"
 
 if [ "$mute" = 'true' ]; then
-    notify-send -a 'Volume' -h string:x-canonical-private-synchronous:audio 'Audio Muted'
+    notify-send -a 'Volume' -h string:x-canonical-private-synchronous:audio '  Audio Muted'
 else
     volume="$(pamixer --get-volume)"
     notify-send \
         -a 'Volume' \
         -h string:x-canonical-private-synchronous:audio \
         -h int:value:"$volume" \
-        "Volume: ${volume}%"
+        "  Volume: ${volume}%"
 fi

@@ -28,4 +28,4 @@ notify-send \
     -a 'Brightness' \
     -h string:x-canonical-private-synchronous:brightness \
     -h int:value:"$brightness" \
-    "Brightness: ${brightness}%"
+    "󰃟 Brightness: ${brightness}%"

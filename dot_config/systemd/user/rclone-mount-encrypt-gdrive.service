@@ -9,7 +9,7 @@ User=soul
 Group=soul
 
 # Performance and Battery Optimized Command
-ExecStart=/home/soul/.local/bin/rclone mount EncryptGoogleDrive:  /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive \
+ExecStart=/bin/rclone mount EncryptGoogleDrive:  /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive \
     --config /home/soul/.config/rclone/rclone.conf \
     --vfs-cache-mode full \
     --vfs-cache-max-age 24h \

@@ -20,12 +20,12 @@ while true; do
     sleep "$(( WORK_MINS * 60 ))"
     
     # 2. Break Prompt
-    notify-send "Pomodoro Timer" "Take a break."
+    notify-send "󱫌 Pomodoro Timer" "Take a break."
     sleep 5
     
     # Optimization: Use printf for faster, POSIX-compliant string generation.
     CHOICE=$(printf "Yes\nNo\n" | tofi \
-        --prompt "Pomodoro Timer: Break?" \
+        --prompt "󱎫 Pomodoro Timer: Break?" \
         --num-results 2 \
         --ascii-input=false \
         --font="FiraCode Nerd Font" \
@@ -57,9 +57,9 @@ while true; do
         
         # --- SCRIPT PAUSES HERE ---
         # It resumes automatically upon manual wake and unlock.
-        notify-send "Pomodoro Timer" "Welcome back!"
+        notify-send "󱎫 Pomodoro Timer" "Welcome back!"
     else
         # This also safely catches if you press 'Esc' to dismiss the tofi menu
-        notify-send "Pomodoro Timer" "Timer Reset. Focus mode extended."
+        notify-send "󱫤 Pomodoro Timer" "Timer Reset. Focus mode extended."
     fi
 done
