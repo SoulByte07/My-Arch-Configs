@@ -12,10 +12,11 @@ choice="$({
     printf '%s\n' '󰐥 Shutdown'
     printf '%s\n' '󰜉 Reboot'
     printf '%s\n' '󰗼 Exit'
+    printf '%s\n' '󰌾 Lock'
     printf '%s\n' '󰤄 Suspend'
 } | tofi \
     --prompt-text 'Power Menu: ' \
-    --num-results 4 \
+    --num-results 5 \
     --ascii-input=false \
     --font='FiraCode Nerd Font' \
     --fuzzy-match=false || true)"
@@ -30,7 +31,7 @@ case "$choice" in
     *Exit)
         exec killall dwl
         ;;
-    *Suspend)
+    *Lock)
         if [ -f "$blurred_wallpaper" ]; then
             set -- --image "$blurred_wallpaper"
         else
@@ -52,7 +53,10 @@ case "$choice" in
           --separator-color 00000000 \
           --fade-in 0.2 &
 
-        sleep 1
+        sleep 3
+        exec systemctl suspend
+        ;;
+    *Suspend)
         exec systemctl suspend
         ;;
     *)
