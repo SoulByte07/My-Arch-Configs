@@ -1,10 +1,13 @@
+# Sample Input: systemctl daemon-reload && systemctl restart rclone-encrypt.service
+# Expected Output: Service starts, waits for a successful connection, and silently logs activity.
+
 [Unit]
 Description=RClone Mount Service Encrypted Google drive (Optimized)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=simple
+Type=notify
 User=soul
 Group=soul
 
@@ -14,15 +17,9 @@ ExecStart=/bin/rclone mount EncryptGoogleDrive:  /home/soul/02_Resources/01_Moun
     --vfs-cache-mode full \
     --vfs-cache-max-age 24h \
     --vfs-cache-max-size 10G \
-    --vfs-read-chunk-size 32M \
-    --vfs-read-chunk-size-limit 1G \
-    --buffer-size 32M \
     --dir-cache-time 72h \
-    --attr-timeout 72h \
-    --vfs-fast-fingerprint \
-    --no-checksum \
-    --no-modtime \
-    --vfs-read-ahead 128M
+    --log-level INFO \
+    --log-file /home/soul/02_Resources/97_Logs/rclone/rclone-mount-encrypteddrive.log
 
 # Clean shutdown and unmount
 ExecStop=/bin/fusermount -uz /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive

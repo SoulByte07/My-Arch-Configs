@@ -1,10 +1,10 @@
 [Unit]
-Description=RClone Mount Service Normal Google drive (Optimized)
+Description=RClone Mount Service Encrypted Google drive (Optimized)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=simple
+Type=notify
 User=soul
 Group=soul
 
@@ -13,19 +13,15 @@ ExecStart=/bin/rclone mount GoogleDrive:  /home/soul/02_Resources/01_Mounts/Goog
     --config /home/soul/.config/rclone/rclone.conf \
     --vfs-cache-mode full \
     --vfs-cache-max-age 24h \
-    --vfs-cache-max-size 10G \
-    --vfs-read-chunk-size 32M \
-    --vfs-read-chunk-size-limit 1G \
-    --buffer-size 32M \
+    --vfs-cache-max-size 10G
     --dir-cache-time 72h \
-    --attr-timeout 72h \
-    --vfs-fast-fingerprint \
-    --no-checksum \
-    --no-modtime \
-    --vfs-read-ahead 128M
+    --log-level INFO \
+    --log-file /home/soul/02_Resources/97_Logs/rclone/rclone-mount-gdrive.log
+
+
 
 # Clean shutdown and unmount
-ExecStop=/bin/fusermount -uz /home/soul/02_Resources/01_Mounts/GoogleDrive
+ExecStop=/bin/fusermount -uz /home/soul/02_Resources/01_Mounts/EncryptGoogleDrive
 Restart=on-failure
 RestartSec=10
 
