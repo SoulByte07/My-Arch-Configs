@@ -2,12 +2,12 @@
 
 return {
     "epwalsh/obsidian.nvim",
-    version = "*",  
+    version = "*",
     lazy = true,
     
     event = {
-        "BufReadPre " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault",
-        "BufNewFile " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault",
+        "BufReadPre " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault/**",
+        "BufNewFile " .. vim.fn.expand("~") .. "/04_Backups/0_Sync/Obsidian/Obsidian-Vault/**",
     },
     
     keys = {
@@ -27,16 +27,16 @@ return {
         workspaces = {
             {
                 name = "personal",
-                path = "~/04_Backups/0_Sync/Obsidian/Obsidian-Vault", 
+                path = "~/04_Backups/0_Sync/Obsidian/Obsidian-Vault",
             },
         },
         
         ui = {
-            enable = false, 
+            enable = false,
         },
 
         daily_notes = {
-            folder = "Journals/Daily",
+            folder = "Journal/Daily",
             date_format = "%Y-%m-%d",
         },
 
