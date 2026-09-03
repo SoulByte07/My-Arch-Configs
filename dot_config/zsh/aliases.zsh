@@ -119,8 +119,8 @@ alias aws='awslocal'
 
 # AI Tools 
 alias gm='agy'
-alias op='distrobox enter ArchBox -- opencode'
-alias pi='distrobox enter ArchBox -- pi'
+alias op='opencode'
+alias ops='podman run --rm -it --user root -v "$PWD:/workspace:z" -v "$HOME/.config/opencode:/root/.config/opencode:ro,z" -w /workspace ghcr.io/anomalyco/opencode:latest'
 
 # Fastfetch
 alias ff='fastfetch'

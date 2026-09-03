@@ -112,7 +112,7 @@ return {
     
     -- Dynamically generate C-1 through C-5 keymaps
     for i = 1, max_slots do
-      vim.keymap.set("n", "<C-" .. i .. ">", function() nav_slot(i) end, { desc = "Harpoon " .. i })
+      vim.keymap.set("n", "<M-" .. i .. ">", function() nav_slot(i) end, { desc = "Harpoon " .. i })
     end
   end,
 }
