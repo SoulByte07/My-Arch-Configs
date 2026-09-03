@@ -22,4 +22,5 @@ pkill -x wbg >/dev/null 2>&1 || true
 # 4. Final process replacement: wbg takes the path directly as an argument
 # Sample Input: ./dwl-random-wall.sh
 # Expected Output: Background changes; script process is replaced by wbg.
-exec wbg -s "$random_img"
+# exec wbg -s "$random_img"
+exec swaybg -i "$random_img" -m fill
