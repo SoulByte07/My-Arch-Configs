@@ -11,6 +11,7 @@ cr_char="$(printf '\r')"
 
 mkdir -p "$bm_dir"
 
+librewolf_bin="$(command -v librewolf 2>/dev/null || printf '%s\n' librewolf)"
 chromium_bin="$(command -v chromium 2>/dev/null || printf '%s\n' chromium)"
 
 brave_origin="$(command -v brave-origin 2>/dev/null || printf '%s\n' brave-origin)"
@@ -104,7 +105,7 @@ esac
 open_browser() {
     case "$saved_browser" in
         Librewolf)
-            setsid sh -c '/usr/sbin/distrobox-enter -n ArchBox -- /usr/lib/librewolf/librewolf "$1" ; distrobox stop -y ArchBox' _ "$url" >/dev/null 2>&1 &
+            setsid "$librewolf_bin" "$url" >/dev/null 2>&1 &
             ;;
         Chromium)
             setsid "$chromium_bin" "$url" >/dev/null 2>&1 &
@@ -113,7 +114,7 @@ open_browser() {
             setsid "$brave_origin" "$url" >/dev/null 2>&1 &
             ;;
         *)
-            setsid sh -c '/usr/sbin/distrobox-enter -n ArchBox -- /usr/lib/librewolf/librewolf "$1" ; distrobox stop -y ArchBox' _ "$url" >/dev/null 2>&1 &
+            setsid xdg-open "$url" >/dev/null 2>&1 &
             ;;
     esac
 }
