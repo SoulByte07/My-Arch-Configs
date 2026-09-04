@@ -1,44 +1,34 @@
 # ~/.config/yazi/yazi.toml
 
 [opener]
-# Text Editor - Using NeoVim in block mode to prevent UI overlap
 edit = [
-    { run = 'nvim "$@"', block = true, desc = "NeoVim" }
+    { run = 'nvim %s', block = true, desc = "NeoVim" }
 ]
 
-# Image Viewer - Orphaned to run independently of the terminal
 image = [
-    { run = 'imv "$@"', orphan = true, desc = "imv" }
+    { run = 'imv %s', orphan = true, desc = "imv" }
 ]
 
-# Media Player
 play = [
-    { run = 'mpv "$@"', orphan = true, desc = "mpv" }
+    { run = 'mpv %s', orphan = true, desc = "mpv" }
 ]
 
-# PDF Viewer
 pdf = [
-    { run = 'zathura "$@"', orphan = true, desc = "Zathura" }
+    { run = '/home/soul/.local/bin/zathura %s', orphan = true, desc = "Zathura" }
 ]
 
-# System Fallback - Uses xdg-open for everything else
 system_default = [
-    { run = 'xdg-open "$@"', orphan = true, desc = "System Default" }
+    { run = 'xdg-open %s', orphan = true, desc = "System Default" }
 ]
 
 [open]
 rules = [
-    # Use specific mime types for high-priority matching
     { mime = "text/*", use = "edit" },
     { mime = "application/{json,yaml,x-shellscript,javascript,xml}", use = "edit" },
-    
-    # Matching specific extensions by adding a wildcard mime to satisfy the parser
-    { name = "*.{sh,py,tf,conf,toml,md}", mime = "*", use = "edit" },
-
-    # MEDIA & DOCUMENTS
+    { url = "*.{sh,py,tf,conf,toml,md}", use = "edit" },
     { mime = "image/*", use = "image" },
     { mime = "{audio,video}/*", use = "play" },
     { mime = "application/pdf", use = "pdf" },
-    { mime = "*", use = "system_default" }
+    { url = "*", use = "system_default" }
 ]
 
