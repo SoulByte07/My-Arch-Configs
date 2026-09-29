@@ -17,7 +17,7 @@ random_img="$(shuf -n 1 "$cache_file" 2>/dev/null || true)"
 [ -n "$random_img" ] || exit 1
 
 # 3. Kill previous instance of wbg
-pkill -x wbg >/dev/null 2>&1 || true
+pkill -x swaybg >/dev/null 2>&1 || true
 
 # 4. Final process replacement: wbg takes the path directly as an argument
 # Sample Input: ./dwl-random-wall.sh

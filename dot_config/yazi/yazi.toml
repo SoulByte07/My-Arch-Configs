@@ -29,6 +29,7 @@ rules = [
     { mime = "image/*", use = "image" },
     { mime = "{audio,video}/*", use = "play" },
     { mime = "application/pdf", use = "pdf" },
-    { url = "*", use = "system_default" }
+    { mime = "application/*", use = "system_default" },
+    { url = "*", use = "edit" }
 ]
 

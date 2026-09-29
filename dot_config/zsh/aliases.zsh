@@ -125,7 +125,10 @@ alias ops='podman run --rm -it --user root -v "$PWD:/workspace:z" -v "$HOME/.con
 # Fastfetch
 alias ff='fastfetch'
 
-
+# RTK 
+alias rtkgm='rtk init --agent antigravity'
+alias rtkcp='rtk init'
+alias rtkop='rtk init -g --opencode'
 
 
 

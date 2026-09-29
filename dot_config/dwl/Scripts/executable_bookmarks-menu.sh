@@ -71,7 +71,7 @@ work"
     [ -n "$browser" ] || exit 0
 
     mkdir -p "$bm_dir/$tag"
-    printf '%s\n%s\n' "$url" "$browser" > "$bm_dir/$tag/$name"
+    printf '%s\n%s\n\n' "$url" "$browser" > "$bm_dir/$tag/$name"
     notify-send ' Bookmark Saved' "'$name' will open in $browser"
     exit 0
 fi

@@ -10,13 +10,13 @@ return {
         enabled = true,
         auto_trigger = true,
         keymap = {
-          accept = "<Tab>",  -- tab (Accept/Yes)
-          next = "<C-f>",    -- Ctrl + f (Next)
+          accept = "<C-f>",  -- Ctrl + j (Accept/Yes)
+          next = "<C-j>",    -- Ctrl + f (Next)
           prev = "<C-b>",    -- Ctrl + b (Prev)
           dismiss = "<C-g>", -- Ctrl + g (Exit/Dismiss)
         },
       },
-      panel = { enabled = false },
+      panel = { enabled = true },
     })
   end,
 }
