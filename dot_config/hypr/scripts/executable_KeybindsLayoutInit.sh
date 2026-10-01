@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# Initialize J/K keybinds so they always cycle windows globally (no layout-specific behavior)
-# This avoids double-actions when layouts change.
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
+# Legacy startup hook for layout keybind initialization.
+# Runtime keybind behavior is now resolved per keypress based on active workspace layout.
 
 set -euo pipefail
 
-# Always reset and bind SUPER+J/K the same way on startup
-hyprctl keyword unbind SUPER,J || true
-hyprctl keyword unbind SUPER,K || true
+scripts_dir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts"
 
-# Cycle windows globally: J = next, K = previous
-hyprctl keyword bind SUPER,J,cyclenext
-hyprctl keyword bind SUPER,K,cyclenext,prev
+# Keep compatibility with existing startup entries while avoiding global rebinding.
+if [[ -x "${scripts_dir}/ChangeLayout.sh" ]]; then
+  "${scripts_dir}/ChangeLayout.sh" --quiet init >/dev/null 2>&1 || true
+fi

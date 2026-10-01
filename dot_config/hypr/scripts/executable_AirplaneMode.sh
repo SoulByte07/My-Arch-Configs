@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # Airplane Mode. Turning on or off all wifi using rfkill. 
 
-notif="$HOME/.config/swaync/images/ja.png"
+notif="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images/ja.png"
 
 # Check if any wireless device is blocked
 wifi_blocked=$(rfkill list wifi | grep -o "Soft blocked: yes")

@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # Script for Monitor backlights (if supported) using brightnessctl
 
-iDIR="$HOME/.config/swaync/icons"
+iDIR="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/icons"
 notification_timeout=1000
 step=1  # INCREASE/DECREASE BY THIS VALUE
 
@@ -42,8 +47,8 @@ change_brightness() {
     current=$(get_brightness)
     new=$((current + delta))
 
-    # Clamp between 1 and 100
-    (( new < 1 )) && new=1
+    # Clamp between 5 and 100
+    (( new < 5 )) && new=5
     (( new > 100 )) && new=100
 
     brightnessctl set "${new}%"

@@ -1,4 +1,4 @@
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
+# /* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */  #
 # /* wallust template - colors-cava */
 
 ## Configuration file for CAVA.
@@ -84,8 +84,8 @@
  method = pulse
  source = auto
 
- method = pipewire
- source = auto
+; method = pipewire
+; source = auto
 
 ; method = alsa
 ; source = hw:Loopback,1
@@ -243,14 +243,14 @@
 # for wallust
 gradient = 1
 gradient_count = 8
-gradient_color_1 = '#454447'
-gradient_color_2 = '#1B1C27'
-gradient_color_3 = '#414658'
-gradient_color_4 = '#6D778F'
-gradient_color_5 = '#EBE4E1'
-gradient_color_6 = '#828EAC'
-gradient_color_7 = '#919EBE'
-gradient_color_8 = '#EBE4E1'
+gradient_color_1 = '#46454A'
+gradient_color_2 = '#985662'
+gradient_color_3 = '#826351'
+gradient_color_4 = '#8A7F8C'
+gradient_color_5 = '#CBE3E5'
+gradient_color_6 = '#C39B7C'
+gradient_color_7 = '#B8AABB'
+gradient_color_8 = '#CBE3E5'
 
 
 [smoothing]

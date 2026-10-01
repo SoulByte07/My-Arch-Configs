@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# This is for changing kb_layouts. Set kb_layouts in "$HOME/.config/hypr/UserConfigs/UserSettings.conf"
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
+# This is for changing kb_layouts. Set kb_layouts in "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/UserConfigs/user_settings.lua"
 
-notif_icon="$HOME/.config/swaync/images/ja.png"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
+notif_icon="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images/ja.png"
+SCRIPTSDIR="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts"
 
 # Refined ignore list with patterns or specific device names
 ignore_patterns=(
@@ -85,7 +90,7 @@ if ! get_current_layout_info; then
   echo "There might not be any keyboards available, \
     or some were unnecessarily set as ignored." >&2
   notify-send -u low -t 2000 'kb_layout' " Error:" " Layout change failed"
-  echo "Exiting $0 $@" >&2
+  echo "Exiting $0 $*" >&2
   exit 1
 fi
 

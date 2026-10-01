@@ -23,7 +23,7 @@ vim.g.loaded_python3_provider = 0
 
 -- UI & Behavior
 vim.opt.smartindent = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 

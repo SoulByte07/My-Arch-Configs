@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # Rewritten to use Open-Meteo APIs (worldwide, no API key) for robust weather data.
 # Outputs Waybar-compatible JSON and a simple text cache.
 
@@ -44,7 +49,7 @@ class WeatherData:
 # Examples (zsh):
 #   # One-off run
 #   # WEATHER_UNITS can be "metric" or "imperial"
-#   WEATHER_UNITS=imperial WEATHER_PLACE="Concord, NH" python3 ~/.config/hypr/UserScripts/Weather.py
+#   WEATHER_UNITS=imperial WEATHER_PLACE="Concord, NH" python3 ${XDG_CONFIG_HOME:-$HOME/.config}/hypr/UserScripts/Weather.py
 #
 #   # Persist in current shell session
 #   export WEATHER_UNITS=imperial

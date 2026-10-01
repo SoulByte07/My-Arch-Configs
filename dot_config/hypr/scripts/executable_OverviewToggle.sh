@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # Overview toggle wrapper - tries Quickshell first, falls back to AGS
 
 set -euo pipefail
 
-# 1) Try Quickshell via IPC (works if QS is running and listening)
-if pgrep -x quickshell >/dev/null 2>&1; then
-  if qs ipc -c overview call overview toggle >/dev/null 2>&1; then
-    exit 0
-  fi
-fi
+QS_OVERVIEW_DIR="${XDG_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}}/quickshell/overview"
+QS_TEXTINPUT_LOG_RULE="qt.qpa.wayland.textinput.warning=false"
 
-# If QS isn't running, but the CLI exists, try starting it and retry once
-if command -v qs >/dev/null 2>&1; then
-  qs -c overview >/dev/null 2>&1 &
+# 1) Prefer Quickshell when installed and configured
+if command -v qs >/dev/null 2>&1 && [ -d "$QS_OVERVIEW_DIR" ]; then
+  # Try Quickshell via IPC (works if QS is running and listening)
+  if pgrep -x qs >/dev/null 2>&1; then
+    if qs ipc -c overview call overview toggle >/dev/null 2>&1; then
+      exit 0
+    fi
+  fi
+
+  # If QS isn't running, try starting it and retry once
+  qs --log-rules "$QS_TEXTINPUT_LOG_RULE" -c overview >/dev/null 2>&1 &
   sleep 0.6
   if qs ipc -c overview call overview toggle >/dev/null 2>&1; then
     exit 0

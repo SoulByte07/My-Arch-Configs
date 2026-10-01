@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # wlogout (Power, Screen Lock, Suspend, etc)
 
 # Set variables for parameters. First numbers corresponts to Monitor Resolution
@@ -19,6 +24,17 @@ B_720=50
 if pgrep -x "wlogout" > /dev/null; then
     pkill -x "wlogout"
     exit 0
+fi
+
+cd "${XDG_CONFIG_HOME:-$HOME/.config}/wlogout" 2>/dev/null || true
+
+FLAGS_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/wlogout/.theme_flags"
+if [[ -f "$FLAGS_FILE" ]]; then
+    THEME_FLAGS=$(cat "$FLAGS_FILE")
+    if [[ -n "$THEME_FLAGS" ]]; then
+        eval wlogout "$THEME_FLAGS" &
+        exit 0
+    fi
 fi
 
 # Detect monitor resolution and scaling factor

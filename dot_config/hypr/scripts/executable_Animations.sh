@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # For applying Animations from different users
 
 # Check if rofi is already running
@@ -8,24 +13,46 @@ if pidof rofi > /dev/null; then
 fi
 
 # Variables
-iDIR="$HOME/.config/swaync/images"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
-animations_dir="$HOME/.config/hypr/animations"
-UserConfigs="$HOME/.config/hypr/UserConfigs"
-rofi_theme="$HOME/.config/rofi/config-Animations.rasi"
-msg='❗NOTE:❗ This will copy animations into UserAnimations.conf'
+iDIR="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images"
+SCRIPTSDIR="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts"
+animations_dir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/animations"
+UserConfigs="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/UserConfigs"
+rofi_theme="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/rofi/config-Animations.rasi"
+
+animation_ext="lua"
+target_animation_file="$UserConfigs/user_animations.lua"
+msg='❗NOTE:❗ This will copy animations into user_animations.lua'
+
 # list of animation files, sorted alphabetically with numbers first
-animations_list=$(find -L "$animations_dir" -maxdepth 1 -type f | sed 's/.*\///' | sed 's/\.conf$//' | sort -V)
+animations_list=$(find -L "$animations_dir" -maxdepth 1 -type f -name "*.${animation_ext}" | sed 's/.*\///' | sed "s/\.${animation_ext}$//" | sort -V)
+
+if [[ -z "$animations_list" ]]; then
+    notify-send -u normal -i "$iDIR/ja.png" "No animation presets found" "Expected *.${animation_ext} in $animations_dir"
+    exit 0
+fi
 
 # Rofi Menu
-chosen_file=$(echo "$animations_list" | rofi -i -dmenu -config $rofi_theme -mesg "$msg")
+"${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
+chosen_file=$(echo "$animations_list" | rofi -i -dmenu -config "$rofi_theme" -mesg "$msg")
 
 # Check if a file was selected
-if [[ -n "$chosen_file" ]]; then
-    full_path="$animations_dir/$chosen_file.conf"    
-    cp "$full_path" "$UserConfigs/UserAnimations.conf"    
-    notify-send -u low -i "$iDIR/ja.png" "$chosen_file" "Hyprland Animation Loaded"
+if [[ -z "$chosen_file" ]]; then
+    exit 0
+fi
+
+full_path="$animations_dir/$chosen_file.$animation_ext"
+if [[ ! -f "$full_path" ]]; then
+    notify-send -u normal -i "$iDIR/error.png" "Error" "Animation preset not found: $chosen_file"
+    exit 1
+fi
+
+mkdir -p "$UserConfigs"
+cp "$full_path" "$target_animation_file"
+notify-send -u low -i "$iDIR/ja.png" "$chosen_file" "Hyprland Animation Loaded"
+
+if command -v hyprctl &>/dev/null; then
+    hyprctl reload >/dev/null 2>&1 || true
 fi
 
 sleep 1
-"$SCRIPTSDIR/RefreshNoWaybar.sh"
+"$SCRIPTSDIR/RefreshNoWaybar.sh" &

@@ -1,44 +1,56 @@
 #!/usr/bin/env bash
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
+# ==================================================
+#  KoolDots (2026)
+#  Project URL: https://github.com/LinuxBeginnings
+#  License: GNU GPLv3
+#  SPDX-License-Identifier: GPL-3.0-or-later
+# ==================================================
 # Game Mode. Turning off all animations
 
-set -euo pipefail
+notif="${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images/ja.png"
+SCRIPTSDIR="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts"
+# shellcheck source=/dev/null
+. "$SCRIPTSDIR/WallpaperCmd.sh"
 
-notif="$HOME/.config/swaync/images/ja.png"
-SCRIPTSDIR="$HOME/.config/hypr/scripts"
+# Check if animations are currently enabled
+HYPRGAMEMODE=$(hyprctl getoption animations:enabled -j | jq -r '.bool' 2>/dev/null)
+if [[ "$HYPRGAMEMODE" == "null" || -z "$HYPRGAMEMODE" ]]; then
+    HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
+fi
 
-
-HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
-if [ "$HYPRGAMEMODE" = 1 ] ; then
-    hyprctl --batch "\
-        keyword animations:enabled 0;\
-        keyword decoration:shadow:enabled 0;\
-        keyword decoration:blur:enabled 0;\
-        keyword general:gaps_in 0;\
-        keyword general:gaps_out 0;\
-        keyword general:border_size 1;\
-        keyword decoration:rounding 0"
-    hyprctl keyword decoration:active_opacity 1 || true
-    hyprctl keyword decoration:inactive_opacity 1 || true
-    awww kill 2>/dev/null || true
-    killall waybar
-    sudo sysctl vm.swappiness=10 > /dev/null 2>&1 || true
-    sudo -n cpupower frequency-set -g performance 2>/dev/null || true
-    sed -i '/xwayland {/,/^}/ s/enabled = false/enabled = true/' "$HOME/.config/hypr/configs/SystemSettings.conf"
-    hyprctl reload
+if [ "$HYPRGAMEMODE" = "true" ] || [ "$HYPRGAMEMODE" = "1" ] ; then
+    # ENABLE Game Mode (Disable animations/decorations via native Lua)
+    hyprctl eval "hl.config({ 
+        animations = { enabled = false },
+        decoration = { shadow = { enabled = false }, blur = { enabled = false }, rounding = 0 },
+        general = { gaps_in = 0, gaps_out = 0, border_size = 1 }
+    })"
+    hyprctl eval "hl.window_rule({ name = 'gamemode-opacity', match = { class = '.*' }, opacity = 1.0 })"
+    
+    "$WWW_CMD" kill 
     notify-send -e -u low -i "$notif" " Gamemode:" " enabled"
     sleep 0.1
     exit
 else
-	awww-daemon --format xrgb && awww img "$HOME/.config/rofi/.current_wallpaper" &
-    sudo -n cpupower frequency-set -g powersave 2>/dev/null || true
-	sleep 0.1
-	${SCRIPTSDIR}/WallustSwww.sh
-	sleep 0.5
-    sudo sysctl vm.swappiness=180 > /dev/null 2>&1 || true
-    sed -i '/xwayland {/,/^}/ s/enabled = true/enabled = false/' "$HOME/.config/hypr/configs/SystemSettings.conf"
+    # DISABLE Game Mode (Restore animations/decorations)
     hyprctl reload
-	${SCRIPTSDIR}/Refresh.sh	 
+
+    # Restore wallpaper using the official daemon script
+    if [[ -x "${SCRIPTSDIR}/WallpaperDaemon.sh" ]]; then
+        "${SCRIPTSDIR}/WallpaperDaemon.sh" &
+    fi
+    
+    sleep 0.1
+    if [[ -x "${SCRIPTSDIR}/WallustSwww.sh" ]]; then
+        "${SCRIPTSDIR}/WallustSwww.sh"
+    fi
+    sleep 0.5
+    
+    # Refresh UI components
+    if [[ -x "${SCRIPTSDIR}/Refresh.sh" ]]; then
+        "${SCRIPTSDIR}/Refresh.sh"
+    fi
+
     notify-send -e -u normal -i "$notif" " Gamemode:" " disabled"
     exit
 fi
