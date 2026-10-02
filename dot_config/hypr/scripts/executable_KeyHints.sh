@@ -37,17 +37,17 @@ GDK_BACKEND=$BACKEND yad \
   " A" "Desktop Overview" "Shows open apps in workspaces" \
   " D" "Application Launcher" "(rofi-wayland)" \
   " E" "Open File Manager" "(Thunar)" \
-  " S" "Google Search using rofi" "(rofi)" \
+  " S" "Tools Manager" "(rofi)" \
   " T" "Global theme switcher" "(rofi)" \
   " Q" "close active window" "(not kill)" \
   " Shift Q " "kills an active window" "(kill)" \
   " ALT mouse scroll up/down   " "Desktop Zoom" "Desktop Magnifier" \
-  " Alt V" "Clipboard Manager" "(cliphist)" \
+  " V" "Clipboard Manager" "(cliphist)" \
   " W" "Choose wallpaper" "(Wallpaper Menu)" \
   " Shift W" "Choose wallpaper effects" "(imagemagick + awww)" \
   "CTRL ALT W" "Random wallpaper" "(via awww)" \
-  " CTRL ALT B" "Hide/UnHide Waybar" "waybar" \
-  " CTRL B" "Choose waybar styles" "(waybar styles)" \
+  " CTRL B" "Hide/UnHide Waybar" "waybar" \
+  " CTRL SHIFT B" "Choose waybar styles" "(waybar styles)" \
   " ALT B" "Choose waybar layout" "(waybar layout)" \
   " ALT R" "Reload Waybar swaync Rofi" "CHECK NOTIFICATION FIRST!!!" \
   " SHIFT N" "Launch Notification Panel" "swaync Notification Center" \
@@ -61,7 +61,7 @@ GDK_BACKEND=$BACKEND yad \
   " CTRL W" "wlogout theme selector" "(wlogout themes)" \
   " CTRL SHIFT W" "wlogout wallpaper selector" "(wlogout background)" \
   "CTRL ALT D" "Toggle dock" "(nwg-dock-hyprland)" \
-  "CTRL ALT L" "screen lock" "(hyprlock)" \
+  "SUPER CTRL L" "screen lock" "(hyprlock)" \
   "CTRL ALT Del" "Hyprland Exit" "(NOTE: Hyprland Will exit immediately)" \
   "CTRL ALT + / -" "Brightness Up / Down" "Increase/Decrease brightness" \
   " SHIFT F" "Fullscreen" "Toggles to full screen" \
@@ -75,7 +75,7 @@ GDK_BACKEND=$BACKEND yad \
   " CTRL R" "Rofi Themes Menu" "Choose Rofi Themes via rofi" \
   " CTRL Shift R" "Rofi Themes Menu v2" "Choose Rofi Themes via Theme Selector (modified)" \
   " SHIFT G" "Gamemode! All animations OFF or ON" "toggle" \
-  " ALT E" "Rofi Emoticons" "Emoticon" \
-  " H" "Launch this Quick Cheat Sheet" "" \
+  " CTRL E" "Rofi Emoticons" "Emoticon" \
+  " CTRL H" "Launch this Quick Cheat Sheet" "" \
   "" "" "" \
   "More tips:" "https://github.com/LinuxBeginnings/Hyprland-Dots/wiki" ""

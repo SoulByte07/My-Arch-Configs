@@ -26,8 +26,8 @@ else
 fi
 
 # 3. Asynchronously update weather cache for Waybar / hyprlock readers without blocking lock
-weather_script="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/UserScripts/WeatherWrap.sh"
-if [[ -f "$weather_script" ]]; then
-    bash "$weather_script" >/dev/null 2>&1 &
-fi
+# weather_script="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/UserScripts/WeatherWrap.sh"
+# if [[ -f "$weather_script" ]]; then
+#     bash "$weather_script" >/dev/null 2>&1 &
+# fi
 

@@ -17,7 +17,7 @@ set -uo pipefail
 config_dir="${XDG_CONFIG_HOME:-$HOME/.config}"
 scripts_dir="$config_dir/hypr/scripts"
 rofi_theme="$config_dir/hypr/rofi/config-clipboard.rasi"
-msg='👀 **note**  CTRL DEL = cliphist del (entry)   or   ALT DEL - cliphist wipe (all)'
+msg='CTRL DEL = cliphist del (entry)   or   ALT DEL - cliphist wipe (all)'
 
 notify() {
     command -v notify-send >/dev/null 2>&1 && notify-send -a Clipboard "$*"

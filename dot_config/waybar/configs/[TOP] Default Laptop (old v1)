@@ -7,7 +7,7 @@
   "$HOME/.config/waybar/ModulesWorkspaces",
   "$HOME/.config/waybar/ModulesCustom",
   "$HOME/.config/waybar/ModulesGroups",
-  "$HOME/.config/waybar/UserModules",
+  "$HOME/.config/waybar/UserModules"
   ],
 "layer": "top",
 //"mode": "dock",
@@ -25,22 +25,23 @@
 	"custom/menu",
 	"hyprland/workspaces#pacman",
 	"custom/separator#dot-line",
-	"custom/separator#blank_3",
+	"custom/separator#blank_3"
 	],
 
 "modules-center": [
-	"clock",
-	"custom/separator#dot-line",
-	"cpu",
-	"memory",
-	"custom/separator#dot-line",	
+	// "clock",
+	// "custom/separator#dot-line",
+	// "cpu",
+	// "memory",
+	// "custom/separator#dot-line",	
 	//],
-	"idle_inhibitor", 
+	// "idle_inhibitor", 
 	], 
 
 "modules-right": [
-	"network#speed",
-	"custom/separator#dot-line",
-	"battery",
-	],
+	"clock",
+	// "network#speed",
+	// "custom/separator#dot-line",
+	// "battery",
+	]
 }
