@@ -116,32 +116,14 @@ reload_running_waybar_colors() {
 
 # Inputs and paths
 passed_path="${1:-}"
-if command -v awww >/dev/null 2>&1; then
-  WWW="awww"
-  cache_dir="$HOME/.cache/awww/"
-  cache_dir_fallback="$HOME/.cache/swww/"
-else
-  WWW="swww"
-  cache_dir="$HOME/.cache/swww/"
-  cache_dir_fallback="$HOME/.cache/awww/"
-fi
 rofi_link="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/rofi/.current_wallpaper"
 wallpaper_current="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/wallpaper_effects/.wallpaper_current"
-read_cached_wallpaper() {
-  local cache_file="$1"
-  if [[ -f "$cache_file" ]]; then
-    tr -d '\000' <"$cache_file" | awk 'NF && $0 !~ /^filter/ {print; exit}'
-  fi
-}
 
 ensure_wayland_env() {
   local runtime_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
   if [ -z "${WAYLAND_DISPLAY:-}" ] || [ ! -S "$runtime_dir/$WAYLAND_DISPLAY" ]; then
     for socket in "$runtime_dir"/wayland-[0-9]*; do
       [ -S "$socket" ] || continue
-      case "$(basename "$socket")" in
-        *awww*) continue ;;
-      esac
       export WAYLAND_DISPLAY="$(basename "$socket")"
       break
     done
@@ -154,22 +136,6 @@ ensure_wayland_env() {
       break
     done
   fi
-}
-
-read_wallpaper_from_query() {
-  local monitor="$1"
-  [ -n "$monitor" ] || return 0
-  $WWW query 2>/dev/null | awk -v mon="$monitor" '
-    /^Monitor/ {
-      cur=$2
-      gsub(":", "", cur)
-    }
-    /image:/ && cur==mon {
-      sub(/^.*image: /,"")
-      print
-      exit
-    }
-  ' 2>/dev/null || true
 }
 
 # Helper: get focused monitor name (prefer JSON)
@@ -190,30 +156,7 @@ wallpaper_path=""
 if [[ -n "$passed_path" && -f "$passed_path" ]]; then
   wallpaper_path="$passed_path"
 else
-  # Try to read from awww/swww cache for the focused monitor, with a short retry loop
   current_monitor="$(get_focused_monitor)"
-  cache_file="$cache_dir$current_monitor"
-  alt_cache_file="${cache_dir_fallback}${current_monitor}"
-
-  # Wait briefly for awww/swww to write its cache after an image change
-  for i in {1..10}; do
-    if [[ -f "$cache_file" || -f "$alt_cache_file" ]]; then
-      break
-    fi
-    sleep 0.1
-  done
-  if [[ ! -f "$cache_file" && -f "$alt_cache_file" ]]; then
-    cache_file="$alt_cache_file"
-  fi
-
-  if [[ -f "$cache_file" ]]; then
-    # The first non-filter line is the original wallpaper path
-    wallpaper_path="$(read_cached_wallpaper "$cache_file")"
-  fi
-
-  if [[ -z "$wallpaper_path" && -n "$current_monitor" ]]; then
-    wallpaper_path="$(read_wallpaper_from_query "$current_monitor")"
-  fi
 fi
 
 if [[ -z "${wallpaper_path:-}" || ! -f "$wallpaper_path" ]]; then
@@ -405,4 +348,3 @@ if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/wlogout/.current_theme" && -f "${XDG
     bash "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiWlogoutWallust.sh" --auto "$wallpaper_path" >/dev/null 2>&1 &
   fi
 fi
-
