@@ -20,5 +20,9 @@ systemctl --user start cliphist-image.service
 systemctl --user start hyprpolkitagent.service
 systemctl --user start wlsunset.service
 
-# 4. Your Pomodoro script
+
+# 4. Notification 
+dunst &
+
+# 5. Your Pomodoro script
 "$HOME/.config/dwl/Scripts/dwl-pomodoro-timer.sh" 25 5 &

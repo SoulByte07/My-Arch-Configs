@@ -41,8 +41,9 @@ fi
 # quit quickshell & relaunch quickshell
 pkill qs && qs --log-rules "$QS_TEXTINPUT_LOG_RULE" &
 
-# some process to kill (exclude waybar and swaync to avoid restart loops)
-for pid in $(pidof rofi ags swaybg); do
+# some process to signal (exclude waybar, swaync, and swaybg to avoid blanking
+# the wallpaper immediately after a replacement process is started)
+for pid in $(pidof rofi ags); do
   kill -SIGUSR1 "$pid"
   sleep 0.1
 done
