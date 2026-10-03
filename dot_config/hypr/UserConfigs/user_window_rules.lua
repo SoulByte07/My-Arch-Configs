@@ -163,6 +163,13 @@ apply_window_rule({
   fullscreen = true,
 })
 
+-- Enforce 100% opacity across all applications (active and inactive)
+apply_window_rule({
+  name = "user-enforce-opaque-all",
+  match = { class = ".*" },
+  opacity = "1.0 1.0",
+})
+
 -- Example:
 -- apply_window_rule({
 --   name = "user-float-pavucontrol",

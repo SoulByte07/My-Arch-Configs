@@ -686,7 +686,7 @@ apply_window_rule({
   match = {
     tag = "browser",
   },
-  opacity = "0.99 0.8",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -694,7 +694,7 @@ apply_window_rule({
   match = {
     tag = "projects",
   },
-  opacity = "0.9 0.8",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -702,7 +702,7 @@ apply_window_rule({
   match = {
     tag = "im",
   },
-  opacity = "0.94 0.86",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -710,7 +710,7 @@ apply_window_rule({
   match = {
     tag = "multimedia",
   },
-  opacity = "0.94 0.86",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -718,7 +718,7 @@ apply_window_rule({
   match = {
     tag = "file-manager",
   },
-  opacity = "0.9 0.8",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -726,7 +726,7 @@ apply_window_rule({
   match = {
     tag = "terminal",
   },
-  opacity = "0.9 0.7",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -734,7 +734,7 @@ apply_window_rule({
   match = {
     class = "^(gedit|org.gnome.TextEditor|mousepad)$",
   },
-  opacity = "0.8 0.7",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -742,7 +742,7 @@ apply_window_rule({
   match = {
     class = "^(deluge)$",
   },
-  opacity = "0.9 0.8",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -750,7 +750,7 @@ apply_window_rule({
   match = {
     class = "^(seahorse)$",
   },
-  opacity = "0.9 0.8",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -777,7 +777,7 @@ apply_window_rule({
   },
   float = true,
   move = "72% 7%",
-  opacity = "0.95 0.75",
+  opacity = "1.0 1.0",
   pin = true,
   keep_aspect_ratio = true,
   size = "(monitor_w*0.3) (monitor_h*0.3)",
@@ -931,7 +931,7 @@ apply_window_rule({
   float = true,
   center = true,
   size = "(monitor_w*0.7) (monitor_h*0.7)",
-  opacity = "0.9 0.7",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -942,7 +942,7 @@ apply_window_rule({
   float = true,
   center = true,
   size = "(monitor_w*0.7) (monitor_h*0.7)",
-  opacity = "0.8 0.7",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({
@@ -952,7 +952,7 @@ apply_window_rule({
   },
   float = true,
   center = true,
-  opacity = "0.82 0.75",
+  opacity = "1.0 1.0",
 })
 
 apply_window_rule({

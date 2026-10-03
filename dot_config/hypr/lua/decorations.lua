@@ -37,8 +37,8 @@ hl.config({
     inactive_opacity = 1.0,
     fullscreen_opacity = 1.0,
     dim_inactive = false,
-    dim_strength = 0.1,
-    dim_special = 0.8,
+    dim_strength = 0.0,
+    dim_special = 0.0,
     shadow = {
       enabled = false,
       range = 3,
@@ -65,6 +65,7 @@ hl.config({
       border_active = wallust.color15 or active_col,
     },
     groupbar = {
+      blur = false,
       col = {
         active = wallust.color0 or "rgba(0f111aff)",
       },

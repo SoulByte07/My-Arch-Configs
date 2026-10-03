@@ -64,6 +64,7 @@ hl.config({
       border_active = wallust.color15 or active_col,
     },
     groupbar = {
+      blur = false,
       col = {
         active = wallust.color0 or "rgba(0f111aff)",
       },

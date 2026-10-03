@@ -39,8 +39,8 @@
    pulseaudio, pulseaudio#microphone, keyboard-state, custom/nightlight,
    custom/keyboard, custom/power */
 "modules-right": [
-    "custom/notification",
-    "custom/separator#blank",
+    // "custom/notification",
+    // "custom/separator#blank",
 	"clock",
     "custom/separator#blank",
 	"custom/menu"

@@ -428,7 +428,7 @@ bind(
   exec_cmd("$HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show window -config $HOME/.config/hypr/rofi/config.rasi"),
   { description = "window switcher" }
 )
-bind("SUPER ALT", "O", exec_cmd("$HOME/.config/hypr/scripts/ChangeBlur.sh"), { description = "toggle blur" })
+-- bind("SUPER ALT", "O", exec_cmd("$HOME/.config/hypr/scripts/ChangeBlur.sh"), { description = "toggle blur" })
 bind("SUPER SHIFT", "G", exec_cmd("$HOME/.config/hypr/scripts/GameMode.sh"), { description = "toggle game mode" })
 bind(
   "SUPER ALT",
@@ -562,7 +562,7 @@ bind(
   exec_cmd("$HOME/.config/hypr/UserScripts/WallpaperRandom.sh"),
   { description = "random wallpaper" }
 )
-bind("SUPER CTRL", "O", exec_cmd("$HOME/.config/hypr/scripts/ToggleOpacity.sh"), { description = "toggle active window opacity" })
+-- bind("SUPER CTRL", "O", exec_cmd("$HOME/.config/hypr/scripts/ToggleOpacity.sh"), { description = "toggle active window opacity" })
 bind("SUPER SHIFT", "K", exec_cmd("$HOME/.config/hypr/scripts/KeyBinds.sh"), { description = "search keybinds" })
 bind("SUPER SHIFT", "A", exec_cmd("$HOME/.config/hypr/scripts/Animations.sh"), { description = "animations menu" })
 bind(

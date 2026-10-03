@@ -18,8 +18,6 @@ apply_layer_rule({
   match = {
     namespace = "rofi",
   },
-  blur = true,
-  ignore_alpha = 0,
   animation = "slide",
 })
 
@@ -28,79 +26,5 @@ apply_layer_rule({
   match = {
     namespace = "notifications",
   },
-  blur = true,
-  ignore_alpha = 0,
   animation = "slide",
-})
-
-apply_layer_rule({
-  name = "layerrule-003",
-  match = {
-    namespace = "quickshell:overview",
-  },
-  blur = true,
-  ignore_alpha = 0.5,
-})
-
-apply_layer_rule({
-  name = "layerrule-004",
-  match = {
-    namespace = "quickshell:expose",
-  },
-  dim_around = true,
-})
-
-apply_layer_rule({
-  name = "layerrule-005",
-  match = {
-    namespace = "quickshell:expose",
-  },
-  blur = true,
-  ignore_alpha = 0,
-  xray = true,
-})
-
-apply_layer_rule({
-  name = "layerrule-006",
-  match = {
-    namespace = "wallpaper",
-  },
-  blur = true,
-  ignore_alpha = 0,
-})
-
-apply_layer_rule({
-  name = "layerrule-007",
-  match = {
-    namespace = "swaync-control-center",
-  },
-  blur = true,
-  ignore_alpha = 0,
-})
-
-apply_layer_rule({
-  name = "layerrule-008",
-  match = {
-    namespace = "swaync-notification-window",
-  },
-  blur = true,
-  ignore_alpha = 0,
-})
-
-apply_layer_rule({
-  name = "layerrule-009",
-  match = {
-    namespace = "com.aurora.keybinds_help",
-  },
-  blur = true,
-  ignore_alpha = 0,
-})
-
-apply_layer_rule({
-  name = "layerrule-010",
-  match = {
-    namespace = "logout_dialog",
-  },
-  blur = true,
-  ignore_alpha = 0,
 })

@@ -187,3 +187,8 @@ if submap then
   end)
 end
 
+-- Unmap blur and opacity toggles
+unbind("SUPER ALT", "O")
+unbind("SUPER CTRL", "O")
+
+
