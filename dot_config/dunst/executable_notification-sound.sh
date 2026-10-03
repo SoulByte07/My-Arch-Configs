@@ -1,11 +1,12 @@
 #!/bin/sh
 
-set -eu
+set -e # Removed 'u' so empty arguments don't break the script
 
-sound_type="${1:-normal}"
+# Dunst passes urgency (LOW, NORMAL, or CRITICAL) as the 5th argument
+urgency="${5:-NORMAL}"
 sound_dir="${HOME}/.local/share/sounds"
 
-if [ "$sound_type" = "critical" ]; then
+if [ "$urgency" = "CRITICAL" ]; then
     sound_file="${sound_dir}/notification-critical.wav"
 else
     sound_file="${sound_dir}/notification.wav"
@@ -20,7 +21,7 @@ if [ -f "$sound_file" ]; then
         paplay "$sound_file" >/dev/null 2>&1 &
     fi
 elif command -v canberra-gtk-play >/dev/null 2>&1; then
-    if [ "$sound_type" = "critical" ]; then
+    if [ "$urgency" = "CRITICAL" ]; then
         canberra-gtk-play -i dialog-warning >/dev/null 2>&1 &
     else
         canberra-gtk-play -i message-new-instant >/dev/null 2>&1 &

@@ -40,9 +40,9 @@
    custom/keyboard, custom/power */
 "modules-right": [
     "custom/notification",
-    "custom/separator#dot-line",
+    "custom/separator#blank",
 	"clock",
-    "custom/separator#dot-line",
+    "custom/separator#blank",
 	"custom/menu"
     ],
 }

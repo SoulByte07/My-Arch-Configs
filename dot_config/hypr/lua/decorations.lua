@@ -36,7 +36,7 @@ hl.config({
     active_opacity = 1.0,
     inactive_opacity = 1.0,
     fullscreen_opacity = 1.0,
-    dim_inactive = true,
+    dim_inactive = false,
     dim_strength = 0.1,
     dim_special = 0.8,
     shadow = {
@@ -47,7 +47,7 @@ hl.config({
       color_inactive = inactive_col,
     },
     blur = {
-      enabled = true,
+      enabled = false,
       size = 6,
       passes = 3,
       new_optimizations = true,

@@ -6,8 +6,8 @@ set -u
 
 readonly NETWORK_INTERFACE="wlp0s20f3"
 readonly BATTERY_DEVICE="BAT0"
-readonly SAMPLE_INTERVAL="0.25"
-readonly NOTIFICATION_TIMEOUT_MS="8000"
+readonly SAMPLE_INTERVAL="1"
+readonly NOTIFICATION_TIMEOUT_MS="15000"
 
 read_cpu_counters() {
   awk '$1 == "cpu" { print $2 + $3 + $4 + $5 + $6 + $7 + $8 + $9, $5 + $6 }' /proc/stat
@@ -43,28 +43,18 @@ format_duration() {
   '
 }
 
-cpu_before="$(read_cpu_counters)"
-network_before="$(read_network_bytes)"
-sleep "$SAMPLE_INTERVAL"
-cpu_after="$(read_cpu_counters)"
-network_after="$(read_network_bytes)"
+send_notification() {
+  local msg="$1"
+  if command -v dunstify >/dev/null 2>&1; then
+    dunstify -I /home/soul/.local/share/icons/Notification/system-monitor.png -u low -t "$NOTIFICATION_TIMEOUT_MS" -r 4242 "System monitor" "$msg"
+  elif command -v notify-send >/dev/null 2>&1; then
+    notify-send -u low -t "$NOTIFICATION_TIMEOUT_MS" "System monitor" "$msg"
+  else
+    printf '%s\n' "$msg" >&2
+  fi
+}
 
-cpu_usage="$(awk '
-  NR == 1 { total_before = $1; idle_before = $2; next }
-  { total_after = $1; idle_after = $2 }
-  END {
-    total_delta = total_after - total_before
-    idle_delta = idle_after - idle_before
-    if (total_delta > 0) printf "%.0f%%", (1 - idle_delta / total_delta) * 100
-    else print "unknown"
-  }
-' <(printf '%s\n%s\n' "$cpu_before" "$cpu_after"))"
-
-read -r rx_before tx_before <<< "$network_before"
-read -r rx_after tx_after <<< "$network_after"
-download_rate="$(format_rate "$((rx_after - rx_before))")"
-upload_rate="$(format_rate "$((tx_after - tx_before))")"
-
+# 1. Gather static metrics first
 read -r memory_total memory_available < <(
   awk '
     /^MemTotal:/ { total = $2 }
@@ -77,9 +67,9 @@ memory_usage="$(awk -v total="$memory_total" -v available="$memory_available" '
     used = total - available
     if (total <= 0 || used < 0) { print "unknown"; exit }
     if (total >= 1048576)
-      printf "%.1f / %.1f GB", used / 1048576, total / 1048576
+      printf "%.1f GB", used / 1048576
     else
-      printf "%.0f / %.0f MB", used / 1024, total / 1024
+      printf "%.0f MB", used / 1024
   }
 ')"
 
@@ -125,17 +115,69 @@ if [[ "$temperature" == "unknown" && -n "$fallback_temperature_input" ]]; then
   temperature="$(awk -v value="$millidegrees" 'BEGIN { printf "%.0f°C", value / 1000 }')"
 fi
 
-message=$(
-  printf 'Download: %s\nUpload: %s\nRAM: %s\nCPU: %s\nCPU temperature: %s\nBattery: %s%%\nBattery time: %s' \
-    "$download_rate" "$upload_rate" "$memory_usage" "$cpu_usage" \
-    "$temperature" "$battery_capacity" "$battery_time"
-)
-
-if command -v dunstify >/dev/null 2>&1; then
-  dunstify -u low -t "$NOTIFICATION_TIMEOUT_MS" -r 4242 "System monitor" "$message"
-elif command -v notify-send >/dev/null 2>&1; then
-  notify-send -u low -t "$NOTIFICATION_TIMEOUT_MS" "System monitor" "$message"
-else
-  printf '%s\n' "$message" >&2
-  exit 1
+battery_display="N/A"
+if [[ "$battery_capacity" != "unknown" ]]; then
+  if [[ "$battery_time" != "unknown" ]]; then
+    battery_display="${battery_capacity}% (${battery_time})"
+  elif [[ "$battery_status" != "unknown" && -n "$battery_status" ]]; then
+    battery_display="${battery_capacity}% (${battery_status})"
+  else
+    battery_display="${battery_capacity}%"
+  fi
 fi
+
+# 2. Fire Instant Notification
+cpu_before="$(read_cpu_counters)"
+network_before="$(read_network_bytes)"
+
+message=$(cat <<EOF
+<span font_family="monospace">
+<b>Resource</b>     │ <b>Status</b>
+─────────────┼────────────────
+ Download   │ ...
+ Upload     │ ...
+󰫆 Battery    │ $battery_display
+󰓅 Memory     │ $memory_usage
+󰈸 CPU        │ ...
+ Temp       │ $temperature
+</span>
+EOF
+)
+send_notification "$message"
+
+# 3. Wait and gather final counters
+sleep "$SAMPLE_INTERVAL"
+cpu_after="$(read_cpu_counters)"
+network_after="$(read_network_bytes)"
+
+cpu_usage="$(awk '
+  NR == 1 { total_before = $1; idle_before = $2; next }
+  { total_after = $1; idle_after = $2 }
+  END {
+    total_delta = total_after - total_before
+    idle_delta = idle_after - idle_before
+    if (total_delta > 0) printf "%.0f%%", (1 - idle_delta / total_delta) * 100
+    else print "unknown"
+  }
+' <(printf '%s\n%s\n' "$cpu_before" "$cpu_after"))"
+
+read -r rx_before tx_before <<< "$network_before"
+read -r rx_after tx_after <<< "$network_after"
+download_rate="$(format_rate "$((rx_after - rx_before))")"
+upload_rate="$(format_rate "$((tx_after - tx_before))")"
+
+# 4. Update Notification
+message=$(cat <<EOF
+<span font_family="monospace">
+<b>Resource</b>     │ <b>Status</b>
+─────────────┼────────────────
+ Download   │ $download_rate
+ Upload     │ $upload_rate
+󰫆 Battery    │ $battery_display
+󰓅 Memory     │ $memory_usage
+󰈸 CPU        │ $cpu_usage
+ Temp       │ $temperature
+</span>
+EOF
+)
+send_notification "$message"

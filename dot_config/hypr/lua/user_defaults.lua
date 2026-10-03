@@ -18,7 +18,7 @@ if visual == nil then
 end
 KOOLDOTS_DEFAULTS.edit = editor
 KOOLDOTS_DEFAULTS.visual = visual
-KOOLDOTS_DEFAULTS.term = "kitty"
+-- KOOLDOTS_DEFAULTS.term = "kitty"
 KOOLDOTS_DEFAULTS.files = "thunar"
 KOOLDOTS_DEFAULTS.search_engine = "https://www.google.com/search?q={}"
 
