@@ -1,0 +1,48 @@
+/* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */
+
+// ### DEFAULT Top -Laptop (old v1) ### //
+{
+"include": [
+  "$HOME/.config/hypr/waybar/Modules",
+  "$HOME/.config/hypr/waybar/ModulesWorkspaces",
+  "$HOME/.config/hypr/waybar/ModulesCustom",
+  "$HOME/.config/hypr/waybar/ModulesGroups",
+  "$HOME/.config/hypr/waybar/UserModules",
+  ],
+"layer": "top",
+//"mode": "dock",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+"margin-top": 0,
+"margin-left": 8,
+"margin-right": 8,
+
+/* modules-left -- alternatives available:
+   custom/separator#blank, custom/separator#dot-line, cpu, temperature,
+   memory, custom/weather2, custom/separator#blank_3, custom/cava_mviz */
+"modules-left": [
+	"hyprland/workspaces#pacman",
+	],
+
+/* modules-center -- alternatives available:
+   hyprland/submap, custom/menu, custom/separator#dot-line,
+   idle_inhibitor, clock, custom/light_dark, custom/lock */
+"modules-center": [
+	],
+
+/* modules-right -- alternatives available:
+   network#speed, group/notify, tray, mpris, bluetooth, battery, backlight,
+   pulseaudio, pulseaudio#microphone, keyboard-state, custom/nightlight,
+   custom/keyboard, custom/power */
+"modules-right": [
+    "custom/notification",
+    "custom/separator#dot-line",
+	"clock",
+    "custom/separator#dot-line",
+	"custom/menu"
+    ],
+}

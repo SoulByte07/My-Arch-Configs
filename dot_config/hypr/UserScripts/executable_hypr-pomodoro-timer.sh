@@ -22,7 +22,7 @@ while true; do
     if [[ "$CHOICE" == "Yes" ]]; then
         # Launch lock screen so it's secure when you wake it up
         hyprlock &
-        sleep 1
+        sleep 3
         
         # Put the system to sleep (No root required)
         systemctl suspend
