@@ -6,7 +6,7 @@ set -u
 
 readonly NETWORK_INTERFACE="wlp0s20f3"
 readonly BATTERY_DEVICE="BAT0"
-readonly SAMPLE_INTERVAL="1"
+readonly SAMPLE_INTERVAL="0.25"
 readonly NOTIFICATION_TIMEOUT_MS="15000"
 
 read_cpu_counters() {

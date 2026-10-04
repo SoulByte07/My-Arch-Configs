@@ -39,12 +39,20 @@ hl.config({
   },
 })
 
--- XWayland disabled. rofi (and everything built on it) is X11-only, so the
--- rofi-based menus are unavailable; fuzzel is the native-Wayland launcher.
 hl.config({
   xwayland = {
     enabled = false,
     force_zero_scaling = false,
+  },
+})
+
+-- Intel i5-12450H iGPU & 60FPS Display Optimizations
+hl.config({
+  render = {
+    direct_scanout = 2, -- bypass compositor rendering for fullscreen apps/videos
+  },
+  misc = {
+    vrr = 0,            -- fixed 60Hz monitor
   },
 })
 

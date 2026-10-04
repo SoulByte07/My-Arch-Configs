@@ -191,4 +191,7 @@ end
 unbind("SUPER ALT", "O")
 unbind("SUPER CTRL", "O")
 
+-- Manual config reload
+bind("SUPER SHIFT", "R", exec_cmd("hyprctl reload"), { description = "reload Hyprland configuration" })
+
 
