@@ -44,3 +44,19 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Visual Block Mode
 vim.keymap.set("n", "<leader>v", "<C-v>", { desc = "Visual Block Mode" })
+
+-- ==========================================
+-- Native System Clipboard Integration
+-- ==========================================
+-- 'y' / 'yy' / 'Y' copies to system clipboard
+vim.keymap.set({ "n", "x" }, "y", '"+y', { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "yy", '"+yy', { desc = "Yank line to system clipboard" })
+vim.keymap.set("n", "Y", '"+Y', { desc = "Yank line to system clipboard" })
+
+-- 'p' / 'pp' / 'P' pastes from system clipboard
+vim.keymap.set({ "n", "x" }, "p", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set("n", "pp", '"+p', { desc = "Paste line from system clipboard" })
+vim.keymap.set({ "n", "x" }, "P", '"+P', { desc = "Paste before from system clipboard" })
+
+-- Visual mode paste without clobbering clipboard
+vim.keymap.set("x", "p", '"+P', { desc = "Paste over selection without clobbering" })

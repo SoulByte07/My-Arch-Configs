@@ -9,6 +9,7 @@ vim.g.mapleader = " "
 vim.g.background = "light"
 
 vim.opt.swapfile = false
+vim.opt.clipboard = "" -- Keep isolated so deletes (dd, x, c) never overwrite OS clipboard
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
