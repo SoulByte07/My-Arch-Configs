@@ -14,7 +14,8 @@ return {
         integrations = {
           bufferline = false,
           harpoon = false,
-          cmp = true,
+          cmp = false,
+          blink_cmp = true,
           native_lsp = {
             enabled = true,
             virtual_text = {
