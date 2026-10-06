@@ -1,6 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-set -e # Removed 'u' so empty arguments don't break the script
+set -e
+
+appname="${1:-}"
+summary="${2:-}"
+
+# Notification app names or summaries that should not play sound
+MUTED_NOTIFICATIONS=(
+    "System monitor"
+    "Screen"
+)
+
+for muted in "${MUTED_NOTIFICATIONS[@]}"; do
+    if [[ "$appname" == "$muted" || "$summary" == "$muted" ]]; then
+        exit 0
+    fi
+done
 
 # Dunst passes urgency (LOW, NORMAL, or CRITICAL) as the 5th argument
 urgency="${5:-NORMAL}"
