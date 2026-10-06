@@ -46,9 +46,9 @@ format_duration() {
 send_notification() {
   local msg="$1"
   if command -v dunstify >/dev/null 2>&1; then
-    dunstify -I /home/soul/.local/share/icons/Notification/system-monitor.png -u low -t "$NOTIFICATION_TIMEOUT_MS" -r 4242 "System monitor" "$msg"
+    dunstify -h boolean:suppress-sound:true -I /home/soul/.local/share/icons/Notification/system-monitor.png -u low -t "$NOTIFICATION_TIMEOUT_MS" -r 4242 "System monitor" "$msg"
   elif command -v notify-send >/dev/null 2>&1; then
-    notify-send -u low -t "$NOTIFICATION_TIMEOUT_MS" "System monitor" "$msg"
+    notify-send -h boolean:suppress-sound:true -u low -t "$NOTIFICATION_TIMEOUT_MS" "System monitor" "$msg"
   else
     printf '%s\n' "$msg" >&2
   fi
