@@ -16,17 +16,17 @@ return {
     local num_bg = "#1e1e2e" -- Catppuccin Mocha Base background
     local dark   = "#181825"
 
-    -- Active Two-Tone Pill: [ filename ][ number ]
-    vim.api.nvim_set_hl(0, "TmuxPinActiveCapL", { fg = orange, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "TmuxPinActiveText", { bg = orange, fg = dark, bold = true })
+    -- Active Two-Tone Pill: [ number ][ filename ]
+    vim.api.nvim_set_hl(0, "TmuxPinActiveCapL", { fg = num_bg, bg = "NONE" })
     vim.api.nvim_set_hl(0, "TmuxPinActiveNum",  { bg = num_bg, fg = orange, bold = true })
-    vim.api.nvim_set_hl(0, "TmuxPinActiveCapR", { fg = num_bg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "TmuxPinActiveText", { bg = orange, fg = dark, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinActiveCapR", { fg = orange, bg = "NONE" })
 
-    -- Inactive Two-Tone Pill: [ filename ][ number ]
-    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapL", { fg = mauve, bg = "NONE" })
-    vim.api.nvim_set_hl(0, "TmuxPinInactiveText", { bg = mauve, fg = dark, bold = true })
+    -- Inactive Two-Tone Pill: [ number ][ filename ]
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapL", { fg = num_bg, bg = "NONE" })
     vim.api.nvim_set_hl(0, "TmuxPinInactiveNum",  { bg = num_bg, fg = mauve, bold = true })
-    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapR", { fg = num_bg, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveText", { bg = mauve, fg = dark, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapR", { fg = mauve, bg = "NONE" })
 
     -- Mode Colors
     vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { bg = "#cba6f7", fg = "#1e1e2e", bold = true })
@@ -63,7 +63,7 @@ return {
       return name .. modified .. readonly
     end
 
-    -- Dynamic Harpoon Pins from mini.visits (Zero Polling, Individual Mini-Bubbles)
+    -- Dynamic Harpoon Pins from mini.visits (Zero Polling, Tmux Catppuccin Two-Tone Style)
     local function section_harpoon_pins()
       local pins = nil
       if _G.HarpoonPins and _G.HarpoonPins.get then
@@ -81,10 +81,13 @@ return {
         if path then
           local fname = vim.fn.fnamemodify(path, ":t")
           local is_active = (path == current_path)
-          local edge_hl = is_active and "HarpoonPinActiveEdge" or "HarpoonPinInactiveEdge"
-          local text_hl = is_active and "HarpoonPinActive" or "HarpoonPinInactive"
+          local prefix = is_active and "TmuxPinActive" or "TmuxPinInactive"
 
-          local bubble = string.format("%%#%s#%%#%s# %d |%s %%#%s#", edge_hl, text_hl, i, fname, edge_hl)
+          -- Two-tone pill: [ number ][ filename ]
+          local bubble = string.format(
+            "%%#%sCapL#%%#%sNum# %d %%#%sText# %s %%#%sCapR#",
+            prefix, prefix, i, prefix, fname, prefix
+          )
           table.insert(bubbles, bubble)
         end
       end
