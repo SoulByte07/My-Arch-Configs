@@ -58,6 +58,15 @@ vim.opt.showcmdloc = "statusline"
 vim.opt.winbar = " "
 vim.opt.cursorline = true
 
+-- Native Zero-Overhead Indent Guides (Neovim 0.10+ / 0.12)
+vim.opt.list = true
+vim.opt.listchars = {
+  leadmultispace = "│   ",
+  tab = "│ ",
+  trail = "·",
+}
+vim.api.nvim_set_hl(0, "Whitespace", { fg = "#45475a" })
+
 -- Disable unnecessary built-in plugins
 local disabled_built_ins = {
   "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",

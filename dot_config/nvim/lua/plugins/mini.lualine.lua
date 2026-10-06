@@ -46,6 +46,34 @@ return {
       return name .. modified .. readonly
     end
 
+    -- Dynamic Harpoon Pins from mini.visits (Zero Polling, Zero Buffer Preloading)
+    local function section_harpoon_pins()
+      local ok, visits = pcall(require, "mini.visits")
+      if not ok then return "" end
+      local cwd = vim.fn.getcwd()
+      local current_path = vim.api.nvim_buf_get_name(0)
+      local parts = {}
+
+      for i = 1, 5 do
+        local paths = visits.list_paths(cwd, {
+          filter = function(p)
+            return type(p.labels) == "table" and p.labels["harpoon_" .. i]
+          end,
+        })
+        if paths[1] then
+          local fname = vim.fn.fnamemodify(paths[1], ":t")
+          if paths[1] == current_path then
+            table.insert(parts, string.format("[%d:%s*]", i, fname))
+          else
+            table.insert(parts, string.format("[%d:%s]", i, fname))
+          end
+        end
+      end
+
+      if #parts == 0 then return "" end
+      return "📌 " .. table.concat(parts, " ")
+    end
+
     local function section_diagnostics()
       local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
       local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
@@ -78,8 +106,8 @@ return {
              mode = " " .. string.upper(trim(mode))
           end
 
-          -- Use our new custom filename function instead of mini's default
           local filename      = section_filename_only()
+          local harpoon_pins  = section_harpoon_pins()
           local noice_mode    = section_noice_mode()
           local pending       = "%S"
           local progress      = section_progress()
@@ -91,6 +119,7 @@ return {
           return statusline.combine_groups({
             -- Left Side
             { strings = { left_compact } },
+            { strings = { make_pill(harpoon_pins, "MiniStatuslineFilename") } },
             -- Middle Side 
             { hl = "MiniStatuslineNoice",   strings = { noice_mode } },
             { hl = "MiniStatuslinePending", strings = { pending } },

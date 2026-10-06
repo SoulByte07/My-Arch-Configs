@@ -10,8 +10,10 @@ return {
       opts = {
         background_colour = "#1e1e2e",
         render = "compact",
-        stages = "static", -- Most efficient animation stage
-        timeout = 3000,
+        stages = "static", -- Most efficient static rendering stage
+        timeout = 2500,
+        max_height = 6,
+        max_width = 45,
       },
     },
   },
@@ -20,6 +22,11 @@ return {
       cmdline = {
         view = "cmdline_popup",
         opts = { position = { row = "20%", col = "50%" } },
+        format = {
+          cmdline = { icon = ":" },
+          search_down = { icon = " " },
+          search_up = { icon = " " },
+        },
       },
       messages = {
         enabled = true,
@@ -29,19 +36,21 @@ return {
         enabled = true,
         view = "notify",
       },
+      popupmenu = {
+        enabled = false, -- Handled seamlessly by blink.cmp without floating layer conflicts
+      },
       presets = {
         bottom_search = false,
         command_palette = true,
         long_message_to_split = true,
       },
       lsp = {
-        message = {
-          enabled = true,
+        progress = {
+          enabled = false, -- Eliminates constant background compiler flashes
         },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       views = {
@@ -53,7 +62,7 @@ return {
           },
           win_options = {
             winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
-            winblend = 5,
+            winblend = 0, -- 0 compositing lag
           },
           position = { row = "20%", col = "50%" },
           size = { width = 60, height = "auto" },
@@ -66,14 +75,26 @@ return {
           filter_options = { reverse = true },
           win_options = {
             winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
+            winblend = 0,
           },
         },
       },
       routes = {
+        -- Filter out noisy "written" messages on buffer save
+        {
+          filter = {
+            event = "msg_show",
+            kind = "",
+            find = "written",
+          },
+          opts = { skip = true },
+        },
+        -- Route standard notifications to notify
         {
           filter = { event = "notify" },
           view = "notify",
         },
+        -- Route general messages to mini view
         {
           filter = { event = "msg_show" },
           view = "mini",
@@ -84,8 +105,7 @@ return {
     -- Dismiss all notifications with ESC
     vim.keymap.set("n", "<esc>", function()
       require("noice").cmd("dismiss")
-      -- Also perform standard ESC behavior if needed (optional)
       return "<esc>"
     end, { expr = true, desc = "Dismiss Noice and ESC" })
-  end
+  end,
 }

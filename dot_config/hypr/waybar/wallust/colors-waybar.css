@@ -1,24 +1,24 @@
 /* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */  
  /* wallust template - colors-waybar */
 
- @define-color foreground #84D8FC;
- @define-color background #171616;
- @define-color background-alt rgba(23,22,22,0.25);
- @define-color cursor #AAD9EC;
+ @define-color foreground #D84861;
+ @define-color background #111112;
+ @define-color background-alt rgba(17,17,18,0.25);
+ @define-color cursor #B293A2;
  
- @define-color color0 #3E3D3D;
- @define-color color1 #4E696B;
- @define-color color2 #5F8DA3;
- @define-color color3 #639FBA;
- @define-color color4 #63A2BD;
- @define-color color5 #65A6BE;
- @define-color color6 #67A9BC;
- @define-color color7 #BCE8F4;
- @define-color color8 #83A2AB;
- @define-color color9 #688C8F;
- @define-color color10 #7EBDDA;
- @define-color color11 #83D3F8;
- @define-color color12 #84D8FC;
- @define-color color13 #87DDFE;
- @define-color color14 #8AE2FB;
- @define-color color15 #BCE8F4; 
+ @define-color color0 #39393A;
+ @define-color color1 #513E54;
+ @define-color color2 #514460;
+ @define-color color3 #9B3B19;
+ @define-color color4 #A23648;
+ @define-color color5 #A33646;
+ @define-color color6 #B05043;
+ @define-color color7 #ECACA4;
+ @define-color color8 #A67973;
+ @define-color color9 #6C5270;
+ @define-color color10 #6C5B7F;
+ @define-color color11 #CF4F21;
+ @define-color color12 #D84861;
+ @define-color color13 #D9495D;
+ @define-color color14 #EB6A5A;
+ @define-color color15 #ECACA4; 

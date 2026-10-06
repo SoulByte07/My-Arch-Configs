@@ -1,18 +1,5 @@
 return {
   {
-    "tpope/vim-fugitive",
-    cmd = { "G", "Git" },
-    config = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "fugitive",
-        callback = function()
-          vim.keymap.set("n", "a", "-", { remap = true, buffer = true, desc = "Stage/Unstage" })
-          pcall(vim.keymap.del, "n", "-", { buffer = true })
-        end,
-      })
-    end,
-  },
-  {
     "nvim-mini/mini.diff",
     version = false,
     event = { "BufReadPre", "BufNewFile" },
@@ -87,7 +74,28 @@ return {
         diff.toggle_overlay(0)
       end, { desc = "Preview Hunk" })
 
-      vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<CR>", { desc = "Blame Line" })
+      -- Native Lua Git Blame (Zero plugin overhead)
+      vim.keymap.set("n", "<leader>gb", function()
+        local file = vim.api.nvim_buf_get_name(0)
+        if file == "" or vim.bo.buftype ~= "" then
+          vim.notify("Not a valid file", vim.log.levels.WARN)
+          return
+        end
+        local line = vim.api.nvim_win_get_cursor(0)[1]
+        local cmd = string.format("git blame -L %d,%d --porcelain %s", line, line, vim.fn.shellescape(file))
+        local output = vim.fn.system(cmd)
+        if vim.v.shell_error ~= 0 then
+          vim.notify("Git blame: file is not committed or not in a git repo", vim.log.levels.WARN)
+          return
+        end
+        local author = output:match("author ([^\n]+)") or "Unknown"
+        local time = output:match("author%-time ([^\n]+)")
+        local date = time and os.date("%Y-%m-%d %H:%M", tonumber(time)) or ""
+        local summary = output:match("summary ([^\n]+)") or ""
+        vim.notify(string.format("%s (%s): %s", author, date, summary), vim.log.levels.INFO, {
+          title = "Git Blame (Line " .. line .. ")",
+        })
+      end, { desc = "Blame Line" })
     end,
   },
 }
