@@ -41,6 +41,8 @@
 "modules-right": [
     // "custom/notification",
     // "custom/separator#blank",
+    "idle_inhibitor",
+    "custom/separator#blank",
 	"clock",
     "custom/separator#blank",
 	"custom/menu"

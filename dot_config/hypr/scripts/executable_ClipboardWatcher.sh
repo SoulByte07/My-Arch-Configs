@@ -63,6 +63,12 @@ export WAYLAND_DISPLAY="$wayland_display"
 
 log "watching the clipboard on display '$WAYLAND_DISPLAY'."
 
+# Prune stale image binaries from previous boots to keep clipboard database compact and fast
+if command -v cliphist >/dev/null 2>&1; then
+    log "pruning cached image binaries from previous session..."
+    cliphist list 2>/dev/null | grep -F '[[ binary data ' | cliphist delete >/dev/null 2>&1 || true
+fi
+
 while :; do
     wl-paste --watch cliphist store
     status=$?

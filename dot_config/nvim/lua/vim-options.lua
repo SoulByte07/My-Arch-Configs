@@ -58,6 +58,10 @@ vim.opt.showcmdloc = "statusline"
 vim.opt.winbar = " "
 vim.opt.cursorline = true
 
+-- Command-line completion popup settings
+vim.opt.wildmode = "longest:full,full"
+vim.opt.wildoptions = "pum"
+
 -- Native Zero-Overhead Indent Guides (Neovim 0.10+ / 0.12)
 vim.opt.list = true
 vim.opt.listchars = {

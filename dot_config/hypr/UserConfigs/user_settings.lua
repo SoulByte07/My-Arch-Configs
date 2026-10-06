@@ -53,6 +53,15 @@ hl.config({
   },
   misc = {
     vrr = 0,            -- fixed 60Hz monitor
+    enable_swallow = true,           -- unmap terminal when spawning GUI tools
+    swallow_regex = "^(foot|footclient|kitty|ghostty)$",
+    mouse_move_enables_dpms = false, -- prevent desk vibrations from waking display
+    key_press_enables_dpms = true,  -- wake display via keyboard
+    close_special_on_empty = true,
+  },
+  cursor = {
+    inactive_timeout = 3,         -- hide cursor after 3s of inactivity
+    hide_on_key_press = true,     -- hide cursor while typing
   },
 })
 

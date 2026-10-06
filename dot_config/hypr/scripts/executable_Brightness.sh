@@ -48,7 +48,7 @@ change_brightness() {
     new=$((current + delta))
 
     # Clamp between 5 and 100
-    (( new < 5 )) && new=5
+    (( new < 1 )) && new=1
     (( new > 100 )) && new=100
 
     brightnessctl set "${new}%"

@@ -10,6 +10,23 @@ return {
     -- Custom Highlights
     vim.api.nvim_set_hl(0, "MiniStatuslineNoice", { fg = "#ff9e64", bold = true })
     vim.api.nvim_set_hl(0, "MiniStatuslinePending", { fg = "#cba6f7", bold = true })
+    -- Catppuccin Tmux-Style Palette
+    local orange = "#fab387" -- Active accent
+    local mauve  = "#cba6f7" -- Inactive accent
+    local num_bg = "#1e1e2e" -- Catppuccin Mocha Base background
+    local dark   = "#181825"
+
+    -- Active Two-Tone Pill: [ filename ][ number ]
+    vim.api.nvim_set_hl(0, "TmuxPinActiveCapL", { fg = orange, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "TmuxPinActiveText", { bg = orange, fg = dark, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinActiveNum",  { bg = num_bg, fg = orange, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinActiveCapR", { fg = num_bg, bg = "NONE" })
+
+    -- Inactive Two-Tone Pill: [ filename ][ number ]
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapL", { fg = mauve, bg = "NONE" })
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveText", { bg = mauve, fg = dark, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveNum",  { bg = num_bg, fg = mauve, bold = true })
+    vim.api.nvim_set_hl(0, "TmuxPinInactiveCapR", { fg = num_bg, bg = "NONE" })
 
     -- Mode Colors
     vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { bg = "#cba6f7", fg = "#1e1e2e", bold = true })
@@ -46,32 +63,34 @@ return {
       return name .. modified .. readonly
     end
 
-    -- Dynamic Harpoon Pins from mini.visits (Zero Polling, Zero Buffer Preloading)
+    -- Dynamic Harpoon Pins from mini.visits (Zero Polling, Individual Mini-Bubbles)
     local function section_harpoon_pins()
-      local ok, visits = pcall(require, "mini.visits")
-      if not ok then return "" end
-      local cwd = vim.fn.getcwd()
+      local pins = nil
+      if _G.HarpoonPins and _G.HarpoonPins.get then
+        pins = _G.HarpoonPins.get()
+      else
+        pcall(function() require("lazy").load({ plugins = { "mini.visits" } }) end)
+        pins = _G.HarpoonPins and _G.HarpoonPins.get and _G.HarpoonPins.get() or {}
+      end
+
       local current_path = vim.api.nvim_buf_get_name(0)
-      local parts = {}
+      local bubbles = {}
 
       for i = 1, 5 do
-        local paths = visits.list_paths(cwd, {
-          filter = function(p)
-            return type(p.labels) == "table" and p.labels["harpoon_" .. i]
-          end,
-        })
-        if paths[1] then
-          local fname = vim.fn.fnamemodify(paths[1], ":t")
-          if paths[1] == current_path then
-            table.insert(parts, string.format("[*%d:%s]", i, fname))
-          else
-            table.insert(parts, string.format("[%d:%s]", i, fname))
-          end
+        local path = pins[i]
+        if path then
+          local fname = vim.fn.fnamemodify(path, ":t")
+          local is_active = (path == current_path)
+          local edge_hl = is_active and "HarpoonPinActiveEdge" or "HarpoonPinInactiveEdge"
+          local text_hl = is_active and "HarpoonPinActive" or "HarpoonPinInactive"
+
+          local bubble = string.format("%%#%s#%%#%s# %d |%s %%#%s#", edge_hl, text_hl, i, fname, edge_hl)
+          table.insert(bubbles, bubble)
         end
       end
 
-      if #parts == 0 then return "" end
-      return " " .. table.concat(parts, " ")
+      if #bubbles == 0 then return "" end
+      return table.concat(bubbles, " ")
     end
 
     local function section_diagnostics()
@@ -119,7 +138,7 @@ return {
           return statusline.combine_groups({
             -- Left Side
             { strings = { left_compact } },
-            { strings = { make_pill(harpoon_pins, "MiniStatuslineFilename") } },
+            { strings = { harpoon_pins } },
             -- Middle Side 
             { hl = "MiniStatuslineNoice",   strings = { noice_mode } },
             { hl = "MiniStatuslinePending", strings = { pending } },

@@ -37,7 +37,8 @@ return {
         view = "notify",
       },
       popupmenu = {
-        enabled = false, -- Handled seamlessly by blink.cmp without floating layer conflicts
+        enabled = true, -- Enable floating completion menu
+        backend = "nui", -- High-performance NUI dropdown
       },
       presets = {
         bottom_search = false,
@@ -73,6 +74,26 @@ return {
             padding = { 0, 1 },
           },
           filter_options = { reverse = true },
+          win_options = {
+            winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
+            winblend = 0,
+          },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = {
+            row = "27%",
+            col = "50%",
+          },
+          size = {
+            width = 60,
+            height = "auto",
+            max_height = 10,
+          },
+          border = {
+            style = "rounded",
+            padding = { 0, 1 },
+          },
           win_options = {
             winhighlight = { Normal = "NormalFloat", FloatBorder = "FloatBorder" },
             winblend = 0,

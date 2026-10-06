@@ -57,3 +57,5 @@ vim.keymap.set({ "n", "x" }, "P", '"+P', { desc = "Paste before from system clip
 
 -- Visual mode paste without clobbering clipboard
 vim.keymap.set("x", "p", '"+P', { desc = "Paste over selection without clobbering" })
+
+

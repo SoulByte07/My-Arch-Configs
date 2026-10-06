@@ -19,7 +19,7 @@ done
 
 # Dunst passes urgency (LOW, NORMAL, or CRITICAL) as the 5th argument
 urgency="${5:-NORMAL}"
-sound_dir="${HOME}/.local/share/sounds"
+sound_dir="${HOME}/.config/dunst/Sounds/"
 
 if [ "$urgency" = "CRITICAL" ]; then
     sound_file="${sound_dir}/notification-critical.wav"

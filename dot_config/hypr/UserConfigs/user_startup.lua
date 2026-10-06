@@ -94,6 +94,9 @@ local startup_commands = {
   -- pomodoro timer: 25 min focus / 5 min break
   home .. "/.config/hypr/UserScripts/hypr-pomodoro-timer.sh 25 5",
 
+  -- idle daemon (5m idle alert / 6m lock / 10s locked screen-off)
+  home .. "/.config/hypr/scripts/HypridleStartup.sh",
+
   -- night light schedule (sunset 18:00, sunrise 07:00)
   "wlsunset -S 07:00 -s 18:00 -t 4000",
 

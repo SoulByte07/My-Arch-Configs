@@ -35,6 +35,37 @@ return {
       return nil
     end
 
+    _G.HarpoonPins = {
+      cache = nil,
+      cache_cwd = nil,
+    }
+
+    function _G.HarpoonPins.get()
+      local cwd = vim.fn.getcwd()
+      if _G.HarpoonPins.cache and _G.HarpoonPins.cache_cwd == cwd then
+        return _G.HarpoonPins.cache
+      end
+      local pins = {}
+      for i = 1, max_slots do
+        local p = get_slot_path(i)
+        if p then pins[i] = p end
+      end
+      _G.HarpoonPins.cache = pins
+      _G.HarpoonPins.cache_cwd = cwd
+      return pins
+    end
+
+    function _G.HarpoonPins.invalidate()
+      _G.HarpoonPins.cache = nil
+      vim.cmd.redrawstatus()
+    end
+
+    vim.api.nvim_create_autocmd("DirChanged", {
+      callback = function()
+        if _G.HarpoonPins then _G.HarpoonPins.invalidate() end
+      end,
+    })
+
     -- Core Logic: Add or Remove
     local function toggle_pin()
       local path = vim.api.nvim_buf_get_name(0)
@@ -48,6 +79,7 @@ return {
       -- 1. If already pinned, unpin it to free up space
       if current_slot then
         visits.remove_label(slot_label(current_slot), path, vim.fn.getcwd())
+        _G.HarpoonPins.invalidate()
         vim.notify("Removed from Harpoon slot " .. current_slot, vim.log.levels.INFO)
         return
       end
@@ -73,6 +105,7 @@ return {
       -- 4. Mark the file
       local label = slot_label(target_slot)
       visits.add_label(label, path, vim.fn.getcwd())
+      _G.HarpoonPins.invalidate()
       vim.notify("File Marked: " .. (current_count + 1) .. "/5 (Slot " .. target_slot .. ")", vim.log.levels.INFO)
     end
 

@@ -124,21 +124,18 @@ local home = os.getenv("HOME") or ""
 local userscripts = home .. "/.config/hypr/UserScripts"
 
 -- Launch tools selector (rofi)
-unbind("SUPER", "S")
 bind("SUPER", "S", exec_cmd(userscripts .. "/tools-manager.sh"), { description = "launch tools selector" })
 
 -- Fuzzel
 bind("SUPER", "D", exec_cmd("fuzzel"), { description = "fuzzel app launcher" })
-bind("SUPER", "D", exec_cmd("fuzzel"), { description = "fuzzel" })
 
 -- Television cheat sheet
-unbind("SUPER", "C")
-bind(
-  "SUPER",
-  "C",
-  exec_cmd('foot --app-id=floating_center_1by5 bash -c ' .. userscripts .. '/tv-cheat-sheet.sh'),
-  { description = "television cheat sheet" }
-)
+-- bind(
+--   "SUPER",
+--   "C",
+--   exec_cmd('foot --app-id=floating_center_1by5 bash -c ' .. userscripts .. '/tv-cheat-sheet.sh'),
+--   { description = "television cheat sheet" }
+-- )
 
 -- Snippets
 bind(
@@ -152,7 +149,6 @@ bind(
 bind("", "Print", exec_cmd(userscripts .. "/screenshot-menu.sh"), { description = "screenshot menu" })
 
 -- Bookmarks menu
--- unbind("SUPER", "M")
 bind("SUPER SHIFT", "M", exec_cmd(userscripts .. "/bookmarks-menu.sh"), { description = "bookmarks menu" })
 
 -- System Monitor via Notification
@@ -180,12 +176,12 @@ bind("SUPER CTRL", "H", exec_cmd(home .. "/.config/hypr/scripts/KeyHints.sh"), {
 -- CTRL+Escape enters the submap, releasing CTRL+Escape leaves it.
 -- Add the keys you want forwarded to the VM inside the body below.
 -- ============================================================================
-if submap then
-  submap.auto.release("passthru", "CTRL + escape", function()
-    -- Example: forward a key to the VM while passthru is active
-    -- bind("F1", exec_cmd("hyprctl dispatch exec ..."))
-  end)
-end
+-- if submap then
+--   submap.auto.release("passthru", "CTRL + escape", function()
+--     -- Example: forward a key to the VM while passthru is active
+--     -- bind("F1", exec_cmd("hyprctl dispatch exec ..."))
+--   end)
+-- end
 
 -- Unmap blur and opacity toggles
 unbind("SUPER ALT", "O")
@@ -193,5 +189,9 @@ unbind("SUPER CTRL", "O")
 
 -- Manual config reload
 bind("SUPER SHIFT", "R", exec_cmd("hyprctl reload"), { description = "reload Hyprland configuration" })
+
+-- Quick lock and suspend
+bind("SUPER ALT", "L", exec_cmd("loginctl lock-session && sleep 2 && systemctl suspend"), { description = "lock and suspend immediately" })
+
 
 
