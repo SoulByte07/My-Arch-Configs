@@ -20,6 +20,13 @@ require("vim-options")
 require("keymaps")
 require("lazy").setup({
   { import = "plugins" },
+}, {
+  performance = {
+    cache = { enabled = true },
+  },
+  change_detection = {
+    notify = false,
+  },
 })
 
 -- Test: Force all plugins to load immediately (for testing purposes)
