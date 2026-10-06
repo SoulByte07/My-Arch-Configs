@@ -152,7 +152,7 @@ bind("", "Print", exec_cmd(userscripts .. "/screenshot-menu.sh"), { description 
 bind("SUPER SHIFT", "M", exec_cmd(userscripts .. "/bookmarks-menu.sh"), { description = "bookmarks menu" })
 
 -- System Monitor via Notification
-bind("SUPER", "M", exec_cmd(userscripts .. "/SystemMonitor.sh"), { description = "System Monitor via Notification" })
+bind("SUPER", "M", exec_cmd(userscripts .. "/system_monitor"), { description = "System Monitor via Notification" })
 
 -- ============================================================================
 -- Vim-style focus movement: SUPER + H/J/K/L
