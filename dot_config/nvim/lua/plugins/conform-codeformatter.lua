@@ -2,8 +2,6 @@
 
 return {
   'stevearc/conform.nvim',
-  -- Loads the plugin when a file is opened
-  event = { "BufReadPre", "BufNewFile" },
   cmd = { "ConformInfo" },
   
   keys = {

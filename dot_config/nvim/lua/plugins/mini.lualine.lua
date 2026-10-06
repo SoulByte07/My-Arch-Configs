@@ -33,6 +33,26 @@ return {
     vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { bg = "#a6d189", fg = "#1e1e2e", bold = true })
     vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { bg = "#f4b8e4", fg = "#1e1e2e", bold = true })
 
+    -- Pre-calculate static Pill edge highlights once (Prevents TUI cell cache invalidation during redraws)
+    local function setup_pill_highlights()
+      local statusline_hl = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false })
+      local parent_bg = statusline_hl.bg and string.format("#%06x", statusline_hl.bg) or "NONE"
+      local groups = {
+        "MiniStatuslineModeNormal",
+        "MiniStatuslineModeInsert",
+        "MiniStatuslineModeVisual",
+        "MiniStatuslineFilename",
+        "MiniStatuslineFileinfo",
+      }
+      for _, grp in ipairs(groups) do
+        local hl_info = vim.api.nvim_get_hl(0, { name = grp, link = false })
+        local bg_color = hl_info.bg and string.format("#%06x", hl_info.bg) or "NONE"
+        vim.api.nvim_set_hl(0, grp .. "Edge", { fg = bg_color, bg = parent_bg })
+      end
+    end
+    setup_pill_highlights()
+    vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_pill_highlights })
+
     -- Helper Functions
     local function section_noice_mode()
       local ok, noice = pcall(require, "noice")
@@ -97,24 +117,20 @@ return {
     end
 
     local function section_diagnostics()
-      local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-      local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+      local counts = vim.diagnostic.count(0)
+      local errors = counts[vim.diagnostic.severity.ERROR] or 0
+      local warnings = counts[vim.diagnostic.severity.WARN] or 0
+      if errors == 0 and warnings == 0 then return "" end
       local parts = {}
       if errors > 0 then table.insert(parts, "✖ " .. errors) end
       if warnings > 0 then table.insert(parts, " " .. warnings) end
-      if #parts == 0 then return "" end
       return table.concat(parts, " ")
     end
 
-    -- Dynamic Pill Generator
+    -- Zero-Mutation Pill Generator (Pre-calculated static highlights)
     local function make_pill(text, hl_group)
       if text == nil or text == "" then return "" end
       local edge_hl = hl_group .. "Edge"
-      local hl_info = vim.api.nvim_get_hl(0, { name = hl_group, link = false })
-      local statusline_hl = vim.api.nvim_get_hl(0, { name = "StatusLine", link = false })
-      local bg_color = hl_info.bg and string.format("#%06x", hl_info.bg) or "NONE"
-      local parent_bg = statusline_hl.bg and string.format("#%06x", statusline_hl.bg) or "NONE"
-      vim.api.nvim_set_hl(0, edge_hl, { fg = bg_color, bg = parent_bg })
       return string.format("%%#%s#%%#%s# %s %%#%s#", edge_hl, hl_group, text, edge_hl)
     end
 

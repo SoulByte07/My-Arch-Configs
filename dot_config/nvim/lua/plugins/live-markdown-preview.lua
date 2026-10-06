@@ -3,7 +3,6 @@
 return {
   "brianhuster/live-preview.nvim",
   dependencies = { "echasnovski/mini.icons" }, 
-  ft = { "markdown" }, 
   cmd = { "LivePreview" }, 
   
   keys = {

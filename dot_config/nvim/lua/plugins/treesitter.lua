@@ -22,7 +22,7 @@ return {
 
       sync_install = false,
       auto_install = vim.fn.executable("tree-sitter") == 1,
-      indent = { enable = true },
+      indent = { enable = false },
       highlight = {
         enable = true,
         -- additional_vim_regex_highlighting = { "markdown" },

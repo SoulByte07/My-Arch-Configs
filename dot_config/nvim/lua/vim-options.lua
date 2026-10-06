@@ -6,7 +6,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 vim.g.mapleader = " "
-vim.g.background = "light"
+vim.opt.background = "dark"
 
 vim.opt.swapfile = false
 vim.opt.clipboard = "" -- Keep isolated so deletes (dd, x, c) never overwrite OS clipboard
@@ -25,19 +25,9 @@ vim.g.loaded_python3_provider = 0
 -- UI & Behavior
 vim.opt.smartindent = true
 vim.opt.wrap = true
+vim.opt.smoothscroll = true
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-
--- Filetype detection
-local ft_fix_group = vim.api.nvim_create_augroup("EfficientFTFix", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    group = ft_fix_group,
-    callback = function()
-        if vim.bo.filetype == "" and vim.fn.expand("%") ~= "" then
-            vim.cmd("filetype detect")
-        end
-    end,
-})
 
 -- Persistent undo
 local undodir = vim.fn.expand("~/.local/share/nvim/undo//")
@@ -46,8 +36,8 @@ if vim.fn.isdirectory(undodir) == 0 then
 end
 vim.opt.undodir = undodir
 vim.opt.undofile = true
-vim.opt.undolevels = 1000000
-vim.opt.undoreload = 1000000
+vim.opt.undolevels = 10000
+vim.opt.undoreload = 10000
 
 -- Display options
 vim.opt.scrolloff = 999
