@@ -63,7 +63,7 @@ return {
         if paths[1] then
           local fname = vim.fn.fnamemodify(paths[1], ":t")
           if paths[1] == current_path then
-            table.insert(parts, string.format("[%d:%s*]", i, fname))
+            table.insert(parts, string.format("[*%d:%s]", i, fname))
           else
             table.insert(parts, string.format("[%d:%s]", i, fname))
           end
@@ -71,7 +71,7 @@ return {
       end
 
       if #parts == 0 then return "" end
-      return "📌 " .. table.concat(parts, " ")
+      return " " .. table.concat(parts, " ")
     end
 
     local function section_diagnostics()
