@@ -6,7 +6,7 @@ return {
   event = "VeryLazy",
   config = function()
     local visits = require("mini.visits")
-    visits.setup()
+    visits.setup({ silent = true })
 
     local max_slots = 5 -- Strictly set to 5 to match Harpoon
 
@@ -60,9 +60,50 @@ return {
       vim.cmd.redrawstatus()
     end
 
+    -- Recalculate & compact slot numbers (1..max_slots) to close any gaps
+    local function recalculate_pins()
+      local cwd = vim.fn.getcwd()
+      local active_paths = {}
+
+      -- 1. Gather all unique pinned paths in current slot order
+      for i = 1, max_slots do
+        local p = get_slot_path(i)
+        if p and not vim.tbl_contains(active_paths, p) then
+          table.insert(active_paths, p)
+        end
+      end
+
+      -- 2. Strip all harpoon_1..max_slots labels in this cwd
+      for i = 1, max_slots do
+        local label = slot_label(i)
+        local paths = visits.list_paths(cwd, {
+          filter = function(path_data)
+            return has_label(path_data, label)
+          end,
+        })
+        for _, p in ipairs(paths) do
+          visits.remove_label(label, p, cwd)
+        end
+      end
+
+      -- 3. Re-assign labels sequentially without gaps
+      for i, p in ipairs(active_paths) do
+        if i <= max_slots then
+          visits.add_label(slot_label(i), p, cwd)
+        end
+      end
+
+      _G.HarpoonPins.invalidate()
+    end
+
+    _G.HarpoonPins.recalculate = recalculate_pins
+
     vim.api.nvim_create_autocmd("DirChanged", {
       callback = function()
-        if _G.HarpoonPins then _G.HarpoonPins.invalidate() end
+        if _G.HarpoonPins then
+          _G.HarpoonPins.invalidate()
+          pcall(recalculate_pins)
+        end
       end,
     })
 
@@ -76,37 +117,31 @@ return {
 
       local current_slot = find_slot_by_path(path)
 
-      -- 1. If already pinned, unpin it to free up space
+      -- 1. If already pinned, unpin it and recalculate slots
       if current_slot then
         visits.remove_label(slot_label(current_slot), path, vim.fn.getcwd())
-        _G.HarpoonPins.invalidate()
-        vim.notify("Removed from Harpoon slot " .. current_slot, vim.log.levels.INFO)
+        recalculate_pins()
+        vim.notify("Unpinned file (slots recalculated)", vim.log.levels.INFO)
         return
       end
 
-      -- 2. Find an empty slot and count current pins
-      local target_slot = nil
+      -- 2. Count current pins
       local current_count = 0
-      
       for i = 1, max_slots do
-        if get_slot_path(i) then
-          current_count = current_count + 1
-        elseif not target_slot then
-          target_slot = i
-        end
+        if get_slot_path(i) then current_count = current_count + 1 end
       end
 
       -- 3. Bouncer check
-      if not target_slot then
+      if current_count >= max_slots then
         vim.notify("Harpoon Full (5/5)! Remove a file to add more.", vim.log.levels.WARN)
         return
       end
 
-      -- 4. Mark the file
-      local label = slot_label(target_slot)
-      visits.add_label(label, path, vim.fn.getcwd())
-      _G.HarpoonPins.invalidate()
-      vim.notify("File Marked: " .. (current_count + 1) .. "/5 (Slot " .. target_slot .. ")", vim.log.levels.INFO)
+      -- 4. Mark the file into the next sequential slot and recalculate
+      local next_slot = current_count + 1
+      visits.add_label(slot_label(next_slot), path, vim.fn.getcwd())
+      recalculate_pins()
+      vim.notify("File Marked: " .. next_slot .. "/5 (Slot " .. next_slot .. ")", vim.log.levels.INFO)
     end
 
     -- Navigation Logic
@@ -132,7 +167,7 @@ return {
       end
 
       vim.ui.select(items, {
-        prompt = "Pined Buffers",
+        prompt = "Pinned Buffers",
         format_item = function(item) return item.text end,
       }, function(choice)
         if choice then nav_slot(choice.slot) end
@@ -147,5 +182,8 @@ return {
     for i = 1, max_slots do
       vim.keymap.set("n", "<M-" .. i .. ">", function() nav_slot(i) end, { desc = "Harpoon " .. i })
     end
+
+    -- Initial compaction on setup to clean up any legacy gaps
+    pcall(recalculate_pins)
   end,
 }
