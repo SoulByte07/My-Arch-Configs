@@ -21,6 +21,7 @@ return {
 
     telescope.setup({
       defaults = {
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude", ".git" },
         file_ignore_patterns = { "node_modules", ".git/", "dist/", "build/" },
         preview = {
           filesize_limit = 0.1, -- 100KB limit

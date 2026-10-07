@@ -127,7 +127,12 @@ local userscripts = home .. "/.config/hypr/UserScripts"
 bind("SUPER", "S", exec_cmd(userscripts .. "/tools-manager.sh"), { description = "launch tools selector" })
 
 -- Fuzzel
-bind("SUPER", "D", exec_cmd("fuzzel"), { description = "fuzzel app launcher" })
+bind("SUPER SHIFT", "D", exec_cmd("fuzzel"), { description = "fuzzel app launcher" })
+
+-- App launcher (Rofi with dynamic theme)
+bind(
+  "SUPER", "D", exec_cmd("$HOME/.config/hypr/scripts/RofiLauncher.sh"), { description = "app launcher" }
+)
 
 -- Television cheat sheet
 -- bind(

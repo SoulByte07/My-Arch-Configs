@@ -56,7 +56,7 @@ local startup_commands = {
   "dunst",
   scriptsDir .. "/PortalHyprland.sh",
   -- scriptsDir .. "/LuaAutoReload.sh",
-  -- scriptsDir .. "/Hyprsunset.sh init",
+  scriptsDir .. "/Hyprsunset.sh init",
   -- Clipboard history: one supervised watcher handles every offered type
   -- (text, images, uri-lists) and is restarted if wl-paste dies.
   scriptsDir .. "/ClipboardWatcher.sh",

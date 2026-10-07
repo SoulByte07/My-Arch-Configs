@@ -18,7 +18,7 @@ set -euo pipefail
 #   HYPRSUNSET_ICON_MODE  sunset|blue  (default: sunset)
 
 STATE_FILE="$HOME/.cache/.hyprsunset_state"
-TARGET_TEMP="${HYPRSUNSET_TEMP:-4500}"
+TARGET_TEMP="${HYPRSUNSET_TEMP:-4000}"
 ICON_MODE="${HYPRSUNSET_ICON_MODE:-sunset}"
 
 ensure_state() {
@@ -138,25 +138,11 @@ cmd_status() {
 }
 
 cmd_init() {
-  ensure_state
-  state="$(cat "$STATE_FILE" 2>/dev/null || echo off)"
-
-  if [[ "$state" == "on" ]]; then
-    if command -v hyprsunset >/dev/null 2>&1; then
-      if pgrep -x hyprsunset >/dev/null 2>&1 && hyprctl hyprsunset temperature "$TARGET_TEMP" >/dev/null 2>&1; then
-        :
-      else
-        stop_hyprsunset
-        nohup hyprsunset -t "$TARGET_TEMP" >/dev/null 2>&1 &
-      fi
-    fi
+  current_hour=$(date +%-H)
+  if (( current_hour >= 18 || current_hour < 6 )); then
+    cmd_on
   else
-    # State is off; ensure no lingering hyprsunset process from a previous session
-    if pgrep -x hyprsunset >/dev/null 2>&1; then
-      hyprctl hyprsunset identity >/dev/null 2>&1 || true
-      sleep 0.1
-      stop_hyprsunset
-    fi
+    cmd_off
   fi
 }
 

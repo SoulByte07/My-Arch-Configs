@@ -23,6 +23,20 @@ require("lazy").setup({
 }, {
   performance = {
     cache = { enabled = true },
+    reset_packpath = true,
+    rtp = {
+      reset = true,
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
   },
   change_detection = {
     enabled = false,

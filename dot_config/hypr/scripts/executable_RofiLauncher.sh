@@ -17,4 +17,8 @@ if [ -x "$SCRIPTSDIR/RofiFocusedWallpaperLink.sh" ]; then
   "$SCRIPTSDIR/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
 fi
 
-exec rofi -show drun -modi drun,filebrowser,run,window -config "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/rofi/config.rasi"
+if [ "$#" -gt 0 ]; then
+  exec rofi "$@" -config "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/rofi/config.rasi"
+else
+  exec rofi -show drun -modi drun,filebrowser,run,window -config "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/rofi/config.rasi"
+fi

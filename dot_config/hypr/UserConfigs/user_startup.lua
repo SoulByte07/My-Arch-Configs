@@ -98,7 +98,7 @@ local startup_commands = {
   home .. "/.config/hypr/scripts/HypridleStartup.sh",
 
   -- night light schedule (sunset 18:00, sunrise 07:00)
-  "wlsunset -S 07:00 -s 18:00 -t 4000",
+  -- "wlsunset -S 07:00 -s 18:00 -t 4000",
 
   -- "kdeconnect-app",
   -- "blueman-applet",
