@@ -10,7 +10,7 @@ return {
         flavour = "mocha",
         transparent_background = true, -- Matches your requested solid UI
         compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-        compile_check = true,
+        compile_check = false, -- Disables startup disk I/O (run :CatppuccinCompile manually if you change colors)
         integrations = {
           bufferline = false,
           harpoon = false,

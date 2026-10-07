@@ -2,16 +2,16 @@
 
 return {
   "alexghergh/nvim-tmux-navigation",
-  event = "VeryLazy",
+  keys = {
+    { "<C-h>", function() require("nvim-tmux-navigation").NvimTmuxNavigateLeft() end, desc = "Tmux/Split Left" },
+    { "<C-j>", function() require("nvim-tmux-navigation").NvimTmuxNavigateDown() end, desc = "Tmux/Split Down" },
+    { "<C-k>", function() require("nvim-tmux-navigation").NvimTmuxNavigateUp() end, desc = "Tmux/Split Up" },
+    { "<C-l>", function() require("nvim-tmux-navigation").NvimTmuxNavigateRight() end, desc = "Tmux/Split Right" },
+  },
   config = function()
     local nvim_tmux_nav = require("nvim-tmux-navigation")
     nvim_tmux_nav.setup({
       disable_when_zoomed = true, -- Avoid pane switching when tmux pane is zoomed
     })
-
-    vim.keymap.set("n", "<C-h>", nvim_tmux_nav.NvimTmuxNavigateLeft, { desc = "Tmux/Split Left" })
-    vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown, { desc = "Tmux/Split Down" })
-    vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp, { desc = "Tmux/Split Up" })
-    vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight, { desc = "Tmux/Split Right" })
   end,
 }

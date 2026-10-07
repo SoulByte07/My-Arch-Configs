@@ -9,8 +9,7 @@ vim.keymap.set('n', '<C-S>', '<C-w>v', opts)
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear Highlights' })
 
 -- Go to end of line
-vim.keymap.set({ 'n', 'x' }, 'e', '$', { noremap = true, silent = true, desc = "Go to end of line" })
-vim.keymap.set({ 'v', 'x' }, 'e', '$', { noremap = true, silent = true, desc = "Go to end of line" })
+vim.keymap.set({ 'n', 'v', 'x' }, 'e', '$', { noremap = true, silent = true, desc = "Go to end of line" })
 
 -- Move forward to end of word (reclaiming 'e' motion on 'W')
 vim.keymap.set({ 'n', 'v', 'o' }, 'W', 'e', { noremap = true, silent = true, desc = "Move to end of word" })

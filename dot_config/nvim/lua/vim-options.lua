@@ -28,6 +28,9 @@ vim.opt.wrap = true
 vim.opt.smoothscroll = true
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
+vim.opt.splitkeep = "screen"
+vim.opt.confirm = true
+vim.opt.inccommand = "split"
 
 -- Persistent undo
 local undodir = vim.fn.expand("~/.local/share/nvim/undo//")
@@ -36,8 +39,8 @@ if vim.fn.isdirectory(undodir) == 0 then
 end
 vim.opt.undodir = undodir
 vim.opt.undofile = true
-vim.opt.undolevels = 10000
-vim.opt.undoreload = 10000
+vim.opt.undolevels = 1000
+vim.opt.undoreload = 1000
 
 -- Display options
 vim.opt.scrolloff = 999
@@ -47,6 +50,7 @@ vim.opt.showcmd = true
 vim.opt.showcmdloc = "statusline"
 vim.opt.winbar = " "
 vim.opt.cursorline = true
+vim.opt.pumheight = 10
 
 -- Command-line completion popup settings
 vim.opt.wildmode = "longest:full,full"
@@ -84,4 +88,20 @@ vim.filetype.add({
     ["gitlab-ci%.yml"] = "yaml.gitlab",
     ["values%.yaml"] = "yaml.helm-values",
   },
+})
+
+-- Native Large File Performance Safeguard (files > 1.5 MB)
+vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+  group = vim.api.nvim_create_augroup("BigFileDisable", { clear = true }),
+  callback = function(args)
+    local ok, stat = pcall(vim.uv.fs_stat, args.match)
+    if ok and stat and stat.size > 1.5 * 1024 * 1024 then
+      vim.b[args.buf].bigfile = true
+      vim.opt_local.undolevels = -1
+      vim.opt_local.swapfile = false
+      vim.opt_local.foldmethod = "manual"
+      vim.opt_local.syntax = "off"
+      vim.opt_local.wrap = false
+    end
+  end,
 })

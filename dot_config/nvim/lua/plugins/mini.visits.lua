@@ -68,7 +68,7 @@ return {
       -- 1. Gather all unique pinned paths in current slot order
       for i = 1, max_slots do
         local p = get_slot_path(i)
-        if p and not vim.tbl_contains(active_paths, p) then
+        if p and not vim.list_contains(active_paths, p) then
           table.insert(active_paths, p)
         end
       end

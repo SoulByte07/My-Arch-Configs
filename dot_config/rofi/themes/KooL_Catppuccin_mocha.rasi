@@ -16,14 +16,14 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-/* Removed the wallust import to lock in Catppuccin Mocha colors */
+@theme "~/.config/hypr/rofi/wallust/colors-rofi.rasi"
+
+/*****----- Global Properties -----*****/
 * {
-    background:                  #1e1e2e; /* Mocha Base */
-    background-alt:              #313244; /* Mocha Surface0 */
-    foreground:                  #cdd6f4; /* Mocha Text */
-    selected:                    #cba6f7; /* Mocha Mauve */
-    active:                      #89b4fa; /* Mocha Blue */
-    urgent:                      #f38ba8; /* Mocha Red */
+    background-alt:              @color0;
+    selected:                    @color12;
+    active:                      @color11;
+    urgent:                      @color13;
 }
 
 /*****----- Main Window -----*****/

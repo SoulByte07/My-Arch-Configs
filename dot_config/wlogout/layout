@@ -18,15 +18,15 @@
 }
 {
     "label" : "logout",
-    "action" : "hyprctl dispatch exit 0",
-    "text" : "Exit",
+    "action" : "$HOME/.config/hypr/scripts/Logout.sh",
+    "text" : "Logout",
     "keybind" : "e"
 }
 {
     "label" : "suspend",
     "action" : "systemctl suspend",
     "text" : "Suspend",
-    "keybind" : "p"
+    "keybind" : "u"
 }
 {
     "label" : "hibernate",

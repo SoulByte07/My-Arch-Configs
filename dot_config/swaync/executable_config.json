@@ -51,8 +51,8 @@
           "text": "Notification"
       },
       "mpris": {
-          "image-size": 10,
-          "image-radius": 0
+          "image-size": 96,
+          "image-radius": 8
       },
       "volume": {
           "label": "󰕾"
@@ -72,7 +72,7 @@
               },
               {
                   "label": "󰍃",
-                  "command": "hyprctl dispatch exit"
+                  "command": "bash -c $HOME/.config/hypr/scripts/Logout.sh"
               },
               {
                   "label": "󰀝",

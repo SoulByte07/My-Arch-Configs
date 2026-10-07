@@ -101,6 +101,14 @@ return {
         },
       },
       routes = {
+        -- Skip search count messages to prevent lag during rapid `n`/`N` presses
+        {
+          filter = {
+            event = "msg_show",
+            kind = "search_count",
+          },
+          opts = { skip = true },
+        },
         -- Filter out noisy "written" messages on buffer save
         {
           filter = {
@@ -123,10 +131,11 @@ return {
       },
     })
 
-    -- Dismiss all notifications with ESC
+    -- Dismiss all notifications and clear search highlights with ESC
     vim.keymap.set("n", "<esc>", function()
-      require("noice").cmd("dismiss")
+      vim.cmd("nohlsearch")
+      pcall(function() require("noice").cmd("dismiss") end)
       return "<esc>"
-    end, { expr = true, desc = "Dismiss Noice and ESC" })
+    end, { expr = true, desc = "Dismiss Noice and clear search highlights" })
   end,
 }

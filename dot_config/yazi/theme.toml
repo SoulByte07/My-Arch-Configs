@@ -1,5 +1,3 @@
-[flavor]
-dark = "catppuccin-mocha"
-light = "catppuccin-mocha"
-syntect_theme = "/home/soul/.config/yazi/flavors/catppuccin-mocha/catppuccin-mocha.tmTheme"
 
+[flavor]
+use = "catppuccin-macchiato"

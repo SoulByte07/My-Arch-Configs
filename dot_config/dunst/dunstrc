@@ -225,6 +225,7 @@
     ### Icons ###
     # Default icon 
     # default_icon = preferences-system-notifications
+    default_icon = /home/soul/.config/dunst/Icons/Notification.png
 
     # Recursive icon lookup. You can set a single theme, instead of having to
     # define all lookup paths.
@@ -366,7 +367,6 @@
     timeout = 5
     script = /home/soul/.config/dunst/notification-sound.sh
     # Icon for notifications with low urgency
-    default_icon = dialog-information
 
 [urgency_normal]
     background = "#1e1e2e"
@@ -376,7 +376,6 @@
     script = /home/soul/.config/dunst/notification-sound.sh
     override_pause_level = 30
     # Icon for notifications with normal urgency
-    default_icon = dialog-information
 
 [urgency_critical]
     background = "#1e1e2e"
@@ -386,7 +385,6 @@
     timeout = 0
     override_pause_level = 60
     # Icon for notifications with critical urgency
-    default_icon = dialog-warning
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

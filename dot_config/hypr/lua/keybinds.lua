@@ -59,12 +59,12 @@ keybind_helpers.unbind_default_keys()
 -- ==================================================
 -- Section: Application launchers and utility scripts
 local app_binds = {
-  {
-    "SUPER",
-    "D",
-    "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi",
-    "app launcher",
-  },
+  -- {
+  --   "SUPER",
+  --   "D",
+  --   "pkill rofi || true; $HOME/.config/hypr/scripts/RofiFocusedWallpaperLink.sh >/dev/null 2>&1 || true; rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/hypr/rofi/config.rasi",
+  --   "app launcher",
+  -- },
   { "SUPER", "B", 'xdg-open "https://"', "open default browser" },
   { "SUPER", "A", "$HOME/.config/hypr/scripts/OverviewToggle.sh", "desktop overview" },
   { "SUPER CTRL", "A", "pkill rofi || true && ags -t 'overview'", "Ags overview" },
@@ -80,7 +80,7 @@ local app_binds = {
   { "SUPER", "H", "$HOME/.config/hypr/scripts/KeyHints.sh", "help / cheat sheet" },
   { "SUPER ALT", "R", "$HOME/.config/hypr/scripts/Refresh.sh", "refresh bar and menus" },
   { "SUPER CTRL", "E", "$HOME/.config/hypr/scripts/RofiEmoji.sh", "emoji menu" },
-  { "SUPER", "S", "$HOME/.config/hypr/scripts/RofiSearch.sh", "web search" },
+  -- { "SUPER", "S", "$HOME/.config/hypr/scripts/RofiSearch.sh", "web search" },
   {
     "SUPER CTRL",
     "S",
